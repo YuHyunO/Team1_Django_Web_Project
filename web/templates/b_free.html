@@ -1,0 +1,44 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+자유게시판
+{% endblock %}
+{% block subject2 %}
+자유롭게 다양한 이야기를 나눠보세요
+{% endblock %}
+{% block main %}
+<head>
+		<meta charset="utf-8">
+		<title>방탈출_공지사항</title>
+		<style>
+			a{text-decoration:none}
+		</style>
+	</head>
+
+	<body style="text-align:center">
+		<center>
+			<font color='gray' size='4' face='휴먼편지체'>
+			<hr width='600' size='2' color='gray' noshade>
+			
+			<TABLE border='1' width=80% align='center' noshade>
+			<!--table head, table row, table data, table foot, -->
+				<TR size='2' align='center' noshade bgcolor='AliceBlue'>
+					<th bgcolor='AliceBlue'>no</th>
+					<th color='gray' width=50% >제목</th>
+					<th color='gray' width=10%>글쓴이</th>
+					<th color='gray' width=10%>이메일</th>
+					<th color='gray' width=20%>작성일</th>
+				</TR>
+	
+			</TABLE>
+			
+			<br></br><br></br><br></br>
+			<a href='../'>인덱스(처음으로)</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href='../board_write/'>글쓰기</a>
+			<br></br><br></br><br></br>
+
+			</font>
+		</center>
+	</body>
+{% endblock %}

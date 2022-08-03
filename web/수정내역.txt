@@ -1,0 +1,1 @@
+서인: templates 폴더에 b_announce, b_free, b_anony.html 추가(총 3개)
