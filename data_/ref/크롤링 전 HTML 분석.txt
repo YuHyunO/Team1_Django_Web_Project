@@ -1,0 +1,67 @@
+크롤링 전 HTML 분석
+
+[데이터 수집 대상]
+->	<방탈출 카페>
+	-카페 이름
+	-사이트 주소url
+	-위치
+	-테마 개수
+	-전화번호
+
+	<테마정보>
+	-소속 카페
+	-테마이름
+	-테마소개
+	-장르
+
+1.대상 사이트
+셜록홈즈 : http://sherlock-holmes.co.kr/
+마스터키 : http://www.master-key.co.kr/home/
+룸즈에이 : http://roomsa.co.kr/
+
+
+2.html 요소 분석[xpath]
+셜록홈즈 : http://sherlock-holmes.co.kr/
+
+	<방탈출 카페> : http://sherlock-holmes.co.kr/branch/
+	-카페 이름	: //*[@id="branch"]/section[2]/div/div[2]/div[1]/div[2]
+	-사이트 주소url : 예약하기에 들어가면됨 url은 없음
+	-위치 : //*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[1]
+	-테마 개수 : 없음
+	-전화번호 : //*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[2]
+
+	<테마정보>
+	-소속 카페
+	-테마이름
+	-테마소개
+	-장르
+
+마스터키 :  http://www.master-key.co.kr/home/
+
+	<방탈출 카페>http://www.master-key.co.kr/home/theme
+	-카페 이름
+	-사이트 주소url
+	-위치
+	-테마 개수
+	-전화번호
+
+	<테마정보>
+	-소속 카페
+	-테마이름
+	-테마소개
+	-장르
+
+룸즈에이 : http://roomsa.co.kr/
+
+	<방탈출 카페>
+	-카페 이름
+	-사이트 주소url
+	-위치
+	-테마 개수
+	-전화번호
+
+	<테마정보>
+	-소속 카페
+	-테마이름
+	-테마소개
+	-장르
