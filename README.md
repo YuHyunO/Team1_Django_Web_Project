@@ -1,4 +1,4 @@
-프로젝트명 : Django_Wep_Project_1
+프로젝트명 : Django_Web_Project_1
 
 브랜치 :
 	 
