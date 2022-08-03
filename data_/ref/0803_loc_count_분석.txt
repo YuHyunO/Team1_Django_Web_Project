@@ -1,0 +1,28 @@
+shopname,loc_count,url,etc
+셜록홈즈,26곳,http://sherlock-holmes.co.kr/branch/,
+마스터키,24곳,http://www.master-key.co.kr/home,지점안내 코드 따기http://www.master-key.co.kr/home/office
+룸즈에이,18곳,http://roomsa.co.kr/new_main.asp?R_JIJEM=S10,
+넥스트에디션,13곳,https://www.nextedition.co.kr/shops,
+비밀의화원,11곳,http://www.secretgardenescape.com/,
+비트포비아,11곳,https://www.xphobia.net/,
+더코드,10곳,https://map.naver.com/v5/search/%EB%8D%94%EC%BD%94%EB%93%9C/place/1174405913?c=14141085.3344780,4517352.0885334,15,0,0,0,dh&placePath=%3Fentry%253Dpll,통합사이트없어서네이버지도검색
+키이스케이프,8곳,https://keyescape.co.kr/web/home.php?go=main#self,
+ESC,8곳,http://esc-escape.co.kr/intro.php,
+큐브이스케이프,7곳,http://www.cubeescape.co.kr/,
+도어이스케이프,6곳,http://www.doorescape.co.kr/,
+더메이즈,6곳,http://www.themazegd.co.kr/,
+엑스케이프,5곳,http://xcape.kr/,
+룸익스케이프,4곳,http://ex-cape.com/sub/questBook.php?sort=%60shop%60%20DESC,
+코드케이,3곳,http://www.code-k.co.kr/,지점은적은데지점당테마수가많음,
+코드이스케이프,3곳,https://www.code-escape-dg.com:6016/web/home.php?mid=3&go=rooms,
+미스터리룸,3곳,http://www.mysteryroomescape-gn.com/location/location.html,
+이스케이프시티,3곳,http://www.escapecity.kr/,
+코드케이,3곳,http://www.code-k.co.kr/,
+큐방탈출카페,3곳,https://map.naver.com/v5/search/%ED%81%90%EB%B0%A9%ED%83%88%EC%B6%9C/place/164256140?c=14111185.3533969,4531047.2649502,15,0,0,0,dh&placePath=%3Fentry%253Dpll,
+제트방탈출카페,1곳,울산만,
+방탈출V,2곳,모두대구,
+코드나인,1곳,당진,
+이룸에이트,1곳,강남,
+
+##
+room_list.csv를 토대로 분석
