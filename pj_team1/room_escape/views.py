@@ -196,6 +196,54 @@ def b_free(request):
     }
     return HttpResponse(template.render(context, request))
 
+def b_free_read(request, id):
+    template = loader.get_template('b_free_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
+    boardcontent = Board.objects.get(id=id)
+    context = {
+       'boardcontent' : boardcontent,
+    }
+    return HttpResponse(template.render(context, request))
+
+def b_free_write(request):
+    template = loader.get_template('b_free_write.html')
+    return HttpResponse(template.render({}, request))
+
+def b_free_write_ok(request):
+    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
+    y = request.POST['email']
+    z = request.POST['subject']
+    a = request.POST['content']
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+    boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
+    boardwrite.save()
+    return HttpResponseRedirect(reverse('b_free')) #태그 name일까, url 주소부분을 쓰는걸까
+
+def b_free_delete(request, id):
+    boarddelete = Board.objects.get(id=id)
+    boarddelete.delete()
+    return HttpResponseRedirect(reverse('b_free'))
+
+def b_free_update(request, id):
+    template = loader.get_template('b_free_update.html')
+    boardupdate = Board.objects.get(id=id)
+    context = {
+        'boardupdate': boardupdate, 
+    }
+    return HttpResponse(template.render(context, request))
+
+def b_free_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
+    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
+    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
+    z = request.POST['content']
+    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
+    boardupdateok.email = x
+    boardupdateok.subject = y
+    boardupdateok.content = z
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
+    boardupdateok.rdate = nowDatetime #옵션
+    boardupdateok.save()
+    return HttpResponseRedirect(reverse("b_free"))
+
 def b_anony(request):
     template = loader.get_template('b_anony.html')
     b_anony_lists = Board.objects.all().values()
@@ -203,3 +251,51 @@ def b_anony(request):
        'b_anony_lists' : b_anony_lists,
     }
     return HttpResponse(template.render(context, request))
+
+def b_anony_read(request, id):
+    template = loader.get_template('b_anony_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
+    boardcontent = Board.objects.get(id=id)
+    context = {
+       'boardcontent' : boardcontent,
+    }
+    return HttpResponse(template.render(context, request))
+
+def b_anony_write(request):
+    template = loader.get_template('b_anony_write.html')
+    return HttpResponse(template.render({}, request))
+
+def b_anony_write_ok(request):
+    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
+    y = request.POST['email']
+    z = request.POST['subject']
+    a = request.POST['content']
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+    boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
+    boardwrite.save()
+    return HttpResponseRedirect(reverse('b_anony')) #태그 name일까, url 주소부분을 쓰는걸까
+
+def b_anony_delete(request, id):
+    boarddelete = Board.objects.get(id=id)
+    boarddelete.delete()
+    return HttpResponseRedirect(reverse('b_anony'))
+
+def b_anony_update(request, id):
+    template = loader.get_template('b_anony_update.html')
+    boardupdate = Board.objects.get(id=id)
+    context = {
+        'boardupdate': boardupdate, 
+    }
+    return HttpResponse(template.render(context, request))
+
+def b_anony_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
+    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
+    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
+    z = request.POST['content']
+    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
+    boardupdateok.email = x
+    boardupdateok.subject = y
+    boardupdateok.content = z
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
+    boardupdateok.rdate = nowDatetime #옵션
+    boardupdateok.save()
+    return HttpResponseRedirect(reverse("b_anony"))
