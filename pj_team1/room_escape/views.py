@@ -157,7 +157,7 @@ def b_announce_write_ok(request):
     z = request.POST['subject']
     a = request.POST['content']
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-    boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
+    boardwrite = Board(name=x, email=y, title=z, content=a, type='1', rdate=nowDatetime, udate=nowDatetime)
     boardwrite.save()
     return HttpResponseRedirect(reverse('b_announce')) #태그 name일까, url 주소부분을 쓰는걸까
 

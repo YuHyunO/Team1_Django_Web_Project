@@ -1,7 +1,7 @@
 from django.db import models
 
 class Member(models.Model):
-    email = models.EmailField(primary_key=True)
+    email = models.CharField(primary_key=True, max_length=255)
     pw = models.TextField()
     name = models.CharField(max_length=255)
     nickname = models.CharField(max_length=255)    
@@ -10,7 +10,7 @@ class Member(models.Model):
     udate = models.DateTimeField()
     
 class Board(models.Model):
-    email = models.ForeignKey(Member, related_name='Board_email', on_delete=models.CASCADE, db_column='email')
+    email = models.ForeignKey(Member, related_name='board_email', on_delete=models.CASCADE, db_column='email')
     name = models.CharField(max_length=255)    
     type = models.CharField(max_length=20)
     title = models.TextField(max_length=1000)
