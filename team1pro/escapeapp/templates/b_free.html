@@ -1,0 +1,98 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+자유게시판
+{% endblock %}
+{% block subject2 %}
+자유롭게 다양한 이야기를 나눠보세요
+{% endblock %}
+{% block main %}
+<head>
+		<meta charset="utf-8">
+		<title>방탈출_공지사항</title>
+
+		<style>
+			a{text-decoration:none}
+		
+		</style>
+	</head>
+	
+	<body>
+		<center>
+		<div class="container">
+			<font color='lightblue' size='2' face='돋움체'>
+		
+			<br></br>
+		<table class="table table-hover" width=200px> 
+			<!--table head, table row, table data, table foot, -->
+			<thead>
+				<TR size='3' align='center' bgcolor='AliceBlue'>
+					<th width=10%>글번호</th>
+					<th width=60%>제목</th>
+					<th width=10%>작성자</th>
+					<th width=10%>작성일</th>
+					<th width=10%>조회수</th>
+				</TR>
+			</THEAD>
+			<tbody>
+				<TR>
+					<td>111</td>
+					<td align='center' >재밌어요~~셜록홈즈</td>
+					<td>마니아</td>
+					<td>2002.2.2.</td>
+					<TD>조회수..</TD>
+				</TR>
+				<TR>
+					<td>112</td>
+					<td align='center' >안녕하세요~~~~~~</td>
+					<td>하쿠</td>
+					<td>2020.2.2.</td>
+					<TD>조회수..</TD>
+				</TR>
+				<TR>
+					<td>113</td>
+					<td align='center' >강추합니다!!!!!!!!!!!!!!!</th>
+					<td>글쓴이</td>
+					<td>작성일</td>
+					<td>조회수..</TD>
+				</TR>
+				
+				{% for x in b_announce_lists %}
+				<TR>
+					<TD align='center'>{{x.id}}</TD>
+					<TD align='center'>
+						<a href="../board_announce/{{x.id}}"> <!-- {{x.id}} -->
+						  {{x.title}}
+						</a>
+					</TD>
+					<TD align='center'>{{x.name}}</TD>
+					<TD align='center'>{{x.rdate}}</TD>
+					<TD align='center'>조회수..</TD>
+			   </TR> 
+				{% endfor %}
+		</tbody>
+		</table>
+			<br></br><br></br>
+
+			<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right"><a class="btn btn-default pull-right" href="../board_write/">글쓰기</a></button>
+
+			<div class="text-center">
+				<ul class="pagination">
+					<li><a href="#">1</a></li>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><a href="#">2</a></li>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><a href="#">3</a></li>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<li><a href="#">4</a></li>
+				</ul>
+			</div>
+			</hr>
+			<br></br><br></br>
+
+			</font>
+		</div>
+		</center>
+
+	</body>
+{% endblock %}
