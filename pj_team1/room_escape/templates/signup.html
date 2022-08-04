@@ -1,0 +1,63 @@
+{% extends 'nav_bar.html' %}
+{% load static %}
+{% block head %}
+<title>방탈출_Signup</title>
+{% endblock head %}
+
+{% block content %}
+<section class="vh-100 gradient-custom"> 
+    <div class="container my-5"> <!--y축 마진-->
+        <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-warning text-dark" style="border-radius: 5rem;">
+            <div class="card-body p-5 text-center">
+
+                <div class="my-1">
+                    <h2 class="fw-bold mb-2 text-uppercase">회원가입</h2>
+                    <p class="text-dark-20 mb-5">방탈출사이트의 다양한 서비스를 이용해보세요.</p>
+
+                    <div class="form-outline form-white row mb-3">
+                        <label class="form-label" for="typeNameX">이름(닉네임)</label>
+                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="form-outline form-white row mb-3">
+                        <label class="form-label" for="typeEmailX">Email</label>
+                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="form-outline form-white row mb-3">
+                        <label class="form-label" for="typePasswordX">Password</label>
+                        <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                        <input type="password" id="form3Example4cdg" class="form-control form-control-lg" /> 
+                    </div>
+
+                    <div class="form-check d-flex justify-content-center mb-5">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                        <label class="form-check-label" for="form2Example3g">
+                        본 사이트의 <a href="#!" class="text-body"><u>개인정보 이용약관</u></a>에 동의합니다.
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit"
+                        class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                        onclick="location.href='../signup_ok'">가입하기</button>
+                    </div>
+                </div>
+    
+                    <p class="text-center text-muted mt-5">이미 가입된 계정이 있으십니까?
+                        <a href="../login" class="fw-bold text-body"><u>Go Login</u></a></p>
+                
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content%}

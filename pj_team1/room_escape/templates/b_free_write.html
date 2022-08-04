@@ -1,0 +1,109 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+자유게시글 작성하기
+{% endblock %}
+{% block subject2 %}
+자유 게시글을 작성하는 곳 입니다.
+{% endblock %}
+{% block main %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+		<style>
+			.styled-table {
+				border-collapse: collapse;
+				margin: 25px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 1000px;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+			}
+			.styled-table thead tr {
+				background-color: #fcd032;
+				color: black; 
+				{% comment %} #ffffff 는 화이트 {% endcomment %}
+				text-align: left;
+			}
+			.styled-table th,
+			.styled-table td {
+				text-align:center;
+				padding: 12px 15px;
+			}
+			.styled-table tbody tr {
+				border-bottom: 1px solid #dddddd;
+			}
+			
+			.styled-table tbody tr:nth-of-type(even) {
+				background-color: #f3f3f3;
+			}
+			
+			.styled-table tbody tr:last-of-type {
+				border-bottom: 2px solid #fcd032;
+			}
+			.styled-table tbody tr.active-row {
+				font-weight: bold;
+				color: #fcd032;
+			}
+			{% comment %} a{text-decoration:none} {% endcomment %}
+		</style>
+
+	<script language="javascript">
+	   function check()
+	   {
+	       for(var i=0; i<document.input.elements.length; i++)
+		   {
+		      if(document.input.elements[i].value == "")
+			  {
+			     alert("모든 값을 입력 하셔야 합니다. ");
+				 return false;
+			  }
+		   }
+		   document.input.submit();
+       }
+	</script>
+  </head>
+  <body onload="input.writer.focus()">
+    <center>
+		{% comment %} <hr width='60%' size="2" color="gray" noshade> {% endcomment %}
+		<hr width='60%' size="2" color="gray" noshade> 
+		<form name="input" method="post" action="free_write_ok/">
+				{% csrf_token %} <!-- 글 작성시 이 문장 추가 필수 -->
+		<table class="styled-table" border="0" width="40%"  cellpadding="10" cellspacing="10">
+			<tr>
+				<td width="20%" align="center">작성자</td>
+				<td><input type="text" align="left" name="writer" size="20"></td>
+			</tr>
+			<tr>
+				<td align="center">E-mail</td>
+				<td><input type="text" name="email" size="20"></td>
+			</tr>
+			<tr>
+				<td align="center">제목</td>
+				<td><input type="text" name="subject" size="65"></td>
+			</tr>
+			<tr>
+				<td align="center">내용</td>
+				<td><textarea  name="content"  rows="15" cols="70"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="button" value="전송" onclick="check()">
+					<input type="reset" value="모두 지우기" onclick="input.writer.focus()">
+				</td>
+			</tr>
+		</table>
+		</form>
+
+		<font color="gray" size="3" face="">
+		<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+			<a class="btn btn-default pull-right" href="../../b_free">목록으로 돌아가기</a></button>
+		</font>
+
+		<br><br>
+	</center>
+  </body>
+</html>
+{% endblock %}
