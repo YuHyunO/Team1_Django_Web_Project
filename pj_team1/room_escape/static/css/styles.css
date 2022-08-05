@@ -11286,3 +11286,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+  .title-font {
+    text-align:center; 
+    font-size:40px; 
+    font-weight:800; 
+    opacity:0.5; 
+    margin-top: 30px;
+  }
