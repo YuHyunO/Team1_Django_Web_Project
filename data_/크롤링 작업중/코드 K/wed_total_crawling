@@ -1,0 +1,15 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+html = urlopen("http://www.naver.com")  
+bsObject = BeautifulSoup(html, "html.parser") 
+print(bsObject) # 웹 문서 전체가 출력
+
+print(bsObject.head.title) # <title>NAVER</title> 출력
+
+for meta in bsObject.head.find_all('meta'):
+    print(meta.get('content')) # 모든 메타 데이터의 내용 출력
+
+print (bsObject.head.find("meta", {"name":"description"})) # 원하는 태그의 내용 출력
+
+for link in bsObject.find_all('a'):
+    print(link.text.strip(), link.get('href')) #a 태그로 둘러싸인 텍스트와 a 태그의 href 속성을 출력

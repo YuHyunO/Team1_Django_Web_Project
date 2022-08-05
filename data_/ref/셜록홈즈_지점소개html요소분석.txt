@@ -1,0 +1,43 @@
+
+<페이지1>
+
+//*[@id="branch"]/section[2]/div/div[2]/div[1]/div[2]
+강남2호점
+//*[@id="branch"]/section[2]/div/div[2]/div[1]/div[3]/a[1]
+지점 소개 url
+
+//*[@id="branch"]/section[2]/div/div[2]/div[2]/div[2]
+구리점
+//*[@id="branch"]/section[2]/div/div[2]/div[2]/div[3]/a[1]
+지점 소개 url
+
+
+//*[@id="branch"]/section[2]/div/div[2]/div[3]/div[2]
+구월인천점
+//*[@id="branch"]/section[2]/div/div[2]/div[3]/div[3]/a[1]
+지점 소개 url
+.
+.
+.
+//*[@id="branch"]/section[2]/div/div[2]/div[26]/div[2]
+홍대점
+//*[@id="branch"]/section[2]/div/div[2]/div[26]/div[3]/a[1]
+지점 소개 url
+
+<페이지2>
+//*[@id="branch"]/section[2]/div/div[3]/a[2]
+목록
+
+//*[@id="branch"]/section[2]/div/h2
+강남2호점
+//*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[1]
+주소
+//*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[2]
+전회범호
+
+//*[@id="branch"]/section[2]/div/h2
+구리점
+//*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[1]
+주소
+//*[@id="branch"]/section[2]/div/div[1]/div[1]/ul/li[2]
+전회범호
