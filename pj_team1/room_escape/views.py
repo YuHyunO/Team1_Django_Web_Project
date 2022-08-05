@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
 from .models import Board, Member
+import re
 
 
 def index(request):
@@ -24,107 +25,69 @@ def cafe_detail(request):
     template = loader.get_template('cafe_detail.html')
     return HttpResponse(template.render({}, request))
 
-from django.shortcuts import redirect, render #방법2
+from django.shortcuts import redirect, render
 
 def login(request):
-    #template = loader.get_template('login.html') #방법1
-    #return HttpResponse(template.render({}, request)) #방법1
-    return render(request,'login.html') #방법2 
+    return render(request,'login.html')
 
 def login_ok(request):
-    #email = request.POST['email'] #방법1
-    #pw = request.POST['pw'] #방법1
-    email = request.POST.get('email', None) #방법2
-    pw = request.POST.get('pw', None) #방법2
-    print("email", email, "pw", pw)
-    
-    try:
-        member = Member.objects.get(email=email)
-    except Member.DoesNotExist:
-        member = None
-    print("member", member)
-    
-    result = 0
-    if member != None:
-        print("해당 email 회원 존재함")
-        if member.pw == pw:
-            print("비밀번호까지 일치") 
-            result = 2
-            
-            print("member.email", member.email) #방법1
-            request.session['login_ok_user'] = member.email #방법1
-            #session_id = request.session.session_key #방법2
-            #print("session_id", session_id) #방법2
-            #request.session['login_ok_user'] = session_id #방법2
-        else:
-            print("비밀번호 틀림")
-            result = 1
-    else:
-        print("해당 email 회원 존재하지 않음") 
-        result = 0   
-    
-    template = loader.get_template("login_ok.html") #모든 login_ok.html은 utf-8 형식이어야 한글이 깨지지 않음
-    context = {
-        'result': result, 
-    }
-    return HttpResponse(template.render(context, request)) #렌더는 (context, request)를 함께 넘기는 방법
+    pass
 
-def signup(request):
-    #template = loader.get_template('login.html') #방법1
-    #return HttpResponse(template.render({}, request)) #방법1
-    return render(request,'signup.html') #방법2 
-'''
-def signup_ok(request):
-    #email = request.POST['email'] #방법1
-    #pw = request.POST['pw'] #방법1
-    email = request.POST.get('email', None) #방법2
-    pw = request.POST.get('pw', None) #방법2
-    print("email", email, "pw", pw)
-    
-    try:
-        member = Member.objects.get(email=email)
-    except Member.DoesNotExist:
-        member = None
-    print("member", member)
-    
-    result = 0
-    if member != None:
-        print("해당 email 회원 존재함")
-        if member.pw == pw:
-            print("비밀번호까지 일치") 
-            result = 2
+def signup(request): ##
+    template = loader.get_template('signup.html')
+    if request.method == 'POST':
+        name = request.POST['name']
+        nickname = request.POST['nickname']
+        email = request.POST['email']
+        pwd_1 = request.POST['pwd_1']
+        pwd_2 = request.POST['pwd_2']
+        print(len(' abc '))
+        print(len(name))
+        regex_email = '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9-.]+$'
+        # regex_pwd_1 = '\S{8,25}'
             
-            print("member.email", member.email) #방법1
-            request.session['login_ok_user'] = member.email #방법1
-            #session_id = request.session.session_key #방법2
-            #print("session_id", session_id) #방법2
-            #request.session['login_ok_user'] = session_id #방법2
+        nickname_val = False
+        email_re = False
+        email_val = False
+        pwd2_val = False
+        
+        if re.match(regex_email, email):
+            email_re = True
+        try:
+            Member.objects.get(nickname=nickname) 
+        except Member.DoesNotExist:
+            nickname_val = True        
+        try:
+            Member.objects.get(email=email)
+        except Member.DoesNotExist:
+            email_val = True
+                    
+        if pwd_2 == pwd_1:
+            pwd2_val = True
+            
+        all_validation = nickname_val and email_re and email_val and pwd2_val             
+        if all_validation == False:           
+            context = {
+                'nickname_val':nickname_val,
+                'email_val':email_val,
+                # 'pwd1_val':pwd1_val,
+                'pwd2_val':pwd2_val,
+                'name':name,
+                'nickname':nickname,
+                'email':email
+            }
+            return HttpResponse(template.render(context, request))
         else:
-            print("비밀번호 틀림")
-            result = 1
+            return render(request, 'index.html')
     else:
-        print("해당 email 회원 존재하지 않음") 
-        result = 0   
-    
-    template = loader.get_template("login_ok.html") #모든 login_ok.html은 utf-8 형식이어야 한글이 깨지지 않음
-    context = {
-        'result': result, 
-    }
-    return HttpResponse(template.render(context, request)) #렌더는 (context, request)를 함께 넘기는 방법
-'''
-
+        return render(request, 'signup.html')
 
 def logout(request):
     if request.session.get('login_ok_user'):
-        #del request.session['login_ok_user']
-        #request.session.clear() # 서버측의 해당 user의 session방을 초기화
-        request.session.flush() # 서버측의 해당 user의 session방을 삭제(더욱 강력)
-    return redirect("../") #세션 delete 후 한단계 상위폴더(인덱스.html)로 이동
-
+        request.session.flush() 
+    return redirect("../")
 def mypage(request):
-    #template = loader.get_template('login.html') #방법1
-    #return HttpResponse(template.render({}, request)) #방법1
-    return render(request,'mypage.html') #방법2 
+    return render(request,'mypage.html') 
 
 
 ########################## 공지사항 게시판  ##########################
@@ -137,7 +100,7 @@ def b_announce(request):
     return HttpResponse(template.render(context, request))
 
 def b_announce_read(request, id):
-    template = loader.get_template('b_announce_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
+    template = loader.get_template('b_announce_read.html') 
     boardcontent = Board.objects.get(id=id)
     context = {
        'boardcontent' : boardcontent,
@@ -152,14 +115,14 @@ from django.urls import reverse
 from django.utils import timezone
 
 def b_announce_write_ok(request):
-    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
+    x = request.POST['writer']  
     y = request.POST['email']
     z = request.POST['subject']
     a = request.POST['content']
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
     boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, type='1', rdate=nowDatetime, udate=nowDatetime)
     boardwrite.save()
-    return HttpResponseRedirect(reverse('b_announce')) #태그 name일까, url 주소부분을 쓰는걸까
+    return HttpResponseRedirect(reverse('b_announce')) 
 
 def b_announce_delete(request, id):
     boarddelete = Board.objects.get(id=id)
@@ -174,16 +137,16 @@ def b_announce_update(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-def b_announce_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
-    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
-    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
+def b_announce_update_ok(request, id): 
+    x = request.POST['email'] 
+    y = request.POST['subject']
     z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
+    boardupdateok = Board.objects.get(id=id)
     boardupdateok.email = x
     boardupdateok.subject = y
     boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
-    boardupdateok.rdate = nowDatetime #옵션
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
+    boardupdateok.rdate = nowDatetime 
     boardupdateok.save()
     return HttpResponseRedirect(reverse("b_announce"))
     
@@ -197,7 +160,7 @@ def b_free(request):
     return HttpResponse(template.render(context, request))
 
 def b_free_read(request, id):
-    template = loader.get_template('b_free_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
+    template = loader.get_template('b_free_read.html')
     boardcontent = Board.objects.get(id=id)
     context = {
        'boardcontent' : boardcontent,
@@ -209,14 +172,14 @@ def b_free_write(request):
     return HttpResponse(template.render({}, request))
 
 def b_free_write_ok(request):
-    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
+    x = request.POST['writer'] 
     y = request.POST['email']
     z = request.POST['subject']
     a = request.POST['content']
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
     boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
     boardwrite.save()
-    return HttpResponseRedirect(reverse('b_free')) #태그 name일까, url 주소부분을 쓰는걸까
+    return HttpResponseRedirect(reverse('b_free')) 
 
 def b_free_delete(request, id):
     boarddelete = Board.objects.get(id=id)
@@ -231,16 +194,16 @@ def b_free_update(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-def b_free_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
-    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
-    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
+def b_free_update_ok(request, id):
+    x = request.POST['email'] 
+    y = request.POST['subject']
     z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
+    boardupdateok = Board.objects.get(id=id)
     boardupdateok.email = x
     boardupdateok.subject = y
     boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
-    boardupdateok.rdate = nowDatetime #옵션
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
+    boardupdateok.rdate = nowDatetime 
     boardupdateok.save()
     return HttpResponseRedirect(reverse("b_free"))
 
@@ -253,7 +216,7 @@ def b_anony(request):
     return HttpResponse(template.render(context, request))
 
 def b_anony_read(request, id):
-    template = loader.get_template('b_anony_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
+    template = loader.get_template('b_anony_read.html') 
     boardcontent = Board.objects.get(id=id)
     context = {
        'boardcontent' : boardcontent,
@@ -265,14 +228,14 @@ def b_anony_write(request):
     return HttpResponse(template.render({}, request))
 
 def b_anony_write_ok(request):
-    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
+    x = request.POST['writer']  
     y = request.POST['email']
     z = request.POST['subject']
     a = request.POST['content']
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
     boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
     boardwrite.save()
-    return HttpResponseRedirect(reverse('b_anony')) #태그 name일까, url 주소부분을 쓰는걸까
+    return HttpResponseRedirect(reverse('b_anony'))
 
 def b_anony_delete(request, id):
     boarddelete = Board.objects.get(id=id)
@@ -287,15 +250,15 @@ def b_anony_update(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-def b_anony_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
-    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
-    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
+def b_anony_update_ok(request, id):  
+    x = request.POST['email'] 
+    y = request.POST['subject']  
     z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
+    boardupdateok = Board.objects.get(id=id)  
     boardupdateok.email = x
     boardupdateok.subject = y
     boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
-    boardupdateok.rdate = nowDatetime #옵션
+    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+    boardupdateok.rdate = nowDatetime
     boardupdateok.save()
     return HttpResponseRedirect(reverse("b_anony"))
