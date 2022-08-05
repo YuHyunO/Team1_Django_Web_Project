@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
 from .models import Board, Member
+from django.utils import timezone
 import re
 
 
@@ -41,18 +42,18 @@ def signup(request): ##
         email = request.POST['email']
         pwd_1 = request.POST['pwd_1']
         pwd_2 = request.POST['pwd_2']
+        phone = '01012345678'
         print(len(' abc '))
         print(len(name))
         regex_email = '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9-.]+$'
-        # regex_pwd_1 = '\S{8,25}'
             
         nickname_val = False
-        email_re = False
+        email_regex = False
         email_val = False
         pwd2_val = False
         
         if re.match(regex_email, email):
-            email_re = True
+            email_regex = True
         try:
             Member.objects.get(nickname=nickname) 
         except Member.DoesNotExist:
@@ -65,19 +66,25 @@ def signup(request): ##
         if pwd_2 == pwd_1:
             pwd2_val = True
             
-        all_validation = nickname_val and email_re and email_val and pwd2_val             
+        all_validation = nickname_val and email_regex and email_val and pwd2_val             
         if all_validation == False:           
             context = {
                 'nickname_val':nickname_val,
                 'email_val':email_val,
-                # 'pwd1_val':pwd1_val,
+                'email_regex':email_regex,
                 'pwd2_val':pwd2_val,
                 'name':name,
+                'pwd_1':pwd_1,
+                'pwd_2':pwd_2,
                 'nickname':nickname,
                 'email':email
             }
             return HttpResponse(template.render(context, request))
         else:
+            nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+            member = Member(email=email, pw=pwd_1, name=name, nickname=nickname, phone=phone, rdate=nowDatetime, udate=nowDatetime)
+            member.save()
+            print('회원가입됨')
             return render(request, 'index.html')
     else:
         return render(request, 'signup.html')

@@ -39,7 +39,7 @@
                         {% csrf_token %}
                         <div class="form-outline form-white row mb-3">
                             <label class="form-label" for="typeNameX">이름</label>
-                            <input name="name" type="text" id="typeEmailX" class="form-control form-control-lg" />
+                            <input name="name" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{name}}"/>
                         </div>
 
                         <div class="form-outline form-white row mb-3">
@@ -47,7 +47,7 @@
                             {% if nickname_val == False %}
                                 <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이미 사용중인 닉네임입니다." />
                             {% else %}
-                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" />
+                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{nickname}}"/>
                             {% endif %}
                         </div>
 
@@ -55,22 +55,24 @@
                             <label class="form-label" for="typeEmailX">이메일</label>
                             {% if email_val == False %}
                                 <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이미 사용중인 이메일입니다."/>
+                            {% elif email_regex == False %}
+                                <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이메일을 형식에 맞게 입력해주세요."/>
                             {% else %}
-                                <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" />
+                                <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{email}}"/>
                             {% endif %}
                         </div>
 
                         <div class="form-outline form-white row mb-3">
-                            <label class="form-label" for="typePasswordX">패스워드</label>
-                            <input name="pwd_1" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                            <label class="form-label" for="typePasswordX">비밀번호</label>
+                            <input name="pwd_1" type="password" id="typePasswordX" class="form-control form-control-lg" value="{{pwd_1}}"/>
                         </div>
 
                         <div class="form-outline form-white row mb-3">
-                            <label class="form-label" for="form3Example4cdg">패스워드 재입력</label>
+                            <label class="form-label" for="form3Example4cdg">비밀번호 확인</label>
                             {% if pwd2_val == False %}
                                 <input name="pwd_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" placeholder="패스워드가 일치하지 않습니다."/> 
                             {% else %}  
-                                <input name="pwd_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                                <input name="pwd_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" value="{{pwd_2}}"/>
                             {% endif %}                                
                             </div>
 
@@ -99,7 +101,3 @@
 </section>
 
 {% endblock content%}
-::placeholder { 
-    color: red;
-    opacity: 1; 
-  }
