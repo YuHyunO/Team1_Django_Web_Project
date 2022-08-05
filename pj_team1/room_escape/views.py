@@ -32,7 +32,38 @@ def login(request):
     return render(request,'login.html')
 
 def login_ok(request):
-    pass
+    template = loader.get_template('login.html')
+    email = request.POST['email']
+    pwd = request.POST['pwd']
+    email.strip()
+    pwd.strip()
+    
+    email_len = False
+    pwd_len = False
+    
+    if len(email) != 0:
+        email_len = True
+    if len(pwd) != 0:
+        pwd_len = True
+        
+    status = 0
+    try:
+        member = Member.objects.get(email=email)
+        if member.pwd == pwd:
+            request.session['member_id'] = member.email
+            status = 1
+            return render(request, 'index.html')
+        else:
+            status = 2
+    except Member.DoesNotExist:
+        status = 3
+        
+    context = {
+        'email_len':email_len,
+        'pwd_len':pwd_len,
+        'status':status
+    }
+    return HttpResponse(template.render(context, request))
 
 def signup(request): ##
     template = loader.get_template('signup.html')
@@ -54,6 +85,7 @@ def signup(request): ##
         
         if re.match(regex_email, email):
             email_regex = True
+            
         try:
             Member.objects.get(nickname=nickname) 
         except Member.DoesNotExist:
