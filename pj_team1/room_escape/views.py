@@ -133,9 +133,11 @@ def signup(request): ##
         return render(request, 'signup.html')
 
 def logout(request):
-    if request.session.get('login_ok_user'):
-        request.session.flush() 
-    return redirect("../")
+    try:
+        del request.session['member_id']
+    except KeyError:
+        pass
+    return redirect(reverse('index'))
 def mypage(request):
     return render(request,'mypage.html') 
 
