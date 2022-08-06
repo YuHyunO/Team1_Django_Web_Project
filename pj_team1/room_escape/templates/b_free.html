@@ -1,0 +1,112 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+자유게시판
+{% endblock %}
+{% block subject2 %}
+자유롭고 다양한 이야기를 나눠보세요
+{% endblock %}
+{% block main %}
+<head>
+	<meta charset="utf-8">
+	<title>방탈출_자유게시판</title>
+	<style>
+		.styled-table {
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			min-width: 1000px;
+			max-width: 1000px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+		.styled-table thead tr {
+			background-color: #95d2de;
+			color: black; 
+			text-align: left;
+		}
+		.styled-table th,
+		.styled-table td {
+			text-align:center;
+			padding: 12px 15px;
+		}
+		.styled-table tbody tr {
+			border-bottom: 1px solid #dddddd;
+		}
+		
+		.styled-table tbody tr:nth-of-type(even) {
+			background-color: #f3f3f3;
+		}
+		
+		.styled-table tbody tr:last-of-type {
+			border-bottom: 2px solid #95d2de;
+		}
+		.styled-table tbody tr.active-row {
+			font-weight: bold;
+			color: #2ba0db;
+		}
+		a{text-decoration:none}
+	</style>
+</head>
+<body>
+	<center>
+	<table class="styled-table">
+		<thead>
+			<TR>
+				<th width=10%>글번호</th>
+				<th width=50%>제목</th>
+				<th width=10%>작성자</th>
+				<th width=20%>작성일</th>
+				<th width=10%>조회수</th>
+			</TR>
+		</thead>
+		<tbody>
+			<TR>
+				<td>111</td>
+				<td align='center' >재밌어요~~셜록홈즈</td>
+				<td>마니아</td>
+				<td>2002.2.2.</td>
+				<TD>조회수..</TD>
+			</TR>
+			<TR>
+				<td>112</td>
+				<td align='center' >안녕하세요~~~~~~</td>
+				<td>하쿠</td>
+				<td>2020.2.2.</td>
+				<TD>조회수..</TD>
+			</TR>
+
+			{% for x in b_free_lists %}
+			<TR>
+				<TD align='center'>{{x.id}}</TD>
+				<TD align='center'>
+					<a href="../board_free/{{x.id}}"> <!-- {{x.id}} -->
+						{{x.title}}
+					</a>
+				</TD>
+				<TD align='center'>{{x.name}}</TD>
+				<TD align='center'>{{x.rdate}}</TD>
+				<TD align='center'>조회수</TD>
+			</TR> 
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<div class="text-center">
+		<ul class="pagination justify-content-center">
+			<li><a href="#">1</a></li>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+			<li><a href="#">2</a></li>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+			<li><a href="#">3</a></li>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+			<li><a href="#">4</a></li>
+		</ul>
+	</div>
+
+	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_free_write/">글쓰기</a></button>
+	<br><br>
+	</center>
+</body>
+{% endblock %}
