@@ -8,7 +8,6 @@ urlpatterns = [
     path('theme/theme_detail/', views.theme_detail, name='theme_detail'),  
     path('cafe/cafe_detail/', views.cafe_detail, name='cafe_detail'),  
     path('login/', views.login, name='login'),
-    path('login/login_ok/', views.login_ok, name='login_ok'),
     path('signup/', views.signup, name='signup'),
     #path('logout/', views.logout, name='logout'),
     #path('mypage/', views.mypage, name='mypage'),
