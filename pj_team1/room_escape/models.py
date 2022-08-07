@@ -10,6 +10,7 @@ class Member(models.Model):
     udate = models.DateTimeField()
     
 class Board(models.Model):
+    no = models.AutoField(primary_key=True) 
     email = models.ForeignKey(Member, related_name='board_email', on_delete=models.CASCADE, db_column='email')
     name = models.CharField(max_length=255)    
     type = models.CharField(max_length=20)
@@ -19,14 +20,15 @@ class Board(models.Model):
     udate = models.DateTimeField()
   
 class Room(models.Model):
-    room = models.TextField(primary_key=True)
+    no = models.AutoField(primary_key=True) 
+    room = models.TextField()
     loc = models.TextField()
     url = models.CharField(max_length=255)
     tel = models.CharField(max_length=50)
     theme_number = models.IntegerField(default=0)
 
 class CafeReview(models.Model):
-    no = models.AutoField(primary_key=True)
+    no = models.AutoField(primary_key=True) 
     email = models.ForeignKey(Member, related_name='CafeReview_email', on_delete=models.CASCADE, db_column='email')
     room = models.ForeignKey(Room, related_name='CafeReview_room', on_delete=models.CASCADE, db_column='room')
     review = models.TextField()
@@ -34,7 +36,8 @@ class CafeReview(models.Model):
     udate = models.DateTimeField()
     
 class Theme(models.Model):
-    theme = models.TextField(primary_key=True)
+    no = models.AutoField(primary_key=True)    
+    theme = models.TextField()
     room = models.ForeignKey(Room, related_name='Theme_room', on_delete=models.CASCADE, db_column='room')
     img_path = models.TextField()
     genre = models.CharField(max_length=255)

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from .models import Board, Member
 from django.utils import timezone
-import re
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -53,6 +53,7 @@ def login(request):
                 if member.pw == pwd:
                     request.session['member_id'] = member.email
                     status = 1
+                    print('success')
                     return render(request, 'index.html')
                 else:
                     status = 2
@@ -205,7 +206,10 @@ def b_announce_update_ok(request, id):
     
 def b_free(request):
     template = loader.get_template('b_free.html')
-    b_free_lists = Board.objects.all().values()
+    board = Board.objects.all().values()
+    page = request.GET.get('page', '1')
+    paginator = Paginator(board, '10')
+    b_free_lists = paginator.page(page)
     context = {
        'b_free_lists' : b_free_lists,
     }
@@ -220,18 +224,21 @@ def b_free_read(request, id):
     return HttpResponse(template.render(context, request))
 
 def b_free_write(request):
-    template = loader.get_template('b_free_write.html')
-    return HttpResponse(template.render({}, request))
+    if request.method == 'POST':
+        email = Member.objects.get(email=str(request.session['member_id']))
+        nickname = email.nickname
 
-def b_free_write_ok(request):
-    x = request.POST['writer'] 
-    y = request.POST['email']
-    z = request.POST['subject']
-    a = request.POST['content']
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-    boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
-    boardwrite.save()
-    return HttpResponseRedirect(reverse('b_free')) 
+        title = request.POST['title']
+        content = request.POST['content']
+        type = '자유게시판'
+        
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+        post = Board(email=email, name=nickname, type=type, title=title, content=content, rdate=nowDatetime, udate=nowDatetime)
+        post.save()
+        
+        return HttpResponseRedirect(reverse('b_free'))
+    else:
+        return render(request, 'b_free_write.html')
 
 def b_free_delete(request, id):
     boarddelete = Board.objects.get(id=id)

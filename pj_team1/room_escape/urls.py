@@ -23,7 +23,6 @@ urlpatterns = [
     path('b_free/', views.b_free, name='b_free'), #자유게시판
     path('b_free/<int:id>', views.b_free_read, name='b_free_read'), #글읽기
     path('b_free_write/', views.b_free_write, name='b_free_write'), #글쓰기
-    path('b_free_write/free_write_ok/', views.b_free_write_ok, name='b_free_write_ok'), #글쓰기 성공
     path('b_free/free_delete/<int:id>', views.b_free_delete, name='b_free_delete'), #글 삭제
     path('b_free/free_update/<int:id>', views.b_free_update, name='b_free_update'), #글 수정
     path('b_free/free_update/free_update_ok/<int:id>', views.b_free_update_ok, name='b_free_update_ok'), #글 수정 성공

@@ -53,48 +53,40 @@
 	<script language="javascript">
 	   function check()
 	   {
-	       for(var i=0; i<document.input.elements.length; i++)
+	       for(var i=0; i<document.freeWrite.elements.length; i++)
 		   {
-		      if(document.input.elements[i].value == "")
+		      if(document.freeWrite.elements[i].value == "")
 			  {
-			     alert("모든 값을 입력 하셔야 합니다. ");
+			     alert("내용을 작성해주세요. ");
 				 return false;
 			  }
 		   }
-		   document.input.submit();
+		   document.freeWrite.submit();
        }
 	</script>
   </head>
   <body onload="input.writer.focus()">
     <center>
-		{% comment %} <hr width='60%' size="2" color="gray" noshade> {% endcomment %}
 		<hr width='60%' size="2" color="gray" noshade> 
-		<form name="input" method="post" action="free_write_ok/">
-				{% csrf_token %} <!-- 글 작성시 이 문장 추가 필수 -->
-		<table class="styled-table" border="0" width="40%"  cellpadding="10" cellspacing="10">
-			<tr>
-				<td width="20%" align="center">작성자</td>
-				<td><input type="text" align="left" name="writer" size="20"></td>
-			</tr>
-			<tr>
-				<td align="center">E-mail</td>
-				<td><input type="text" name="email" size="20"></td>
-			</tr>
-			<tr>
-				<td align="center">제목</td>
-				<td><input type="text" name="subject" size="65"></td>
-			</tr>
-			<tr>
-				<td align="center">내용</td>
-				<td><textarea  name="content"  rows="15" cols="70"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="button" value="전송" onclick="check()">
-					<input type="reset" value="모두 지우기" onclick="input.writer.focus()">
-				</td>
-			</tr>
-		</table>
+		
+		<form name='freeWrite' action='../b_free_write/' method='POST'>
+			{% csrf_token %} 
+			<table class="styled-table" border="0" width="40%"  cellpadding="10" cellspacing="10">
+				<tr>
+					<td align="center">제목</td>
+					<td><input type="text" name="title" size="65"></td>
+				</tr>
+				<tr>
+					<td align="center">내용</td>
+					<td><textarea  name="content"  rows="15" cols="70"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="button" value="등록" onclick="check()">
+						<input type="reset" value="모두 지우기" onclick="input.writer.focus()">
+					</td>
+				</tr>
+			</table>
 		</form>
 
 		<font color="gray" size="3" face="">
