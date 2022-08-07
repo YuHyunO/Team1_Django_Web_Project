@@ -25,6 +25,7 @@ class Room(models.Model):
     loc = models.TextField()
     url = models.CharField(max_length=255)
     tel = models.CharField(max_length=50)
+    img_path = models.TextField()
     theme_number = models.IntegerField(default=0)
 
 class CafeReview(models.Model):

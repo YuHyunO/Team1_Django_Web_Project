@@ -4,6 +4,7 @@ from django.template import loader
 from .models import Board, Member
 from django.utils import timezone
 from django.core.paginator import Paginator
+import re
 
 
 def index(request):
@@ -208,7 +209,7 @@ def b_free(request):
     template = loader.get_template('b_free.html')
     board = Board.objects.all().values()
     page = request.GET.get('page', '1')
-    paginator = Paginator(board, '10')
+    paginator = Paginator(board, 3)
     b_free_lists = paginator.page(page)
     context = {
        'b_free_lists' : b_free_lists,

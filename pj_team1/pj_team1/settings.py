@@ -130,3 +130,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Session Settings
+
+# SESSION_EXPIRE_SECONDS = 30 # 1 hour
+
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True # A session seconds after the last activity
+
+# SESSION_TIMEOUT_REDIRECT = 'index.html/'
