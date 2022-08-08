@@ -34,8 +34,8 @@ def login(request):
         template = loader.get_template('login.html')
         email = request.POST['email']
         pwd = request.POST['pwd']
-        email.strip()
-        pwd.strip()
+        email = email.strip()
+        pwd = pwd.strip()
         
         email_len = False
         pwd_len = False
@@ -55,6 +55,7 @@ def login(request):
                     request.session['member_id'] = member.email
                     status = 1
                     print('success')
+                    
                     return render(request, 'index.html')
                 else:
                     status = 2
@@ -222,15 +223,25 @@ def b_announce_update_ok(request, id):
     
     
 def b_free(request):
+    
     template = loader.get_template('b_free.html')
     board = Board.objects.all().values()
     page = request.GET.get('page', '1')
-    paginator = Paginator(board, 3)
+    paginator = Paginator(board, 5)
     b_free_lists = paginator.page(page)
-    context = {
-       'b_free_lists' : b_free_lists,
-    }
-    return HttpResponse(template.render(context, request))
+    
+    try: 
+        email = request.session['member_id']
+        print(email)
+            
+        context = {
+        'b_free_lists' : b_free_lists,
+        'email' : email,
+        }
+        return HttpResponse(template.render(context, request))
+    except:
+        return render(request, 'b_free.html')
+        
 
 def b_free_read(request, id):
     template = loader.get_template('b_free_read.html')
@@ -284,12 +295,25 @@ def b_free_update_ok(request, id):
     return HttpResponseRedirect(reverse("b_free"))
 
 def b_anony(request):
+    
     template = loader.get_template('b_anony.html')
-    b_anony_lists = Board.objects.all().values()
-    context = {
-       'b_anony_lists' : b_anony_lists,
-    }
-    return HttpResponse(template.render(context, request))
+    board = Board.objects.all().values()
+    page = request.GET.get('page', '1')
+    paginator = Paginator(board, 5)
+    b_anony_lists = paginator.page(page)
+    
+    try: 
+        email = request.session['member_id']
+        print(email)
+            
+        context = {
+        'b_anony_lists' : b_anony_lists,
+        'email' : email,
+        }
+        return HttpResponse(template.render(context, request))
+    except:
+        return render(request, 'b_anony.html')
+    
 
 def b_anony_read(request, id):
     template = loader.get_template('b_anony_read.html') 
@@ -304,15 +328,19 @@ def b_anony_write(request):
     return HttpResponse(template.render({}, request))
 
 def b_anony_write_ok(request):
-    x = request.POST['writer']  
-    y = request.POST['email']
-    z = request.POST['subject']
-    a = request.POST['content']
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-    boardwrite = Board(name=x, email=y, title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
-    boardwrite.save()
-    return HttpResponseRedirect(reverse('b_anony'))
+    try:
+        x = request.POST['writer']  
+        y = request.POST['email']
+        z = request.POST['subject']
+        a = request.POST['content']
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+        boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
+        boardwrite.save()
+        return HttpResponseRedirect(reverse('b_anony'))
+    except:
+        return HttpResponseRedirect(reverse('b_anony_write'))
 
+    
 def b_anony_delete(request, id):
     boarddelete = Board.objects.get(id=id)
     boarddelete.delete()

@@ -117,9 +117,14 @@
 		</ul>
 	</div>
 <!-- 페이징처리 끝 -->
-
+	
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_free_write/">글쓰기</a></button>
+		{% if email != null %} 
+		<a class="btn btn-default pull-right" href="../b_free_write/" >글쓰기</a>
+		{% else %}
+		<a class="btn btn-default pull-right" onclick="alert('로그인을 해주세요')" href="../" >글쓰기</a>
+		{% endif %}
+	</button>
 	<br><br>
 	</center>
 </body>
