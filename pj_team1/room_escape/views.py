@@ -79,22 +79,32 @@ def login(request):
         return render(request, 'login.html')
     
 def signup(request): ##
-    template = loader.get_template('signup.html')
+
     if request.method == 'POST':
         name = request.POST['name']
         nickname = request.POST['nickname']
         email = request.POST['email']
         pwd_1 = request.POST['pwd_1']
         pwd_2 = request.POST['pwd_2']
-        phone = '01012345678'
+        phone = request.POST['phone']
+        
+        name = name.strip()
+        nickname = nickname.strip()
+        email = email.strip()
+        pwd_1 = pwd_1.strip()
+        pwd_2 = pwd_2.strip()
+        phone = phone.strip()
+        
         print(len(' abc '))
         print(len(name))
         regex_email = '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9-.]+$'
-            
+        
+        
         nickname_val = False
         email_regex = False
         email_val = False
         pwd2_val = False
+
         
         if re.match(regex_email, email):
             email_regex = True
@@ -102,7 +112,7 @@ def signup(request): ##
         try:
             Member.objects.get(nickname=nickname) 
         except Member.DoesNotExist:
-            nickname_val = True        
+            nickname_val = True      
         try:
             Member.objects.get(email=email)
         except Member.DoesNotExist:
@@ -110,8 +120,13 @@ def signup(request): ##
                     
         if pwd_2 == pwd_1:
             pwd2_val = True
-            
-        all_validation = nickname_val and email_regex and email_val and pwd2_val             
+        
+        template = loader.get_template('signup.html')
+        
+        print('-----------------------------------------------') 
+        print(phone)   
+        
+        all_validation = email_regex and email_val and pwd2_val             
         if all_validation == False:           
             context = {
                 'nickname_val':nickname_val,
@@ -122,15 +137,16 @@ def signup(request): ##
                 'pwd_1':pwd_1,
                 'pwd_2':pwd_2,
                 'nickname':nickname,
-                'email':email
+                'phone':phone,
             }
             return HttpResponse(template.render(context, request))
-        else:
+        
+        else: # 회원가입 성공 시
             nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-            member = Member(email=email, pw=pwd_1, name=name, nickname=nickname, phone=phone, rdate=nowDatetime, udate=nowDatetime)
+            member = Member(email=email, pw=pwd_2, name=name, nickname=nickname, phone=phone, rdate=nowDatetime, udate=nowDatetime)
             member.save()
             print('회원가입됨')
-            return render(request, 'index.html')
+            return render(request, 'index.html') 
     else:
         return render(request, 'signup.html')
 
