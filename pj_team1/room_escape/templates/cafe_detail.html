@@ -78,40 +78,87 @@
         </div>    
       </div>
 
-        <div class="col-md-4 col-lg-12 g-mb-30 border border-1 border-start-0 border-end-0 pt-4">
-          <!-- Listing - Location on Map -->
-          <i class = "bi-map-fill me-1"></i>
-          <label for="map" class="h5 form-label fw-bolder justify-content-center">위치(지도)</label>
-            <div class="col-md-10 g-mb-30 ">
-              <!-- Map -->
-              지도 공간
-              <!-- End Map -->
-            </div>
-        </div>
+      <div class="col-md-4 col-lg-12 g-mb-30 border border-1 border-start-0 border-end-0 pt-4">
+        <!-- Listing - Location on Map -->
+        <i class = "bi-map-fill me-1"></i>
+        <label for="map" class="h5 form-label fw-bolder">위치(지도)</label>
+          <div class="col-md-10 g-mb-30 mb-3 border border-4" style="float:none; margin:auto;">
+            <body>
+              <!-- 지도를 표시할 div 입니다 -->
+              <div id="map" style="width:100%;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b4886b8828a4c3060dc36cf1ef9b61c&libraries=services,clusterer,drawing"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+  mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      level: 3 // 지도의 확대 레벨
+  };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('송이로 23', function(result, status) {
+
+  // 정상적으로 검색이 완료됐으면 
+   if (status === kakao.maps.services.Status.OK) {
+
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+      });
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      map.setCenter(coords);
+  }else{
+    alert("error")
+  }
+});    
+</script>
+              </body>
+          </div>
+
         <div class="col-md-4 col-lg-12 g-mb-30 my-4">
           <i class = "bi-door-open-fill me-1"></i>
         <label for="review" class="h5 form-label fw-bolder">리뷰</label>
-            <div class="row border border-1 ms-1">
+            <div class="row bg-light border border-1 rounded-1 ms-1">
+              <div class="col-lg-9">
               <div class="input-group m-1">
-                <label for="title" class="form-label pt-1 fw-bolder me-3 ">제목 :</label>
+                <label for="title" class="form-label pt-1 fw-bolder me-3">제목 :</label>
                 <input type="text" name="contents" id="title" value="" class="form-control rounded-1 form-control-sm">
               </div>
-              <div class="col-md-9 g-mb-30 col-lg-3">
-                <label for="score" class="form-label m-0">평점</label>
+            </div>
+              <div class="col-lg-3">
+                <div class="row">
+              <div class="col-md-9 g-mb-30 col-lg-4 mt-2" style="text-align:center">
+                <label for="score" class="form-label m-0 fw-bold">평점</label>
+              </div>
+                <div class="col-md-9 g-mb-30 col-lg-8 mt-2" style="text-align:center">
                       <li class="list-unstyled score">
                         <i data-value="1" class="bi-star" onclick='click_star(this)'></i>
                         <i data-value="2" class="bi-star" onclick='click_star(this)'></i>
                         <i data-value="3" class="bi-star" onclick='click_star(this)'></i>
                         <i data-value="4" class="bi-star" onclick='click_star(this)'></i>
                         <i data-value="5" class="bi-star" onclick='click_star(this)'></i>
-                      </li>
+                      </li> 
+                    </div>   
               </div>
-                    <div class="input-group m-1">
-                      <input type="text" name="contents" id="contents" value="" class="form-control rounded-1 form-control-sm">
-                      <span class="input-group-btn">
-                        <button class="btn btn-sm u-btn-purple rounded-0" type="submit">확인</button>
-                      </span>
+            </div>
+              
+                    <div class="input-group mb-2">
+                      <textarea class="text text-break text-wrap form-control rounded-1 form-control-sm" style="min-height:100px" id="contents" name="contents"  rows="15" cols="70"></textarea>
                     </div>
+                   
+                    <span class="input-group-btn">
+                      <button class="btn btn-sm bg-warning rounded-2 text-white fw-bold float-end my-2" type="submit">확인</button>
+                    </span>
+              </div>
               </div>
               <div class="row ms-1">
                 <table class="table table-hover u-table--v1 mt-3 text-center">

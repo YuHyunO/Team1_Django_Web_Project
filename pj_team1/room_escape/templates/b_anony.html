@@ -94,20 +94,54 @@
 
 		</tbody>
 	</table>
-	<div class="text-center">
-		<ul class="pagination justify-content-center">
-			<li><a href="#">1</a></li>
-			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<li><a href="#">2</a></li>
-			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<li><a href="#">3</a></li>
-			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<li><a href="#">4</a></li>
-		</ul>
-	</div>
+	
+<!-- 페이징처리 시작 -->
+<div id="paging">
+	<ul class="pagination justify-content-center" style="margin-top: 2rem;">
+		<!-- 이전페이지 -->
+		{% if b_free_lists.has_previous %}
+			<li class="page-item">
+				<a class="page-link" href="../b_free/?&page={{ b_free_lists.previous_page_number }}">이전</a>
+				<!-- href로 뎁스 설정 :>> href="[여기를 변경] ?&page={{ ...-->
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+			</li>
+		{% endif %}
+		<!-- 페이지리스트 -->
+		{% for page_number in b_free_lists.paginator.page_range %}
+			{% if page_number == b_free_lists.number %}
+				<li class="page-item active" aria-current="page">
+					<a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+				</li>
+			{% else %}
+				<li class="page-item">
+					<a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+		<!-- 다음페이지 -->
+		{% if b_free_lists.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="../b_free/?&page={{ b_free_lists.next_page_number }}">다음</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+			</li>
+		{% endif %}
+	</ul>
+</div>
+<!-- 페이징처리 끝 -->
 
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_anony_write/">글쓰기</a></button>
+		{% if email != null %} 
+		<a class="btn btn-default pull-right" href="../b_anony_write/" >글쓰기</a>
+		{% else %}
+		<a class="btn btn-default pull-right" onclick="alert('로그인을 해주세요')" href="../" >글쓰기</a>
+		{% endif %}
+	</button>
 	<br><br>
 	</center>
 </body>

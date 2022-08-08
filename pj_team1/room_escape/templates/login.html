@@ -5,43 +5,64 @@
 {% endblock head %}
 
 {% block content %}
-<!--login_form-->
 <section class="vh-100 gradient-custom">
-    <div class="container my-5"> <!--y축 마진-->
+    <div class="container my-5">
         <div class="row d-flex justify-content-center align-items-center h-50">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-warning text-dark" style="border-radius: 5rem;">
-            <div class="card-body p-5 text-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-warning text-dark" style="border-radius: 5rem;">
+                    <div class="card-body p-5 text-center">
 
-            <div class="my-1">
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-dark-20 mb-5">가입된 이메일과 비밀번호를 입력해주세요.</p>
-                
-                <div class="form-outline form-white row mb-3">
-                    <label class="form-label" for="typeEmailX">Email</label>
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                </div>
+                    <div class="my-1">
+                        <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                        <p class="text-dark-20 mb-5">이메일과 비밀번호를 입력해주세요.</p>
+                        
+                        <form name="login_form" action="/login/" method="post">
+                            {% csrf_token %}
+                            <div class="form-ouWtline form-white row mb-3">
+                                <label class="form-label" for="typeEmailX">Email</label>
+                                {% if email_len == False%}    
+                                    <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이메일을 입력해주세요."/>
+                                {% else %}                    
+                                    <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{email}}"/>
+                                {% endif %}
+                            </div>
 
-                <div class="form-outline form-white row mb-3">
-                    <label class="form-label" for="typePasswordX">Password</label>
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                </div>
-                <p class="text-center text-muted small mb-4 pb-lg-2"><a href="#!" class="text-body"><u>비밀번호가 잘 기억나지 않나요?</u></a></p>
-            
-                <button class="btn btn-outline-light btn-lg px-5 text-black" type="submit" onclick="location.href='../login_ok'">
-                Login</button>
-            </div>
+                            <div class="form-outline form-white row mb-3">
+                                <label class="form-label" for="typePasswordX">Password</label>
+                                {% if pwd_len == False%}
+                                    <input name="pwd" type="password" id="typePasswordX" class="form-control form-control-lg" placeholder="패스워드를 입력해주세요."/>                    
+                                {% else %}
+                                    <input name="pwd" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                {% endif %}
+                            </div>
+                            {% if status == 0 %}
+                                <p class="text-center text-muted small mb-4 pb-lg-2">&nbsp;</p>
+                            {% elif status == 3 %}
+                                <p class="text-center text-muted small mb-4 pb-lg-2"><u>일치하는 회원정보가 없습니다.</u></p>
+                            {% elif status == 2 %}
+                                <p class="text-center text-muted small mb-4 pb-lg-2"><u>이메일 또는 비밀번호를 다시 확인 해주세요.</u></p>
+                            {% elif status == 1 %}
+                                <script>location.href = "index"</script>
+                            {% else %}
+                                <p class="text-center text-muted small mb-4 pb-lg-2">&nbsp;</p>
+                            {% endif %}
+                            <p class="text-center text-muted small mb-4 pb-lg-2"><a href="#!" class="text-body"><u>비밀번호 찾기</u></a></p>
+                        
+                            <button class="btn btn-outline-light btn-lg px-5 text-black" type="submit" onclick="">Login</button>
+                        </form>
 
-                <div>
-                    <p class="text-center text-muted mt-5">아직 가입하지 않으셨나요?
-                    {% comment %} <a href="../signup" class="fw-bold text-body"><u>회원가입</u></a></p> {% endcomment %}
-                    <button class="btn btn-outline-light px-3 text-black" type="button" onclick="location.href='../signup'">
-                    회원가입</button>
-                </p>
+                    </div>
+
+                        <div>
+                            <p class="text-center text-muted mt-5">아직 가입하지 않으셨나요?
+                            {% comment %} <a href="../signup" class="fw-bold text-body"><u>회원가입</u></a></p> {% endcomment %}
+                            <button class="btn btn-outline-light px-3 text-black" type="button" onclick="location.href='../signup'">
+                            회원가입</button>
+                        </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
 </section>
