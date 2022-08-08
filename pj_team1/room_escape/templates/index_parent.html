@@ -54,7 +54,7 @@
                 <form class="d-flex border-bottom border-1.5 rounded-0 border-secondary justify-content-end align-items-center me-lg-0 mb-2 mb-lg-0 ms-auto" role="search">
                     <input class="form-control " type="search" placeholder="Search....." aria-label="Search" style="border:1px yellow; background-color:transparent;">
                         <div class="d-flex justify-content-end align-items-center me-lg-0 mb-2 mb-lg-0 ms-auto ">
-                            <a class="link-secondary" href="#" aria-label="Search">
+                            <a class="link-secondary" href="../../../search" aria-label="Search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
                             </a>
                         </div>  
@@ -87,4 +87,44 @@
         <!-- Core theme JS-->
         <script src="{% static 'js/scripts.js'%}"></script>
     </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script>
+function click_star(e){
+    var newrate = e.dataset.value;
+    var mother = e.parentElement;
+    var items = mother.children;
+    if ($(e).hasClass('bi-star-fill')){ 
+        for (i=0 ; i < items.length ; i++){
+            if(items[i].dataset.value <= newrate){
+                $(items[i]).addClass('bi-star-fill');
+                $(items[i]).addClass('yellow');
+                $(items[i]).removeClass('bi-star'); 
+            }else{
+                $(items[i]).removeClass('bi-star-fill');
+                $(items[i]).removeClass('yellow');
+                $(items[i]).addClass('bi-star');
+            }
+        }; 
+    } else {
+        for (i=0 ; i < items.length ; i++){
+            if(items[i].dataset.value <= newrate){
+                $(items[i]).addClass('bi-star-fill');
+                $(items[i]).addClass('yellow');
+                $(items[i]).removeClass('bi-star'); 
+            }else{
+                $(items[i]).removeClass('bi-star-fill');
+                $(items[i]).removeClass('yellow');
+                $(items[i]).addClass('bi-star');
+            }
+        };
+        
+    }
+}
+</script>
+<style>
+.bi-star-fill{
+    color:#ffc107;
+}
+</style>
 </html>

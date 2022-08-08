@@ -1,0 +1,76 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+Search
+{% endblock %}
+{% block subject2 %}
+Showing what you search.
+{% endblock %}
+{% block main %}
+    <header class="bg-warning ps-5 mt-5 mb-2 py-3" style="--bs-bg-opacity: .6;">
+        <div class="text-white ms-5">
+            <h1 class="h3 fw-bolder">카페 검색 결과</h1>
+        </div>
+    </header>
+    <div class="container ms-5 ps-5">
+        <!-- Search Result -->
+        <article>
+            <header class="g-mb-15">
+                <h2 class="h4 g-mb-5">
+                    <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" href="/caves/93">더코드 홍대점 (2.0)</a>
+                </h2>
+            </header>
+            <div class="d-lg-flex justify-content-between">
+            <!-- Search Info -->
+                <ul class="list-inline g-mb-10 g-mb-0--lg">
+                    <li class="list-inline-item g-mr-30">
+                        <a href="http://www.thecode10.kr/" target="_blank" class="u-link-v5 g-color-primary--hover">http://www.thecode10.kr/</a>
+                    </li>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="https://www.google.co.kr/maps/place/서울 마포구 와우산로17길 14" target="_blank" class="u-link-v5 g-color-primary--hover">서울 마포구 와우산로17길 14</a>
+                    </li>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="/caves/93" target="_blank" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
+                    </li>
+                </ul>
+            <!-- End Search Info -->
+            </div>
+        </article>
+        <!-- End Search Result -->
+        <hr class="g-brd-gray-light-v4 g-my-20">   
+    </div>
+    <header class="bg-warning ps-5 mt-5 mb-2 py-3" style="--bs-bg-opacity: .6;">
+        <div class="text-white ms-5">
+            <h1 class="h3 fw-bolder">테마 검색 결과</h1>
+        </div>
+    </header>
+    <div class="container ms-5 ps-5">
+        <!-- Search Result -->
+        <article>
+            <header class="g-mb-15">
+                <h2 class="h4 g-mb-5">
+                    <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" href="/caves/93">더코드 홍대점 (2.0)</a>
+                </h2>
+            </header>
+            <div class="d-lg-flex justify-content-between">
+            <!-- Search Info -->
+                <ul class="list-inline g-mb-10 g-mb-0--lg">
+                    <li class="list-inline-item g-mr-30">
+                        <a href="http://www.thecode10.kr/" target="_blank" class="u-link-v5 g-color-primary--hover">http://www.thecode10.kr/</a>
+                    </li>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="https://www.google.co.kr/maps/place/서울 마포구 와우산로17길 14" target="_blank" class="u-link-v5 g-color-primary--hover">서울 마포구 와우산로17길 14</a>
+                    </li>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="/caves/93" target="_blank" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
+                    </li>
+                </ul>
+            <!-- End Search Info -->
+            </div>
+        </article>
+        <!-- End Search Result -->
+        <hr class="g-brd-gray-light-v4 g-my-20">   
+    </div>
+</div>
+</header>
+{% endblock %}

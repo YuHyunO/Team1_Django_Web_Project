@@ -24,6 +24,11 @@ def cafe_detail(request):
     template = loader.get_template('cafe_detail.html')
     return HttpResponse(template.render({}, request))
 
+def search(request):
+    template = loader.get_template('search.html')
+    return HttpResponse(template.render({}, request))
+
+
 from django.shortcuts import redirect, render #방법2
 
 def login(request):

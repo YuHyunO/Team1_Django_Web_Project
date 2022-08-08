@@ -9,6 +9,7 @@ urlpatterns = [
     path('cafe/cafe_detail/', views.cafe_detail, name='cafe_detail'),  
     path('login/', views.login, name='login'),    
     path('signup/', views.signup, name='signup'),
+    path('search/', views.search, name='search'),
     #path('logout/', views.logout, name='logout'),
     #path('mypage/', views.mypage, name='mypage'),
     path('b_announce/', views.b_announce, name='b_announce'), #공지사항 게시판
