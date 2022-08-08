@@ -1,15 +1,15 @@
 {% extends 'index_parent.html' %}
 {% load static %}
 {% block subject %}
-익명게시판
+공지사항
 {% endblock %}
 {% block subject2 %}
-솔직한 후기 및 이야기를 나눠보세요
+notice
 {% endblock %}
 {% block main %}
 <head>
 	<meta charset="utf-8">
-	<title>방탈출_자유게시판</title>
+	<title>방탈출_공지사항</title>
 	<style>
 		.styled-table {
 			border-collapse: collapse;
@@ -21,8 +21,9 @@
 			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 		}
 		.styled-table thead tr {
-			background-color: #dbc5de;
+			background-color: #fcd032; 
 			color: black; 
+			{% comment %} #ffffff 는 화이트 {% endcomment %}
 			text-align: left;
 		}
 		.styled-table th,
@@ -39,14 +40,13 @@
 		}
 		
 		.styled-table tbody tr:last-of-type {
-			border-bottom: 2px solid #dbc5de;
+			border-bottom: 2px solid #fcd032;
 		}
 		.styled-table tbody tr.active-row {
 			font-weight: bold;
-			color: #2ba0db;
+			color: #fcd032;
 		}
-
-		{% comment %} a{text-decoration:none} {% endcomment %}
+		a{text-decoration:none} 
 	</style>
 </head>
 <body>
@@ -62,30 +62,28 @@
 			</TR>
 		</thead>
 		<tbody>
-
-			{% for x in b_anony_lists %}
+			{% for x in b_notice_lists %}
 			<TR>
-				<TD align='center'>{{x.id}}</TD>
-				<TD align='center'>
-					<a href="../b_anony/{{x.id}}"> <!-- {{x.id}} -->
-						{{x.title}}
+				<TD>{{x.id}}</TD>
+				<TD>
+					<a href="../b_notice_read/{{x.id}}"> <!-- {{x.id}} -->
+						{{x.title|truncatechars:20}}
 					</a>
 				</TD>
-				<TD align='center'>{{x.name}}</TD>
-				<TD align='center'>{{x.rdate}}</TD>
-				<TD align='center'>조회수</TD>
+				<TD align="center">{{x.name}}</TD>
+				<TD align="center">{{x.rdate}}</TD>
+				<TD align="center">조회수</TD>
 			</TR> 
 			{% endfor %}
-
 		</tbody>
 	</table>
 <!-- 페이징처리 시작 -->
 <div id="paging">
 	<ul class="pagination justify-content-center" style="margin-top: 2rem;">
 		<!-- 이전페이지 -->
-		{% if b_anony_listss.has_previous %}
+		{% if b_notice_lists.has_previous %}
 			<li class="page-item">
-				<a class="page-link" href="../b_anony/?&page={{ b_anony_lists.previous_page_number }}">이전</a>
+				<a class="page-link" href="../b_free/?&page={{ b_notice_lists.previous_page_number }}">이전</a>
 				<!-- href로 뎁스 설정 :>> href="[여기를 변경] ?&page={{ ...-->
 			</li>
 		{% else %}
@@ -94,21 +92,21 @@
 			</li>
 		{% endif %}
 		<!-- 페이지리스트 -->
-		{% for page_number in b_anony_lists.paginator.page_range %}
-			{% if page_number == b_anony_lists.number %}
+		{% for page_number in b_notice_lists.paginator.page_range %}
+			{% if page_number == b_notice_lists.number %}
 				<li class="page-item active" aria-current="page">
-					<a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+					<a class="page-link" href="../b_notice/?&page={{ page_number }}">{{ page_number }}</a>
 				</li>
 			{% else %}
 				<li class="page-item">
-					<a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+					<a class="page-link" href="../b_notice/?&page={{ page_number }}">{{ page_number }}</a>
 				</li>
 			{% endif %}
 		{% endfor %}
 		<!-- 다음페이지 -->
-		{% if b_anony_lists.has_next %}
+		{% if b_notice_lists.has_next %}
 			<li class="page-item">
-				<a class="page-link" href="../b_anony/?&page={{ b_anony_lists.next_page_number }}">다음</a>
+				<a class="page-link" href="../b_notice/?&page={{ b_notice_lists.next_page_number }}">다음</a>
 			</li>
 		{% else %}
 			<li class="page-item disabled">
@@ -118,8 +116,9 @@
 	</ul>
 </div>
 <!-- 페이징처리 끝 -->
+
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_anony_write/">글쓰기</a></button>
+		<a class="btn btn-default pull-right" href="../b_notice_write">글쓰기</a></button>
 	<br><br>
 	</center>
 </body>

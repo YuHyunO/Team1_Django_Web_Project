@@ -11,13 +11,13 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),
     #path('mypage/', views.mypage, name='mypage'),
-    path('b_announce/', views.b_announce, name='b_announce'), #공지사항 게시판
-    path('b_announce/b_announce_read/<int:id>', views.b_announce_read, name='b_announce_read'), #글읽기
-    path('b_announce_write/', views.b_announce_write, name='b_announce_write'), #글쓰기
-    path('b_announce_write/announce_write_ok/', views.b_announce_write_ok, name='b_announce_write_ok'), #글쓰기 성공
-    path('b_announce/announce_delete/<int:id>', views.b_announce_delete, name='b_announce_delete'), #글 삭제
-    path('b_announce/announce_update/<int:id>', views.b_announce_update, name='b_announce_update'), #글 수정
-    path('b_announce/announce_update/announce_update_ok/<int:id>', views.b_announce_update_ok, name='b_announce_update_ok'), #글 수정 성공
+    path('b_notice/', views.b_notice, name='b_notice'), #공지사항 게시판
+    path('b_notice/b_notice_read/<int:id>', views.b_notice_read, name='b_notice_read'), #글읽기
+    path('b_notice_write/', views.b_notice_write, name='b_notice_write'), #글쓰기
+    path('b_notice_write/notice_write_ok/', views.b_notice_write_ok, name='b_notice_write_ok'), #글쓰기 성공
+    path('b_notice/notice_delete/<int:id>', views.b_notice_delete, name='b_notice_delete'), #글 삭제
+    path('b_notice/notice_update/<int:id>', views.b_notice_update, name='b_notice_update'), #글 수정
+    path('b_notice/notice_update/free_update_ok/<int:id>', views.b_notice_update_ok, name='b_notice_update_ok'), #글 수정 성공
 
 
     path('b_free/', views.b_free, name='b_free'), #자유게시판
@@ -35,4 +35,9 @@ urlpatterns = [
     path('b_anony/anony_update/<int:id>', views.b_anony_update, name='b_anony_update'), #글 수정
     path('b_anony/anony_update/free_update_ok/<int:id>', views.b_anony_update_ok, name='b_anony_update_ok'), #글 수정 성공
     
+]
+# notice/urls.py
+
+urlpatterns = [
+    path('', views.NoticeListView.as_view(), name='notice_list'),
 ]

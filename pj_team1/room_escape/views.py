@@ -145,30 +145,70 @@ def mypage(request):
 
 
 ########################## 공지사항 게시판  ##########################
-def b_announce(request):
-    template = loader.get_template('b_announce.html')
-    b_announce_lists = Board.objects.all().values()
+class NoticeListView(ListView):
+    model = Notice
+    paginate_by = 10
+    template_name = 'notice/notice_list.html'  #DEFAULT : <app_label>/<model_name>_list.html
+    context_object_name = 'notice_list'        #DEFAULT : <model_name>_list
+
+    def get_queryset(self):#최신글이 상단에 표시되게 하는것: get_queryset
+        notice_list = Notice.objects.order_by('-id') 
+        return notice_list
+# notice/views.py
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    paginator = context['paginator']
+    page_numbers_range = 5
+    max_index = len(paginator.page_range)
+
+    page = self.request.GET.get('page')
+    current_page = int(page) if page else 1
+
+    start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
+    end_index = start_index + page_numbers_range
+    if end_index >= max_index:
+        end_index = max_index
+
+    page_range = paginator.page_range[start_index:end_index]
+    context['page_range'] = page_range
+
+    return context    
+
+def b_notice(request):
+    template = loader.get_template('b_notice.html')
+    board = Board.objects.all().values()
+    page = request.GET.get('page', '1')
+    paginator = Paginator(board, 3)
+    b_notice_lists = paginator.page(page)
     context = {
-       'b_announce_lists' : b_announce_lists,
+       'b_notice_lists' : b_notice_lists,
     }
     return HttpResponse(template.render(context, request))
 
-def b_announce_read(request, id):
-    template = loader.get_template('b_announce_read.html') 
+def b_notice_read(request, id):
+    template = loader.get_template('b_notice_read.html') 
     boardcontent = Board.objects.get(id=id)
     context = {
        'boardcontent' : boardcontent,
     }
     return HttpResponse(template.render(context, request))
 
-def b_announce_write(request):
-    template = loader.get_template('b_announce_write.html')
+def b_notice_write(request):
+    template = loader.get_template('b_notice_write.html')
     return HttpResponse(template.render({}, request))
 
 from django.urls import reverse
 from django.utils import timezone
 
-def b_announce_write_ok(request):
+# notice/views.py
+
+from django.views.generic import ListView
+from .models import Notice
+
+
+
+def b_notice_write_ok(request):
     x = request.POST['writer']  
     y = request.POST['email']
     z = request.POST['subject']
@@ -176,22 +216,22 @@ def b_announce_write_ok(request):
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
     boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, type='1', rdate=nowDatetime, udate=nowDatetime)
     boardwrite.save()
-    return HttpResponseRedirect(reverse('b_announce')) 
+    return HttpResponseRedirect(reverse('b_notice')) 
 
-def b_announce_delete(request, id):
+def b_notice_delete(request, id):
     boarddelete = Board.objects.get(id=id)
     boarddelete.delete()
-    return HttpResponseRedirect(reverse('b_announce'))
+    return HttpResponseRedirect(reverse('b_notice'))
 
-def b_announce_update(request, id):
-    template = loader.get_template('b_announce_update.html')
+def b_notice_update(request, id):
+    template = loader.get_template('b_notice_update.html')
     boardupdate = Board.objects.get(id=id)
     context = {
         'boardupdate': boardupdate, 
     }
     return HttpResponse(template.render(context, request))
 
-def b_announce_update_ok(request, id): 
+def b_notice_update_ok(request, id): 
     x = request.POST['email'] 
     y = request.POST['subject']
     z = request.POST['content']
@@ -202,7 +242,7 @@ def b_announce_update_ok(request, id):
     nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
     boardupdateok.rdate = nowDatetime 
     boardupdateok.save()
-    return HttpResponseRedirect(reverse("b_announce"))
+    return HttpResponseRedirect(reverse("b_notice"))
     
     
 def b_free(request):
@@ -269,7 +309,10 @@ def b_free_update_ok(request, id):
 
 def b_anony(request):
     template = loader.get_template('b_anony.html')
-    b_anony_lists = Board.objects.all().values()
+    board = Board.objects.all().values()
+    page = request.GET.get('page', '1')
+    paginator = Paginator(board, 3)
+    b_anony_lists = paginator.page(page)
     context = {
        'b_anony_lists' : b_anony_lists,
     }
