@@ -22,7 +22,7 @@
 				box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 			}
 			.styled-table thead tr {
-				background-color: #fcd032;
+				background-color: #95d2de;
 				color: black; 
 				{% comment %} #ffffff 는 화이트 {% endcomment %}
 				text-align: left;
@@ -41,7 +41,7 @@
 			}
 			
 			.styled-table tbody tr:last-of-type {
-				border-bottom: 2px solid #fcd032;
+				border-bottom: 2px solid #95d2de;
 			}
 			.styled-table tbody tr.active-row {
 				font-weight: bold;
@@ -75,6 +75,7 @@
 
   <body onload="freeUpdate.title.focus()">
 	<center>
+	<br>
 	<form name='freeUpdate' method='post' action='../b_free_update_ok/{{boardupdate.no}}'>
 		{% csrf_token %} 
 		<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
@@ -89,7 +90,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" class="btn btn-warning btn-lg btn-bordered pull-right" value="수정등록" onclick="check()">
+					<input type="submit" class="btn btn-warning btn-lg btn-bordered pull-right" value="수정하기" onclick="check()">
 				</td>
 			</tr>
 		</table>

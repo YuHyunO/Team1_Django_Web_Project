@@ -79,14 +79,14 @@
 	<br>
 	<form name='input' method='post' action='../b_notice_update_ok/{{boardupdate.no}}'>
 		{% csrf_token %} 
-		<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
+		<table class="styled-table" border="0" width="40%"  cellpadding="10" cellspacing="10">
 			<tr>
-				<td align="center">제목</td>
+				<td width="20%" align="center">제목</td>
 				<td><input type="text" name="title" size="68" value="{{boardupdate.title}}"></td>
 			</tr>
 
 			<tr>
-				<td align="center">내용</td>
+				<td width="20%" align="center">내용</td>
 				<td><textarea id='ta' name="content"  rows="20" cols="70">{{boardupdate.content}}</textarea></td>
 			</tr>
 			<tr>

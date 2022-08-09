@@ -70,14 +70,14 @@
 		<br>
 		<form name="input" method="post" action="../b_notice_write/">
 			{% csrf_token %} <!-- 글 작성시 이 문장 추가 필수 -->
-			<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
+			<table class="styled-table" border="0" width="40%"  cellpadding="10" cellspacing="10">
 				<tr>
-					<td align="center">제목</td>
-					<td><input type="text" name="title" size="68"></td>
+					<td width="20%" align="center">제목</td>
+					<td><input type="text" name="title" size="68"></td> <!--size="68"-->
 				</tr>
 				<tr>
-					<td align="center">내용</td>
-					<td><textarea  name="content"  rows="15" cols="70"></textarea></td>
+					<td width="20%" align="center">내용</td>
+					<td><textarea  name="content"  rows="15" cols="70"></textarea></td> <!--cols="70"-->
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
