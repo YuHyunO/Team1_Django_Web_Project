@@ -6,19 +6,49 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 import re
 from django.urls import reverse
+from .models import Member, Board, Room, Theme, CafeReview, ThemeReview
+import random
 
 
 def index(request):
     template = loader.get_template('index.html')
-    return HttpResponse(template.render({}, request))
+    rooms = Room.objects.all().values()
+    rooms_random = []
+    for i in range(0,3):
+        x = random.randint(0, len(rooms)-1)
+        try:
+            rooms_random.index(rooms[x])
+        except:
+            rooms_random.append(rooms[x])
+    themes = Theme.objects.all().values()
+    themes_random = []
+    for i in range(0,3):
+        x = random.randint(0, len(themes)-1)
+        try:
+            themes_random.index(themes[x])
+        except:
+            themes_random.append(themes[x])
+    context = {
+        'rooms_random': rooms_random,
+        'themes_random': themes_random
+    }
+    return HttpResponse(template.render(context, request))
 
 def cafe(request):
     template = loader.get_template('cafe.html')
-    return HttpResponse(template.render({}, request))
+    rooms = Room.objects.all().values()
+    context = {
+        'rooms': rooms
+    }
+    return HttpResponse(template.render(context, request))
 
 def theme(request):
     template = loader.get_template('theme.html')
-    return HttpResponse(template.render({}, request))
+    themes = Theme.objects.all().values()
+    context = {
+        'themes': themes
+    }
+    return HttpResponse(template.render(context, request))
 
 def theme_detail(request):
     template = loader.get_template('theme_detail.html')

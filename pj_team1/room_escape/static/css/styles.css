@@ -6020,10 +6020,11 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-
-.carousel-item.active,
 .carousel-item-next,
 .carousel-item-prev {
+  display: None;
+}
+.carousel-item.active{
   display: block;
 }
 
