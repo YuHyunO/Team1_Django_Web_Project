@@ -1,0 +1,100 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+공지사항
+{% endblock %}
+{% block subject2 %}
+이곳은 전국 방탈출업체 및 이용자들에게 알릴 공지사항 및 이벤트 내용을 작성하는 공간입니다.
+{% endblock %}
+{% block main %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+		<style>
+			.styled-table {
+				border-collapse: collapse;
+				margin: 25px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 1000px;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+			}
+			.styled-table thead tr {
+				background-color: #fcd032;
+				color: black; 
+				{% comment %} #ffffff 는 화이트 {% endcomment %}
+				text-align: left;
+			}
+			.styled-table th,
+			.styled-table td {
+				text-align:center;
+				padding: 12px 15px;
+			}
+			.styled-table tbody tr {
+				border-bottom: 1px solid #dddddd;
+			}
+			
+			.styled-table tbody tr:nth-of-type(even) {
+				background-color: #f3f3f3;
+			}
+			
+			.styled-table tbody tr:last-of-type {
+				border-bottom: 2px solid #fcd032;
+			}
+			.styled-table tbody tr.active-row {
+				font-weight: bold;
+				color: #fcd032;
+			}
+			a{text-decoration:none}
+		</style>
+
+	<script language="javascript">
+	   function check()
+	   {
+	       for(var i=0; i<document.input.elements.length; i++)
+		   {
+		      if(document.input.elements[i].value == "")
+			  {
+			     alert("내용을 작성해주세요. ");
+				 return false;
+			  }
+		   }
+		   document.input.submit();
+       }
+	</script>
+  </head>
+  <body onload="input.title.focus()">
+    <center>
+		<br>
+		<form name="input" method="post" action="../b_notice_write/">
+			{% csrf_token %} <!-- 글 작성시 이 문장 추가 필수 -->
+			<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
+				<tr>
+					<th width="20%" align="center">제목</th>
+					<td><input type="text" name="title" size="99"></td> <!--size="68"-->
+				</tr>
+				<tr>
+					<th width="20%" align="center">내용</th>
+					<td><textarea  name="content"  rows="25" cols="100"></textarea></td> <!--cols="70"-->
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button type="button" value="등록하기" onclick="check()" class="btn btn-lg btn-warning btn-bordered pull-right">
+							등록하기</button>
+						<button type="reset" value="모두 지우기" onclick="input.title.focus()" class="btn btn-warning btn-lg btn-bordered pull-right">
+							모두 지우기</button>
+						{% comment %} <input type="button" class="btn btn-warning btn-default btn-bordered pull-right" value="등록하기" onclick="check()">
+						<input type="reset" class="btn btn-warning btn-default btn-bordered pull-right" value="모두 지우기" onclick="input.title.focus()"> {% endcomment %}
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<a href="../../b_notice"><input type="button" class="btn btn-warning btn-default btn-bordered pull-right" value="목록으로 돌아가기"></a>
+		<br><br>
+	</center>
+  </body>
+</html>
+{% endblock %}

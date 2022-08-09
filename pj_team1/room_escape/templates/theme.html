@@ -1,0 +1,245 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+Theme
+{% endblock %}
+{% block subject2 %}
+어떤 테마를 찾고 계신가요?
+{% endblock %}
+{% block main %}
+    <div class="row justify-content-center py-4 px-5 mx-5">
+        <div class="col-sm-2 col-lg-2 g-mb-10">
+        </div>
+      <div class="col-sm-4 col-lg-4 g-mb-10">
+        <!-- Button Group -->
+        <div class="col-md-0">
+            <label for="location" class="form-label">지역</label>
+            <select class="form-select" id="location" required="">
+              <option value="">Choose...</option>
+              <option disabled>-----서울-----</option>
+              <option>강남</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid country.
+            </div>
+        </div>
+        <!-- End Button Group -->
+      </div>
+      <div class="col-sm-4 col-lg-4 g-mb-10">
+        <label for="Search" class="form-label">테마명</label>
+        <input class="form-control " type="search" placeholder="검색할 테마명을 입력하세요." aria-label="Search">
+      </input>
+    </div>
+    <div class="col-sm-2 col-lg-2 g-mb-10">
+    </div>
+
+      <div class="col-sm-2 col-lg-2 g-mb-10 my-4">
+        <div class="col-md-0">
+          <label class="g-mb-10">
+            공포도
+          </label>
+          <div class="form-group">
+            <select class="form-select" id="max_fear" required="">
+              <option value="5">최대 공포도</option>
+              <option value="1">1점 이하</option>
+              <option value="2">2점 이하</option>
+              <option value="3">3점 이하</option>
+              <option value="4">4점 이하</option>
+              <option value="5">5점 이하</option>
+            </select>
+            <select class="form-select" id="min_fear" required="">
+              <option value="0">최소 공포도</option>
+              <option value="1">1점 이상</option>
+              <option value="2">2점 이상</option>
+              <option value="3">3점 이상</option>
+              <option value="4">4점 이상</option>
+              <option value="5">5점 이상</option>
+            </select>
+            <input type="hidden" value="0-5" name="fear">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-2 col-lg-2 g-mb-10 my-4">
+        <div class="col-md-0">
+          <label class="g-mb-10">
+            활동성
+          </label>
+          <div class="form-group">
+            <select class="form-select" id="max_activeness" required="">
+              <option value="5">최대 활동성</option>
+              <option value="1">1점 이하</option>
+              <option value="2">2점 이하</option>
+              <option value="3">3점 이하</option>
+              <option value="4">4점 이하</option>
+              <option value="5">5점 이하</option>
+            </select>
+            <select class="form-select" id="min_activeness" required="">
+              <option value="0">최소 활동성</option>
+              <option value="1">1점 이상</option>
+              <option value="2">2점 이상</option>
+              <option value="3">3점 이상</option>
+              <option value="4">4점 이상</option>
+              <option value="5">5점 이상</option>
+            </select>
+            <input type="hidden" value="0-5" name="activity">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-2 col-lg-2 g-mb-10 my-4">
+        <div class="col-md-0">
+          <label class="g-mb-10">
+            난이도
+          </label>
+          <div class="form-group">
+            <select class="form-select" id="max_difficulty" required="">
+              <option value="5">최대 난이도</option>
+              <option value="1">1점 이하</option>
+              <option value="2">2점 이하</option>
+              <option value="3">3점 이하</option>
+              <option value="4">4점 이하</option>
+              <option value="5">5점 이하</option>
+            </select>
+            <select class="form-select" id="min_difficulty" required="">
+              <option value="0">최소 난이도</option>
+              <option value="1">1점 이상</option>
+              <option value="2">2점 이상</option>
+              <option value="3">3점 이상</option>
+              <option value="4">4점 이상</option>
+              <option value="5">5점 이상</option>
+            </select>
+            <input type="hidden" value="0-5" name="difficulty">
+          </div>
+        </div>
+      </div>
+
+     <div class="col-sm-2 col-lg-2 g-mb-10 my-4">
+        <div class="col-md-0">
+          <label class="g-mb-10">
+            평점
+          </label>
+          <div class="form-group">
+            <select class="form-select" id="max_score" required="">
+              <option value="5">최대 평점</option>
+              <option value="1">1점 이하</option>
+              <option value="2">2점 이하</option>
+              <option value="3">3점 이하</option>
+              <option value="4">4점 이하</option>
+              <option value="5">5점 이하</option>
+            </select>
+            <select class="form-select" id="min_score" required="">
+              <option value="0">최소 평점</option>
+              <option value="1">1점 이상</option>
+              <option value="2">2점 이상</option>
+              <option value="3">3점 이상</option>
+              <option value="4">4점 이상</option>
+              <option value="5">5점 이상</option>
+            </select>
+            <input type="hidden" value="0-5" name="userScore">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center col-sm-10 col-lg-10 g-mb-10">
+      <button class="btn btn-lg btn-warning text-white">Search</button>
+    </div>
+    </div>
+</div>
+  </form>
+  
+        <!-- Section-->
+        <section class="py-0">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                  
+                    {% for list in themes %}
+                      <div class="col mb-5">
+                          <div class="card h-100">
+                              <img class="img-fluid m-auto img-thumbnail" style="width:230; position:;" src="{{list.img_path}}" alt="..." />
+                              <div class="card-body p-4">
+                                  <div class="text-center">
+                                      <h5 class="fw-bolder">{{list.theme}}</h5>
+                                      <div class="row">
+                                      <div class="col-lg-6 pe-0" style="white-space:nowrap;">
+                                        <label for="fear" class="form-label m-0">공포도</label>
+                                        <li class="list-unstyled score" style = "position:absolute;">
+                                          <i value="1" class="bi-star"></i>
+                                          <i value="2" class="bi-star"></i>
+                                          <i value="3" class="bi-star"></i>
+                                          <i value="4" class="bi-star"></i>
+                                          <i value="5" class="bi-star"></i>
+                                      </li>
+                                      <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                          <i value="1" class="bi-star-fill"></i>
+                                          <i value="2" class="bi-star-fill"></i>
+                                          <i value="3" class="bi-star-fill"></i>
+                                          <i value="4" class="bi-star-fill"></i>
+                                          <i value="5" class="bi-star-fill"></i>
+                                      </li>
+                                      </div>
+                                      <div class="col-lg-6 pe-0" style="white-space:nowrap;">
+                                        <label for="activeness" class="form-label m-0">활동성</label>
+                                        <li class="list-unstyled score" style = "position:absolute;">
+                                          <i value="1" class="bi-star"></i>
+                                          <i value="2" class="bi-star"></i>
+                                          <i value="3" class="bi-star"></i>
+                                          <i value="4" class="bi-star"></i>
+                                          <i value="5" class="bi-star"></i>
+                                      </li>
+                                      <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                          <i value="1" class="bi-star-fill"></i>
+                                          <i value="2" class="bi-star-fill"></i>
+                                          <i value="3" class="bi-star-fill"></i>
+                                          <i value="4" class="bi-star-fill"></i>
+                                          <i value="5" class="bi-star-fill"></i>
+                                      </li>
+                                      </div>
+                                      <div class="col-lg-6 pe-0" style="white-space:nowrap;">
+                                        <label for="difficulty" class="form-label m-0">난이도</label>
+                                        <li class="list-unstyled score" style = "position:absolute;">
+                                          <i value="1" class="bi-star"></i>
+                                          <i value="2" class="bi-star"></i>
+                                          <i value="3" class="bi-star"></i>
+                                          <i value="4" class="bi-star"></i>
+                                          <i value="5" class="bi-star"></i>
+                                      </li>
+                                      <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                          <i value="1" class="bi-star-fill"></i>
+                                          <i value="2" class="bi-star-fill"></i>
+                                          <i value="3" class="bi-star-fill"></i>
+                                          <i value="4" class="bi-star-fill"></i>
+                                          <i value="5" class="bi-star-fill"></i>
+                                      </li>
+                                      </div>
+                                      <div class="col-lg-6 pe-0"  style="white-space:nowrap;">
+                                        <label for="score" class="form-label m-0">평점</label>
+                                        <li class="list-unstyled score" style = "position:absolute;">
+                                          <i value="1" class="bi-star"></i>
+                                          <i value="2" class="bi-star"></i>
+                                          <i value="3" class="bi-star"></i>
+                                          <i value="4" class="bi-star"></i>
+                                          <i value="5" class="bi-star"></i>
+                                      </li>
+                                      <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                          <i value="1" class="bi-star-fill"></i>
+                                          <i value="2" class="bi-star-fill"></i>
+                                          <i value="3" class="bi-star-fill"></i>
+                                          <i value="4" class="bi-star-fill"></i>
+                                          <i value="5" class="bi-star-fill"></i>
+                                      </li>
+                                            </div>
+                                          </div>
+                                  </div>
+                              </div>
+                              <!-- Product actions-->
+                              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="theme_detail/{{list.no}}">테마 보기</a></div>
+                              </div>
+                          </div>
+                      </div>
+                    {% endfor %}                            
+
+                </div>
+            </div>
+        </section>
+{% endblock %}

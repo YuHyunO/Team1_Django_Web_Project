@@ -1,0 +1,99 @@
+{% extends 'index_parent.html' %} 
+{% load static %} 
+{% block subject %} 
+공지사항
+{% endblock %} 
+{% block subject2 %} 
+공지사항 및 이벤트를 확인해보세요. 
+{% endblock %} 
+{% block main %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>공지사항</title>
+    <style>
+		.styled-table {
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			min-width: 1000px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+		.styled-table thead tr {
+			background-color: #fcd032;
+			color: black; 
+			{% comment %} #ffffff 는 화이트 {% endcomment %}
+			text-align: left;
+		}
+		.styled-table th,
+		.styled-table td {
+			text-align:center;
+			padding: 12px 15px;
+		}
+		.styled-table tbody tr {
+			border-bottom: 1px solid #dddddd;
+		}
+		
+		.styled-table tbody tr:nth-of-type(even) {
+			background-color: #f3f3f3;
+		}
+		
+		.styled-table tbody tr:last-of-type {
+			border-bottom: 2px solid #fcd032;
+		}
+		.styled-table tbody tr.active-row {
+			font-weight: bold;
+			color: #fcd032;
+		}
+		a{text-decoration:none}
+    </style>
+  </head>
+  <body>
+    <center>
+		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<thead>
+				<th width="10%" align="center">글번호</th> 
+				<th width="60%" align="center">제목</th>
+				<th width="10%" align="center">작성자</th>
+			</thead>
+			<tr>
+				<td width="10%" align="left">{{post.no}}</td>
+				<td width="60%">{{post.title}}</td>
+				<td width="10%" align="left">{{post.name}}</td>
+			</tr>
+		</table>
+
+		<table class="styled-table" border="0" width="600" height="200" cellpadding="50" cellspacing="10">
+			<tr>
+				<th width="10%" align="center">내용</th>
+				<td>{{post.content}}</td>
+			</tr>
+		</table>	
+
+     
+		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<tr>
+				<th align="center">작성일</th>
+				<td>{{post.rdate}}</td>
+				<th align="center">최종 수정일</th>
+				<td>{{post.udate}}</td>
+			</tr>
+		</table>	
+
+	  <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_notice_update/{{post.no}}">글 수정</a></button>
+    <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_notice">목록</a></button>
+	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_notice_write">글쓰기</a></button>
+	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_notice_delete/{{post.no}}">글 삭제</a></button>
+	<br>
+	<br>
+
+    </center>
+  </body>
+</html>
+{% endblock %}

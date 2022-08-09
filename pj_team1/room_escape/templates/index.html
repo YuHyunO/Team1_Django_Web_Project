@@ -1,0 +1,168 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Bootstrap core CSS -->
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+
+{% endblock head %}
+
+
+{% block subject %}
+Room Escape
+{% endblock %}
+{% block subject2 %}
+With this reservation hompeage template.
+{% endblock %}
+
+
+    {% block main %}
+    <main role="main">
+  
+        <!--first-->
+      <div class="row">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-10">
+        <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="false" >
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active bg-white mt-5">
+                <div class="d-block bg- w-100" alt="..."></div>
+                <div class="h3 text-center mt-3 fw-bold">
+                  <i class="bi-shuffle me-2"></i>Recommand Cafe For You</div>
+                <div class="carousel-caption d-none d-md-block">                  
+                    <div class="row ">
+
+                      {% for list in rooms_random %}
+                        <div class="col-lg-4">
+                          <img class="rounded-circle my-md-3 img-thumbnail" src="{{list.img_path}}" alt="Generic placeholder image" width="140" height="140">
+                          <h4 class="text-black fw-bold">{{list.room}}</h2>
+                            <div class="row my-3">
+                            <div class="col-lg-6">
+                              <h5 for="score" class="form-label fw-bold text-black ms-5" style="white-space:nowrap;">평점</h5>
+                            </div>
+                            <div class="col-lg-6">  
+                              <li class="list-unstyled score" style = "position:absolute;">
+                                <i value="1" class="bi-star"></i>
+                                <i value="2" class="bi-star"></i>
+                                <i value="3" class="bi-star"></i>
+                                <i value="4" class="bi-star"></i>
+                                <i value="5" class="bi-star"></i>
+                              </li>
+                              <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                <i value="1" class="bi-star-fill"></i>
+                                <i value="2" class="bi-star-fill"></i>
+                                <i value="3" class="bi-star-fill"></i>
+                                <i value="4" class="bi-star-fill"></i>
+                                <i value="5" class="bi-star-fill"></i>
+                            </li>
+                          </div>
+                        </div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../cafe/cafe_detail/{{list.room}}">카페 보기</a></div>
+                        </div><!-- /.col-lg-4 -->
+                      {% endfor %}
+
+                    </div>
+                </div>
+              </div>
+              <div class="carousel-item bg-white mt-5">
+                <div class="d-block bg w-100" alt="..."></div>
+                <div class="h3 text-center mt-3 fw-bold">
+                  <i class="bi-shuffle me-2"></i>Recommand Theme For You</div>
+                <div class="carousel-caption d-none d-md-block">                  
+                    <div class="row ">
+
+                      {% for list in themes_random %}
+                        <div class="col-lg-4">
+                          <img class="my-md-3 img-thumbnail" src="{{list.img_path}}" alt="Generic placeholder image" width="140" height="140">
+                          <h4 class="text-black fw-bold">{{list.theme}}</h2>
+                            <div class="row my-3">
+                            <div class="col-lg-6">
+                              <h5 for="score" class="form-label fw-bold text-black ms-5" style="white-space:nowrap;">평점</h5>
+                            </div>
+                            <div class="col-lg-6">  
+                              <li class="list-unstyled score" style = "position:absolute;">
+                                <i value="1" class="bi-star"></i>
+                                <i value="2" class="bi-star"></i>
+                                <i value="3" class="bi-star"></i>
+                                <i value="4" class="bi-star"></i>
+                                <i value="5" class="bi-star"></i>
+                              </li>
+                              <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                <i value="1" class="bi-star-fill"></i>
+                                <i value="2" class="bi-star-fill"></i>
+                                <i value="3" class="bi-star-fill"></i>
+                                <i value="4" class="bi-star-fill"></i>
+                                <i value="5" class="bi-star-fill"></i>
+                            </li>
+                          </div>
+                        </div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../theme/theme_detail/{{list.no}}">테마 보기</a></div>
+                        </div><!-- /.col-lg-4 -->
+                      {% endfor %}
+
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+        
+      <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+
+      <div class="container marketing">
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Join Us!! <span class="text-muted">Room Escape</span></h2>
+            <p class="lead">방탈출 카페 사이트는 사용자들의 쉽고 원활한 방탈출 정보 획득 및 예매를 위해<br> 다양한 방탈출 카페들과 연계하여 정보를 제공합니다. 공포도, 활동성 등 테마를<br> 선택하는데 기준이 되는 지표들은 리뷰들을 바탕으로 산출되기에 더 정확하게<br> 확인하실 수 있습니다. 리뷰 등 다양한 이벤트에 참여하여 더 저렴한 가격에<br> 방탈출을 이용해보세요.</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="https://image.kmib.co.kr/online_image/2018/0717/611315110012529351_1.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+
+
+
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../static/js/index/jquery-slim.min.js"><\/script>')</script>
+    
+    <script src="../static/js/index/popper.min.js"></script>
+    <script src="../static/js/index/bootstrap.min.js"></script>
+
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../static/js/index/holder.min.js"></script>
+
+    
+{% endblock %}

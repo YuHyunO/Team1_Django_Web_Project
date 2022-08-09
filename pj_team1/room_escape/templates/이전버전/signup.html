@@ -1,0 +1,115 @@
+{% extends 'nav_bar.html' %}
+{% load static %}
+{% comment %} 
+<script src="{% static '/js/trim.js' %}"></script>
+<script language="javascript">
+    function strip(){
+        var name_val = signup_form.name.value;
+        var nickname_val = signup_form.name.value;
+        var email_val = signup_form.name.value;
+        var pwd_1_val = signup_form.name.value;
+        var pwd_2_val = signup_form.name.value;
+
+        name_val = trim(name_val);
+        nickname_val = trim(nickname_val);
+        email_val = trim(email_val);
+        pwd_1_val = trim(pwd_1_val);
+        pwd_2_val = trim(pwd_2_val);
+
+        signup_form.submit();
+    }
+</script> 
+{% endcomment %}
+
+{% block head %}
+<title>방탈출_Signup</title>
+{% endblock head %}
+
+{% block content %}
+<section class="vh-100 gradient-custom"> 
+    <div class="container my-5"> 
+        <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-warning text-dark" style="border-radius: 5rem;">
+            <div class="card-body p-5 text-center">                
+                <div class="my-1">
+                    <h2 class="fw-bold mb-2 text-uppercase">회원가입</h2>
+                    <p class="text-dark-20 mb-5">방탈출사이트의 다양한 서비스를 이용해보세요.</p>
+                    
+                    <form name="signup_form" action="../signup/" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeEmailX">이메일</label>
+                            {% comment %} {% if email_regex == False %}
+                                <input name="email" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이메일을 형식에 맞게 입력해주세요." /> {% endcomment %}
+                            {% if email_val == False %}
+                                <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="이미 사용중인 이메일입니다." required/> 
+
+                            {% else %}
+                                <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" value="{{email}}" required/>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typePasswordX">비밀번호</label>
+                            <input name="pwd_1" type="password" id="typePasswordX" class="form-control form-control-lg" value="{{pwd_1}}" required/>
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="form3Example4cdg">비밀번호 확인</label>
+                            {% if pwd2_val == False %}
+                                <input name="pwd_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" placeholder="패스워드가 일치하지 않습니다." required/> 
+                            {% else %}  
+                                <input name="pwd_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" value="{{pwd_2}}" required/>
+                            {% endif %}                                
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeNameX">이름</label>
+                            <input name="name" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{name}}" maxlength=10 required/>
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeNameX">닉네임</label>
+                            {% if nickname_val == False %}
+                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이미 사용중인 닉네임입니다." maxlength=10 required/>
+                            {% else %}
+                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{nickname}}" maxlength=10 required/>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typePhoneX">Phone Number</label>
+                            {% if all_validation == False %}
+                            <input type="text" id="typePhoneX" class="form-control form-control-lg" name="phone" required/>
+                            {% else %}
+                            <input type="text" id="typePhoneX" class="form-control form-control-lg" name="phone" value="{{phone}}" required/>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-check d-flex justify-content-center mb-5">
+                            <input class="form-check-input me-2" type="checkbox" value="checked" id="form2Example3cg" required/>
+                            <label class="form-check-label" for="form2Example3g">
+                            본 사이트의 <a href="#!" class="text-body"><u>개인정보 이용약관</u></a>에 동의합니다.
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="strip()">가입하기</button>
+                        </div>
+                    </form>
+               
+                </div>
+                    <p class="text-center text-muted mt-5">이미 가입된 계정이 있으십니까?
+                        <a href="../login" class="fw-bold text-body"><u>Go Login</u></a></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content%}

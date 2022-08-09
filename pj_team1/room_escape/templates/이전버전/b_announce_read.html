@@ -1,0 +1,105 @@
+{% extends 'index_parent.html' %} 
+{% load static %} 
+{% block subject %} 
+공지사항
+{% endblock %} 
+{% block subject2 %} 
+여러 공지사항 및 이벤트를 확인해보세요. 
+{%endblock %} 
+{% block main %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>공지사항</title>
+    <style>
+		.styled-table {
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			min-width: 1000px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+		.styled-table thead tr {
+			background-color: #fcd032;
+			color: black; 
+			{% comment %} #ffffff 는 화이트 {% endcomment %}
+			text-align: left;
+		}
+		.styled-table th,
+		.styled-table td {
+			text-align:center;
+			padding: 12px 15px;
+		}
+		.styled-table tbody tr {
+			border-bottom: 1px solid #dddddd;
+		}
+		
+		.styled-table tbody tr:nth-of-type(even) {
+			background-color: #f3f3f3;
+		}
+		
+		.styled-table tbody tr:last-of-type {
+			border-bottom: 2px solid #fcd032;
+		}
+		.styled-table tbody tr.active-row {
+			font-weight: bold;
+			color: #fcd032;
+		}
+		a{text-decoration:none}
+    </style>
+  </head>
+  <body>
+    <center>
+        <table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<tr>
+			<td width="20%" align="center">글번호</td>
+			<td>{{boardcontent.id}}</td>
+			</tr>
+			<tr>
+			<td width="20%" align="center">작성자</td>
+			<td>{{boardcontent.name}}</td>
+			</tr>
+
+			<tr>
+			<td align="center">E-mail</td>
+			<td>{{boardcontent.email}}</td>
+			</tr>
+
+			<tr>
+			<td align="center">제목</td>
+			<td>{{boardcontent.subject}}</td>
+			</tr>
+
+			<tr>
+			<td align="center">내용</td>
+			<td>{{boardcontent.content}}</td>
+			</tr>
+
+			<tr>
+				<td  align="center">작성일시</td>
+				<td>{{boardcontent.rdate}}</td>
+			</tr>
+
+			<tr>
+			<td  align="center">수정일시</td>
+			<td>{{boardcontent.udate}}</td>
+		</tr>
+      </table>
+
+	  <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_announce_delete/{{int.id}}">수정하기</a></button>
+		<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+			<a class="btn btn-default pull-right" href="../b_announce_delete/{{int.id}}">삭제하기</a></button>
+	  <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../../b_announce">목록으로 돌아가기</a></button>
+	  <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_announce_write">글쓰기</a></button>
+	<br>
+	<br>
+
+    </center>
+  </body>
+</html>
+{% endblock %}

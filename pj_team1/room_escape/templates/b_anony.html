@@ -1,0 +1,125 @@
+{% extends 'index_parent.html' %} 
+{% load static %} 
+{% block subject %}
+익명게시판 
+{% endblock %} 
+{% block subject2 %} 
+익명 후기 및 수다방 
+{% endblock %} 
+{% block main %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>익명게시판</title>
+    <style>
+      .styled-table {
+      	border-collapse: collapse;
+      	margin: 25px 0;
+      	font-size: 0.9em;
+      	font-family: sans-serif;
+      	min-width: 1000px;
+      	max-width: 1000px;
+      	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+      .styled-table thead tr {
+      	background-color: #dbc5de; <!--연보라색-->
+      	color: black;
+      	text-align: left;
+      }
+      .styled-table th,
+      .styled-table td {
+      	text-align:center;
+      	padding: 12px 15px;
+      }
+      .styled-table tbody tr {
+      	border-bottom: 1px solid #dddddd;
+      }
+
+      .styled-table tbody tr:nth-of-type(even) {
+      	background-color: #f3f3f3;
+      }
+
+      .styled-table tbody tr:last-of-type {
+      	border-bottom: 2px solid #dbc5de;
+      }
+      .styled-table tbody tr.active-row {
+      	font-weight: bold;
+      	color: #dbc5de;
+      }
+      a{text-decoration:none}
+    </style>
+  </head>
+  <body>
+    <center>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th width="10%">글번호</th>
+            <th width="60%">제목</th>
+            <th width="20%">작성일</th>
+            <th width="10%">조회수</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in b_anony_lists %}
+          <tr>
+            <td align="center">{{x.no}}</td>
+            <td align="center">
+              <a href="{{x.no}}">
+                {{x.title|truncatechars:20}}
+              </a>
+            </td>
+            <td align="center">{{x.rdate}}</td>
+            <td align="center">조회수</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- 페이징처리 시작 -->
+    <div id="paging">
+        <ul class="pagination justify-content-center" style="margin-top: 2rem">
+			{% if b_anony_lists.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="../b_anony/?&page={{ b_anony_lists.previous_page_number }}">이전</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+				</li>
+			{% endif %}
+			{% for page_number in b_anony_lists.paginator.page_range %}
+				{% if page_number >= page_obj.number|add:-15 and page_number <= page_obj.number|add:15 %}
+					{% if page_number == b_anony_lists.number %}
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+						</li>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			{% if b_anony_lists.has_next %}
+			<li class="page-item">
+				<a
+				class="page-link" href="../b_anony/?&page={{ b_anony_lists.next_page_number }}">다음</a>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+			</li>
+			{% endif %}
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+
+    <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+        <a class="btn pull-right" href="../b_anony_write/">글쓰기</a></button>
+    </center>
+	<br>
+  </body>
+</html>
+{% endblock %}
