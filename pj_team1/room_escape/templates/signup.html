@@ -1,34 +1,14 @@
 {% extends 'nav_bar.html' %}
 {% load static %}
-{% comment %} 
-<script src="{% static '/js/trim.js' %}"></script>
-<script language="javascript">
-    function strip(){
-        var name_val = signup_form.name.value;
-        var nickname_val = signup_form.name.value;
-        var email_val = signup_form.name.value;
-        var pwd_1_val = signup_form.name.value;
-        var pwd_2_val = signup_form.name.value;
-
-        name_val = trim(name_val);
-        nickname_val = trim(nickname_val);
-        email_val = trim(email_val);
-        pwd_1_val = trim(pwd_1_val);
-        pwd_2_val = trim(pwd_2_val);
-
-        signup_form.submit();
-    }
-</script> 
-{% endcomment %}
 
 {% block head %}
 <title>방탈출_Signup</title>
 {% endblock head %}
 
 {% block content %}
-<section class="vh-100 gradient-custom"> 
+<section class="gradient-custom"> 
     <div class="container my-5"> 
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row d-flex my-5 justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card bg-warning text-dark" style="border-radius: 5rem;">
             <div class="card-body p-5 text-center">                

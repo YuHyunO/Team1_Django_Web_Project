@@ -19,9 +19,8 @@ class Board(models.Model):
     rdate = models.DateTimeField(auto_now_add=True)
     udate = models.DateTimeField(auto_now=True)
   
-class Room(models.Model):
-    no = models.AutoField(primary_key=True) 
-    room = models.TextField()
+class Room(models.Model): 
+    room = models.CharField(primary_key=True, max_length=255)
     loc = models.TextField()
     url = models.CharField(max_length=255)
     tel = models.CharField(max_length=50)
@@ -39,7 +38,7 @@ class CafeReview(models.Model):
 class Theme(models.Model):
     no = models.AutoField(primary_key=True)    
     theme = models.TextField()
-    room = models.ForeignKey(Room, related_name='Theme_room', on_delete=models.CASCADE, db_column='room')
+    room = models.ForeignKey(Room, related_name='theme_room', on_delete=models.CASCADE, db_column='room')
     img_path = models.TextField()
     genre = models.CharField(max_length=255)
     people = models.CharField(max_length=10, default='-')
