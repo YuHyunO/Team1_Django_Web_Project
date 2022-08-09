@@ -14,7 +14,9 @@ def index(request):
     template = loader.get_template('index.html')
     rooms = Room.objects.all().values()
     rooms_random = []
-    for i in range(0,3):
+    while True:
+        if len(rooms_random) == 3:
+            break
         x = random.randint(0, len(rooms)-1)
         try:
             rooms_random.index(rooms[x])
@@ -22,7 +24,9 @@ def index(request):
             rooms_random.append(rooms[x])
     themes = Theme.objects.all().values()
     themes_random = []
-    for i in range(0,3):
+    while True:
+        if len(themes_random) == 3:
+            break
         x = random.randint(0, len(themes)-1)
         try:
             themes_random.index(themes[x])
@@ -196,14 +200,22 @@ def mypage(request):
     return render(request,'mypage.html')
 
 
-########################## 공지사항 게시판  ##########################
-def b_announce(request):
-    template = loader.get_template('b_announce.html')
-    b_announce_lists = Board.objects.all().values()
+########################## 공지사항 게시판  ##########################                                              
+def b_notice(request):
+    template = loader.get_template('b_notice.html')
+    page = request.GET.get('page', '1')#시작페이지 
+    #조회
+    board = Board.objects.all().order_by('-no')
+    #페이징처리
+    paginator = Paginator(board, 10)#게시판수
+    page_obj = paginator.get_page(page)
+    b_notice_lists = paginator.page(page)
     context = {
-       'b_announce_lists' : b_announce_lists,
+       'b_notice_lists':b_notice_lists,
+       'board':page_obj 
     }
-    return HttpResponse(template.render(context, request))
+    # return render(request,'b_notice.html',context)
+    return HttpResponse(template.render(context,request))
 
 def b_announce_read(request, id):
     template = loader.get_template('b_announce_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
