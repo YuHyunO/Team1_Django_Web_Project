@@ -52,45 +52,44 @@
   </head>
   <body>
     <center>
-        <table class="styled-table"
-			border="0"
-			width="50"
-			cellpadding="10"
-			cellspacing="10">
-
+		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<thead>
+				<th width="10%" align="center">글번호</th> 
+				<th width="60%" align="center">제목</th>
+				<th width="10%" align="center">작성자</th>
+			</thead>
 			<tr>
-			<td width="20%" align="center">글번호</td>
-			<td>{{boardcontent.no}}</td>
+				<td width="10%" align="left">{{boardcontent.no}}</td>
+				<td width="60%">{{boardcontent.title}}</td>
+				<td width="10%" align="left">{{boardcontent.name}}</td>
 			</tr>
-			<tr>
-			<td align="center">제목</td>
-			<td>{{boardcontent.title}}</td>
-			</tr>
+		</table>
 
+		<table class="styled-table" border="0" width="600" height="200" cellpadding="50" cellspacing="10">
 			<tr>
-			<td align="center">내용</td>
-			<td>{{boardcontent.content}}</td>
+				<th width="10%" align="center">내용</th>
+				<td>{{boardcontent.content}}</td>
 			</tr>
+		</table>	
 
+     
+		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
 			<tr>
-				<td  align="center">작성일</td>
+				<th align="center">작성일</th>
 				<td>{{boardcontent.rdate}}</td>
+				<th align="center">최종 수정일</th>
+				<td>{{boardcontent.udate}}</td>
 			</tr>
-
-			<tr>
-			<td  align="center">수정일</td>
-			<td>{{boardcontent.udate}}</td>
-			</tr>
-      </table>
+		</table>
 
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_anony_update/{{boardcontent.no}}">글 수정</a></button>
+		<a class="btn btn-default pull-right" href="../b_anony_update/{{boardcontent.no}}">수정하기</a></button>
     <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
 		<a class="btn btn-default pull-right" href="../b_anony">목록</a></button>
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
 		<a class="btn btn-default pull-right" href="../b_anony_write">글쓰기</a></button>
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_anony_delete/{{boardcontent.no}}">글 삭제</a></button>
+		<a class="btn btn-default pull-right" href="../b_anony_delete/{{boardcontent.no}}">삭제하기</a></button>
 	<br>
 	<br>
 

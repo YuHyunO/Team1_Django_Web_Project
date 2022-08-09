@@ -4,13 +4,14 @@
 자유게시판
 {% endblock %}
 {% block subject2 %}
-자유게시판 글 수정하기
+글 수정하기
 {% endblock %}
 {% block main %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
+	<title>익명게시판</title>
     <style>
 		<style>
 			.styled-table {
@@ -80,13 +81,12 @@
 		{% csrf_token %} 
 		<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
 			<tr>
-				<td align="center">제목</td>
-				<td><input type="text" name="title" size="68" value="{{boardupdate.title}}"></td>
+				<th width="20%" align="center">제목</th>
+				<td><input type="text" name="title" size="99" value="{{boardupdate.title}}"></td>
 			</tr>
-
 			<tr>
-				<td align="center">내용</td>
-				<td><textarea id='ta' name="content"  rows="20" cols="70">{{boardupdate.content}}</textarea></td>
+				<th width="20%" align="center">내용</th>
+				<td><textarea id='ta' name="content"  rows="25" cols="100">{{boardupdate.content}}</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">

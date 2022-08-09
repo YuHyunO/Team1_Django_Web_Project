@@ -9,7 +9,7 @@
 {% block main %}
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>익명게시판</title>
     <style>
@@ -56,7 +56,7 @@
         <thead>
           <tr>
             <th width="10%">글번호</th>
-            <th width="50%">제목</th>
+            <th width="60%">제목</th>
             <th width="20%">작성일</th>
             <th width="10%">조회수</th>
           </tr>
@@ -67,7 +67,6 @@
             <td align="center">{{x.no}}</td>
             <td align="center">
               <a href="{{x.no}}">
-                <!-- {{x.id}} -->
                 {{x.title|truncatechars:20}}
               </a>
             </td>
@@ -132,13 +131,8 @@
     </div>
     <!-- 페이징처리 끝 -->
 
-    <button
-        type="button"
-        class="btn btn-warning btn-sm btn-bordered pull-right"
-      >
-        <a class="btn btn-default pull-right" href="../b_anony_write/"
-          >글쓰기</a>
-      </button>
+    <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+        <a class="btn pull-right" href="../b_anony_write/">글쓰기</a></button>
     </center>
 	<br>
   </body>
