@@ -1,0 +1,129 @@
+{% extends 'index_parent.html' %}
+{% load static %}
+{% block subject %}
+자유게시판
+{% endblock %}
+{% block subject2 %}
+자유롭고 다양한 이야기를 나눠보세요.
+{% endblock %}
+{% block main %}
+<head>
+	<meta charset="utf-8">
+	<title>자유게시판</title>
+	<style>
+		.styled-table {
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			min-width: 1000px;
+			max-width: 1000px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		}
+		.styled-table thead tr {
+			background-color: #95d2de;
+			color: black; 
+			text-align: left;
+		}
+		.styled-table th,
+		.styled-table td {
+			text-align:center;
+			padding: 12px 15px;
+		}
+		.styled-table tbody tr {
+			border-bottom: 1px solid #dddddd;
+		}
+		
+		.styled-table tbody tr:nth-of-type(even) {
+			background-color: #f3f3f3;
+		}
+		
+		.styled-table tbody tr:last-of-type {
+			border-bottom: 2px solid #95d2de;
+		}
+		.styled-table tbody tr.active-row {
+			font-weight: bold;
+			color: #95d2de; <!--기본색 #2ba0db;-->
+		}
+		a{text-decoration:none}
+	</style>
+</head>
+<body>
+
+	<center>
+	<table class="styled-table">
+
+		<thead>
+			<TR>
+				<th width=10%>글번호</th>
+				<th width=50%>제목</th>
+				<th width=10%>작성자</th>
+				<th width=20%>작성일</th>
+				<th width=10%>조회수</th>
+			</TR>
+		</thead>
+		<tbody>
+
+			{% for x in b_free_lists %}
+			<TR>
+				<TD align="center">{{x.no}}</TD>
+				<TD align="center">
+					<a href="{{x.no}}">
+						{{x.title|truncatechars:20}}
+					</a>
+				</TD>
+				<TD align="center">{{x.name}}</TD>
+				<TD align="center">{{x.rdate}}</TD>
+				<TD align="center">조회수</TD>
+			</TR> 
+			{% endfor %}
+		</tbody>
+	</table>
+
+<!-- 페이징처리 시작 -->
+	<div id="paging">
+		<ul class="pagination justify-content-center" style="margin-top: 2rem;">
+			<!-- 이전페이지 -->
+			{% if b_free_lists.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="../b_free/?&page={{ b_free_lists.previous_page_number }}">이전</a>
+					<!-- href로 뎁스 설정 :>> href="[여기를 변경] ?&page={{ ...-->
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+				</li>
+			{% endif %}
+			<!-- 페이지리스트 -->
+			{% for page_number in b_free_lists.paginator.page_range %}
+				{% if page_number == b_free_lists.number %}
+					<li class="page-item active" aria-current="page">
+						<a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+					</li>
+				{% else %}
+					<li class="page-item">
+						<a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+			<!-- 다음페이지 -->
+			{% if b_free_lists.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="../b_free/?&page={{ b_free_lists.next_page_number }}">다음</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+<!-- 페이징처리 끝 -->
+	
+	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
+		<a class="btn btn-default pull-right" href="../b_free_write/">글쓰기</a></button>
+		{% comment %} style="float: right;" {% endcomment %}
+
+	</center>
+</body>
+{% endblock %}
