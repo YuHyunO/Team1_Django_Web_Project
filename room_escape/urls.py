@@ -29,8 +29,8 @@ urlpatterns = [
     path('b_anony/', views.b_anony, name='b_anony'), #익명게시판
     path('b_anony/<int:no>', views.b_anony_read, name='b_anony_read'), #글읽기
     path('b_anony_write/', views.b_anony_write, name='b_anony_write'), #글쓰기
-    path('b_anony/anony_delete/<int:no>', views.b_anony_delete, name='b_anony_delete'), #글 삭제
-    path('b_anony/anony_update/<int:no>', views.b_anony_update, name='b_anony_update'), #글 수정
-    path('b_anony/anony_update/free_update_ok/<int:no>', views.b_anony_update_ok, name='b_anony_update_ok'), #글 수정 성공
+    path('b_anony_delete/<int:no>', views.b_anony_delete, name='b_anony_delete'), #글 삭제
+    path('b_anony_update/<int:no>', views.b_anony_update, name='b_anony_update'), #글 수정
+    path('b_anony_update_ok/<int:no>', views.b_anony_update_ok, name='b_anony_update_ok'), #글 수정 성공
     
 ]
