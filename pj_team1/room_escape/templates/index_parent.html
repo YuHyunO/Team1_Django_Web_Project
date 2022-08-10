@@ -44,7 +44,7 @@
                             </button>
                             &nbsp;&nbsp;
                             <button class="btn btn-outline-light btn-sm" type="button" onclick="location.href='../../../logout'">
-                                <i class="bi-key-fill me-1"></i>
+                                <i class="bi-person-fill me-1"></i>
                                 MyPage
                             </button>                            
                         {% else %}
@@ -65,12 +65,10 @@
         </nav>
         <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
             <div class="container-fluid">
-                <form class="d-flex border-bottom border-1.5 rounded-0 border-secondary justify-content-end align-items-center me-lg-0 mb-2 mb-lg-0 ms-auto" role="search">
-                    <input class="form-control " type="search" placeholder="Search....." aria-label="Search" style="border:1px yellow; background-color:transparent;">
+                <form class="d-flex border-bottom border-1.5 rounded-0 border-secondary justify-content-end align-items-center me-lg-0 mb-2 mb-lg-0 ms-auto" action="../../../search/" role="search" method="get">
+                    <input class="form-control" name="search" type="search" placeholder="Search....." aria-label="Search" style="border:1px yellow; background-color:transparent;">
                         <div class="d-flex justify-content-end align-items-center me-lg-0 mb-2 mb-lg-0 ms-auto ">
-                            <a class="link-secondary" href="../../../search" aria-label="Search">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
-                            </a>
+                            <button class="btn " type="submit"> <i class="bi-search"></i> </button>
                         </div>  
                     </input>     
                 </form>        

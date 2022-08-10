@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),
+    path('search/', views.search, name='search'),
     #path('mypage/', views.mypage, name='mypage'),
     
     path('b_notice/', views.b_notice, name='b_notice'), #공지사항 게시판

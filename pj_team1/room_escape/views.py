@@ -171,7 +171,7 @@ def signup(request):
         
         template = loader.get_template('signup.html')
         
-        all_validation = email_regex and email_val and pwd2_val             
+        all_validation = email_regex and email_val and pwd2_val and  nickname_val           
         if all_validation == False:           
             context = {
                 'nickname_val':nickname_val,
@@ -443,4 +443,19 @@ def b_anony_update(request, no):
         context = {
             'posts': posts, 
         }
-        return HttpResponse(template.render(context, request))        
+        return HttpResponse(template.render(context, request))   
+
+def search(request):
+    template = loader.get_template('search.html')
+    str_search = str(request.GET['search'])
+    print(str_search)
+    posts_room = Room.objects.filter(room__contains=str_search) | Room.objects.filter(loc__contains=str_search) 
+    posts_theme = Theme.objects.filter(theme__contains=str_search) | Theme.objects.filter(room__in=Room.objects.filter(room__contains=str_search).values('room')) | Theme.objects.filter(genre__contains=str_search) 
+    
+    
+    context = {
+        'posts_room': posts_room, 
+        'posts_theme': posts_theme, 
+        'str_search':str_search,
+    }
+    return HttpResponse(template.render(context, request))

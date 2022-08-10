@@ -13,29 +13,28 @@ Showing what you search.
         </div>
     </header>
     <div class="container ms-5 ps-5">
-        <!-- Search Result -->
+        {%for post in posts_room%}
         <article>
-            <header class="g-mb-15">
-                <h2 class="h4 g-mb-5">
-                    <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" href="/caves/93">더코드 홍대점 (2.0)</a>
+            <header class="g-mb-15 mt-3">
+                <h2 class="h4 g-mb-5">{{post.room}}
                 </h2>
             </header>
-            <div class="d-lg-flex justify-content-between">
+            <div class="d-lg-flex justify-content-between border-bottom border-2">
             <!-- Search Info -->
-                <ul class="list-inline g-mb-10 g-mb-0--lg">
+                <ul class="list-inline g-mb-10 g-mb-0--lg">    
                     <li class="list-inline-item g-mr-30">
-                        <a href="http://www.thecode10.kr/" target="_blank" class="u-link-v5 g-color-primary--hover">http://www.thecode10.kr/</a>
+                        <label class="label">{{post.loc}}</label>
+                    </li><br>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="{{post.url}}" class="u-link-v5 g-color-primary--hover">사이트 방문</a>
                     </li>
                     <li class="list-inline-item g-mr-30">
-                        <a href="https://www.google.co.kr/maps/place/서울 마포구 와우산로17길 14" target="_blank" class="u-link-v5 g-color-primary--hover">서울 마포구 와우산로17길 14</a>
-                    </li>
-                    <li class="list-inline-item g-mr-30">
-                        <a href="/caves/93" target="_blank" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
-                    </li>
+                        <a href="../../../cafe/cafe_detail/{{post.room}}" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
+                    </li>   
                 </ul>
-            <!-- End Search Info -->
             </div>
         </article>
+        {% endfor %}
         <!-- End Search Result -->
         <hr class="g-brd-gray-light-v4 g-my-20">   
     </div>
@@ -45,29 +44,28 @@ Showing what you search.
         </div>
     </header>
     <div class="container ms-5 ps-5">
-        <!-- Search Result -->
+        {%for post in posts_theme%}
         <article>
-            <header class="g-mb-15">
-                <h2 class="h4 g-mb-5">
-                    <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" href="/caves/93">더코드 홍대점 (2.0)</a>
+            <header class="g-mb-15 mt-3">
+                <h2 class="h4 g-mb-5">{{post.theme}}
                 </h2>
             </header>
-            <div class="d-lg-flex justify-content-between">
+            <div class="d-lg-flex justify-content-between border-bottom border-2">
             <!-- Search Info -->
-                <ul class="list-inline g-mb-10 g-mb-0--lg">
+                <ul class="list-inline g-mb-10 g-mb-0--lg">    
                     <li class="list-inline-item g-mr-30">
-                        <a href="http://www.thecode10.kr/" target="_blank" class="u-link-v5 g-color-primary--hover">http://www.thecode10.kr/</a>
+                        <label class="label">{{post.genre}}</label>
+                    </li><br>
+                    <li class="list-inline-item g-mr-30">
+                        <a href="../../../cafe/cafe_detail/{{post.room}}" class="u-link-v5 g-color-primary--hover">{{post.room}}</a>
                     </li>
                     <li class="list-inline-item g-mr-30">
-                        <a href="https://www.google.co.kr/maps/place/서울 마포구 와우산로17길 14" target="_blank" class="u-link-v5 g-color-primary--hover">서울 마포구 와우산로17길 14</a>
-                    </li>
-                    <li class="list-inline-item g-mr-30">
-                        <a href="/caves/93" target="_blank" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
-                    </li>
+                        <a href="../../../theme/theme_detail/{{post.no}}" class="u-link-v5 g-color-primary--hover">상세정보보기</a>
+                    </li>   
                 </ul>
-            <!-- End Search Info -->
             </div>
         </article>
+        {% endfor %}
         <!-- End Search Result -->
         <hr class="g-brd-gray-light-v4 g-my-20">   
     </div>
