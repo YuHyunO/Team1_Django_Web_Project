@@ -82,7 +82,7 @@ def login(request):
     if request.method == 'POST':
         template = loader.get_template('login.html')
         email = request.POST['email']
-        pwd = request.POST['email']
+        pwd = request.POST['pwd']
         email.strip()
         pwd.strip()
         
@@ -184,14 +184,14 @@ def signup(request):
                 'nickname':nickname,
                 'phone':phone,
             }
-            return HttpResponse(template.render(context, request))
-        
+            return HttpResponse(template.render(context, request)) 
         else:
             nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
             member = Member(email=email, pw=pwd_2, name=name, nickname=nickname, phone=phone, rdate=nowDatetime, udate=nowDatetime)
             member.save()
             print('회원가입됨')
-            return render(request, 'index.html') 
+            return redirect(reverse('login'))
+            
     else:
         return render(request, 'signup.html')
 
