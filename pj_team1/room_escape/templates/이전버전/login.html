@@ -5,7 +5,7 @@
 {% endblock head %}
 
 {% block content %}
-<section class="gradient-custom">
+<section class="vh-100 gradient-custom">
     <div class="container my-5">
         <div class="row d-flex justify-content-center align-items-center h-50">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -16,7 +16,7 @@
                         <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                         <p class="text-dark-20 mb-5">이메일과 비밀번호를 입력해주세요.</p>
                         
-                        <form name="login_form" action="" method="post">
+                        <form name="login_form" action="../login/" method="post">
                             {% csrf_token %}
                             <div class="form-ouWtline form-white row mb-3">
                                 <label class="form-label" for="typeEmailX">Email</label>
@@ -42,7 +42,7 @@
                             {% elif status == 2 %}
                                 <p class="text-center text-muted small mb-4 pb-lg-2"><u>이메일 또는 비밀번호를 다시 확인 해주세요.</u></p>
                             {% elif status == 1 %}
-                            <script> location.href = "../../../"</script>
+                                <script>location.href = "index"</script>
                             {% else %}
                                 <p class="text-center text-muted small mb-4 pb-lg-2">&nbsp;</p>
                             {% endif %}

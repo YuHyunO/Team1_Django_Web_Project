@@ -38,6 +38,7 @@ With this reservation hompeage template.
                   <i class="bi-shuffle me-2"></i>Recommand Cafe For You</div>
                 <div class="carousel-caption d-none d-md-block">                  
                     <div class="row ">
+
                       {% for list in rooms_random %}
                         <div class="col-lg-4">
                           <img class="rounded-circle my-md-3 img-thumbnail" src="{{list.img_path}}" alt="Generic placeholder image" width="140" height="140">
@@ -63,9 +64,10 @@ With this reservation hompeage template.
                             </li>
                           </div>
                         </div>
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../cafe/cafe_detail">Reservation</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../cafe/cafe_detail/{{list.room}}">카페 보기</a></div>
                         </div><!-- /.col-lg-4 -->
-                        {% endfor %}
+                      {% endfor %}
+
                     </div>
                 </div>
               </div>
@@ -75,34 +77,36 @@ With this reservation hompeage template.
                   <i class="bi-shuffle me-2"></i>Recommand Theme For You</div>
                 <div class="carousel-caption d-none d-md-block">                  
                     <div class="row ">
+
                       {% for list in themes_random %}
-                      <div class="col-lg-4">
-                        <img class="my-md-3 img-thumbnail" src="{{list.img_path}}" alt="Generic placeholder image" width="140" height="140">
-                        <h4 class="text-black fw-bold">{{list.theme}}</h2>
-                          <div class="row my-3">
-                          <div class="col-lg-6">
-                            <h5 for="score" class="form-label fw-bold text-black ms-5" style="white-space:nowrap;">평점</h5>
-                          </div>
-                          <div class="col-lg-6">  
-                            <li class="list-unstyled score" style = "position:absolute;">
-                              <i value="1" class="bi-star"></i>
-                              <i value="2" class="bi-star"></i>
-                              <i value="3" class="bi-star"></i>
-                              <i value="4" class="bi-star"></i>
-                              <i value="5" class="bi-star"></i>
+                        <div class="col-lg-4">
+                          <img class="my-md-3 img-thumbnail" src="{{list.img_path}}" alt="Generic placeholder image" width="140" height="140">
+                          <h4 class="text-black fw-bold">{{list.theme}}</h2>
+                            <div class="row my-3">
+                            <div class="col-lg-6">
+                              <h5 for="score" class="form-label fw-bold text-black ms-5" style="white-space:nowrap;">평점</h5>
+                            </div>
+                            <div class="col-lg-6">  
+                              <li class="list-unstyled score" style = "position:absolute;">
+                                <i value="1" class="bi-star"></i>
+                                <i value="2" class="bi-star"></i>
+                                <i value="3" class="bi-star"></i>
+                                <i value="4" class="bi-star"></i>
+                                <i value="5" class="bi-star"></i>
+                              </li>
+                              <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                <i value="1" class="bi-star-fill"></i>
+                                <i value="2" class="bi-star-fill"></i>
+                                <i value="3" class="bi-star-fill"></i>
+                                <i value="4" class="bi-star-fill"></i>
+                                <i value="5" class="bi-star-fill"></i>
                             </li>
-                            <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
-                              <i value="1" class="bi-star-fill"></i>
-                              <i value="2" class="bi-star-fill"></i>
-                              <i value="3" class="bi-star-fill"></i>
-                              <i value="4" class="bi-star-fill"></i>
-                              <i value="5" class="bi-star-fill"></i>
-                          </li>
+                          </div>
                         </div>
-                      </div>
-                      <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../cafe/cafe_detail">Reservation</a></div>
-                      </div><!-- /.col-lg-4 -->
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../../../theme/theme_detail/{{list.no}}">테마 보기</a></div>
+                        </div><!-- /.col-lg-4 -->
                       {% endfor %}
+
                     </div>
                 </div>
               </div>

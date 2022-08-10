@@ -71,59 +71,57 @@ Choose Cafe where you want to go.
                                 <div class="card">
                                     <div class="row">
                                         <div class="col-4">
-                                            <img class="img-fluid mx-2 my-3 rounded-circle img-thumbnail" src="{{list.img_path}}" alt="..." />
+                                            <img class="img-fluid ms-2 rounded-circle my-md-3 img-thumbnail" src="{{list.img_path}}" alt="..." />
                                         </div>
                                         <div class="col-8">
                                             <div class="card-body p-2">
                                                 <div class="text-center">
-                                                    <h5 class="fw-bolder m-2">{{list.room}}</h5>
+                                                    <h5 class="fw-bold mb-2">{{list.room}}</h5>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-lg-2 p-0 ps-2">
-                                                        <p for="score" class="form-label my-1 fw-bold">평점</p>
-                                                    </div>
-                                                    <div class="col-lg-10 p-0">
-                                                        <li class="list-unstyled score" style = "position:absolute;">
-                                                            <i value="1" class="bi-star"></i>
-                                                            <i value="2" class="bi-star"></i>
-                                                            <i value="3" class="bi-star"></i>
-                                                            <i value="4" class="bi-star"></i>
-                                                            <i value="5" class="bi-star"></i>
-                                                        </li>
-                                                        <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
-                                                            <i value="1" class="bi-star-fill"></i>
-                                                            <i value="2" class="bi-star-fill"></i>
-                                                            <i value="3" class="bi-star-fill"></i>
-                                                            <i value="4" class="bi-star-fill"></i>
-                                                            <i value="5" class="bi-star-fill"></i>
-                                                        </li>                                                       
-                                                    </div>
+                                                  <div class="col-lg-2 p-0 mt-1">
+                                                    <p for="score" class="form-label fw-bold ps-1" style="font-size:15px">평점</p>
+                                                  </div>
+                                                  <div class="col-lg-10 p-0 mt-1" style="font-size:15px">
+                                                    <li class="list-unstyled score" style = "position:absolute;">
+                                                      <i value="1" class="bi-star"></i>
+                                                      <i value="2" class="bi-star"></i>
+                                                      <i value="3" class="bi-star"></i>
+                                                      <i value="4" class="bi-star"></i>
+                                                      <i value="5" class="bi-star"></i>
+                                                  </li>
+                                                  <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                                      <i value="1" class="bi-star-fill"></i>
+                                                      <i value="2" class="bi-star-fill"></i>
+                                                      <i value="3" class="bi-star-fill"></i>
+                                                      <i value="4" class="bi-star-fill"></i>
+                                                      <i value="5" class="bi-star-fill"></i>
+                                                  </li>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-lg-2 p-0 ps-2">
-                                                        <p for="location" class="form-label my-1 fw-bold">주소</p>
+                                                  <div class="col-lg-2 p-0 mt-1">  
+                                                   <p for="location" class="form-label fw-bold ps-1" style="font-size:15px">주소</p>
+                                                  </div>
+                                                  <div class="col-lg-10 p-0 mt-1">
+                                                    <p for="activeness" class="form-label" style="font-size:15px">{{list.loc}}</p>
+                                                  </div>
+                                                </div>
+                                                  <div class="row">
+                                                    <div class="col-lg-2 p-0 mt-1">  
+                                                      <p for="tel" class="form-labell fw-bold pt-1 ps-3" style="font-size:15px"><i class="bi-telephone-fill"></i></p>
                                                     </div>
-                                                    <div class="col-lg-10 p-0">
-                                                        <p for="activeness" class="form-label my-1 pe-2">{{list.loc}}</p>
+                                                    <div class="col-lg-10 p-0 mt-1">
+                                                      <p for="activeness" class="form-label" style="font-size:15px">{{list.tel}}</p>
                                                     </div>
-                                                </div>    
-                                                <div class="row">
-                                                    <div class="col-lg-2 p-0 ps-3 pt-1">
-                                                        <p for="tel" class="form-label my-1 fw-bold"><i class="bi-telephone-fill"></i></p>
-                                                    </div>
-                                                    <div class="col-lg-10 p-0">
-                                                        <p for="activeness" class="form-label my-1">{{list.tel}}</p>
-                                                    </div>                                              
-                                                </div>  
-                                                <div class="row">                          
+                                                  </div>
                                                     <div class="col-lg-6 text-center">
-                                                        <div class="text-center my-2"><a class="btn btn-outline-dark" href="{{list.url}}">사이트 방문하기</a></div>    
+                                                        <div class="text-center"><a class="btn btn-outline-dark" href="{{list.url}}">사이트 방문하기</a></div>    
                                                     </div>
                                                     <div class="col-lg-6 text-center">
-                                                        <div class="text-center my-2"><a class="btn btn-outline-dark" href="cafe_detail">카페정보 보기</a></div>    
+                                                    <div class="text-center"><a class="btn btn-outline-dark" href="cafe_detail/{{list.room}}">카페정보 보기</a></div>    
                                                     </div>
-                                                </div> 
-                                            </div> 
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

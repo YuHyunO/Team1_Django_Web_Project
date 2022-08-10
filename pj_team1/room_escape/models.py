@@ -18,6 +18,8 @@ class Board(models.Model):
     content = models.TextField()
     rdate = models.DateTimeField(auto_now_add=True)
     udate = models.DateTimeField(auto_now=True)
+    hit = models.PositiveIntegerField(default = 0)
+
   
 class Room(models.Model): 
     room = models.CharField(primary_key=True, max_length=255)

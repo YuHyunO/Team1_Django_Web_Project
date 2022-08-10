@@ -1,17 +1,17 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
-from .models import Board, Member
+from .models import Member, Board, Room, Theme, CafeReview, ThemeReview
 from django.utils import timezone
 from django.core.paginator import Paginator
-import re
+from datetime import date, datetime, timedelta
 from django.urls import reverse
-from .models import Member, Board, Room, Theme, CafeReview, ThemeReview
 import random
-
+import re
 
 def index(request):
     template = loader.get_template('index.html')
+    
     rooms = Room.objects.all().values()
     rooms_random = []
     while True:
@@ -22,6 +22,7 @@ def index(request):
             rooms_random.index(rooms[x])
         except:
             rooms_random.append(rooms[x])
+            
     themes = Theme.objects.all().values()
     themes_random = []
     while True:
@@ -32,6 +33,7 @@ def index(request):
             themes_random.index(themes[x])
         except:
             themes_random.append(themes[x])
+            
     context = {
         'rooms_random': rooms_random,
         'themes_random': themes_random
@@ -54,26 +56,35 @@ def theme(request):
     }
     return HttpResponse(template.render(context, request))
 
-def theme_detail(request):
+def theme_detail(request, no):
     template = loader.get_template('theme_detail.html')
-    return HttpResponse(template.render({}, request))
+    theme = Theme.objects.get(no=no)
+    room = Theme.objects.filter(no=no).values('room').get()['room']
+    loc = Room.objects.filter(room=room).values('loc').get()['loc']
+    context = {
+        'theme': theme,
+        'room': room,
+        'loc': loc
+    }
+    return HttpResponse(template.render(context, request))
 
-def cafe_detail(request):
+def cafe_detail(request, room):
     template = loader.get_template('cafe_detail.html')
-    return HttpResponse(template.render({}, request))
-
-def search(request):
-    template = loader.get_template('search.html')
-    return HttpResponse(template.render({}, request))
-
+    cafe = Room.objects.get(room=room)
+    theme = Theme.objects.filter(room=room).values()
+    context = {
+        'cafe': cafe,
+        'theme': theme
+    }
+    return HttpResponse(template.render(context, request))
 
 def login(request):
     if request.method == 'POST':
         template = loader.get_template('login.html')
         email = request.POST['email']
-        pwd = request.POST['pwd']
-        email = email.strip()
-        pwd = pwd.strip()
+        pwd = request.POST['email']
+        email.strip()
+        pwd.strip()
         
         email_len = False
         pwd_len = False
@@ -93,8 +104,6 @@ def login(request):
                     request.session['member_id'] = member.email
                     status = 1
                     print('success')
-                    
-                    return render(request, 'index.html')
                 else:
                     status = 2
             except Member.DoesNotExist:
@@ -117,7 +126,7 @@ def login(request):
     else:
         return render(request, 'login.html')
     
-def signup(request): ##
+def signup(request): 
 
     if request.method == 'POST':
         name = request.POST['name']
@@ -162,9 +171,6 @@ def signup(request): ##
         
         template = loader.get_template('signup.html')
         
-        print('-----------------------------------------------') 
-        print(phone)   
-        
         all_validation = email_regex and email_val and pwd2_val             
         if all_validation == False:           
             context = {
@@ -180,7 +186,7 @@ def signup(request): ##
             }
             return HttpResponse(template.render(context, request))
         
-        else: # 회원가입 성공 시
+        else:
             nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
             member = Member(email=email, pw=pwd_2, name=name, nickname=nickname, phone=phone, rdate=nowDatetime, udate=nowDatetime)
             member.save()
@@ -197,105 +203,126 @@ def logout(request):
     return redirect(reverse('index'))
 
 def mypage(request):
-    return render(request,'mypage.html')
+    return render(request,'mypage.html') 
 
 
-########################## 공지사항 게시판  ##########################                                              
+########################## 공지사항 게시판  ##########################
 def b_notice(request):
     template = loader.get_template('b_notice.html')
-    page = request.GET.get('page', '1')#시작페이지 
-    #조회
-    board = Board.objects.all().order_by('-no')
-    #페이징처리
-    paginator = Paginator(board, 10)#게시판수
+    posts = Board.objects.filter(type='공지사항').order_by('-no')
+    
+    page = request.GET.get('page', '1') 
+    paginator = Paginator(posts, 10)
     page_obj = paginator.get_page(page)
     b_notice_lists = paginator.page(page)
     context = {
        'b_notice_lists':b_notice_lists,
-       'board':page_obj 
+       'page_obj':page_obj 
     }
-    # return render(request,'b_notice.html',context)
     return HttpResponse(template.render(context,request))
 
-def b_announce_read(request, id):
-    template = loader.get_template('b_announce_read.html') #board_content.html에서 id를 불러올 때, boardcontent.id 형태로 불러와야 함
-    boardcontent = Board.objects.get(id=id)
+def b_notice_read(request, no):
+    post = Board.objects.get(no=no)
     context = {
-       'boardcontent' : boardcontent,
+       'post' : post,
     }
-    return HttpResponse(template.render(context, request))
-
-def b_announce_write(request):
-    template = loader.get_template('b_announce_write.html')
-    return HttpResponse(template.render({}, request))
-
-
-
-def b_announce_write_ok(request):
-    x = request.POST['writer'] # board_write.html의 태그에서 name=writer 인 값을 불러와라 
-    y = request.POST['email']
-    z = request.POST['subject']
-    a = request.POST['content']
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-    boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, type='1', rdate=nowDatetime, udate=nowDatetime)
-    boardwrite.save()
-    return HttpResponseRedirect(reverse('b_announce')) #태그 name일까, url 주소부분을 쓰는걸까
-
-def b_announce_delete(request, id):
-    boarddelete = Board.objects.get(id=id)
-    boarddelete.delete()
-    return HttpResponseRedirect(reverse('b_announce'))
-
-def b_announce_update(request, id):
-    template = loader.get_template('b_announce_update.html')
-    boardupdate = Board.objects.get(id=id)
-    context = {
-        'boardupdate': boardupdate, 
-    }
-    return HttpResponse(template.render(context, request))
-
-def b_announce_update_ok(request, id): # boardupdateok와 board_update.html 과 전혀 연관없음 주의 
-    x = request.POST['email'] # board_update.html 태그의 input name='email'인 값을 x로 받음 
-    y = request.POST['subject'] # board_update.html 태그의 input name='subject'인 값을 y로 받음 
-    z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id) # board_update.html 과 변수 boardupdateok는 전혀 직접적 연관 없음 주의 
-    boardupdateok.email = x
-    boardupdateok.subject = y
-    boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') #옵션
-    boardupdateok.rdate = nowDatetime #옵션
-    boardupdateok.save()
-    return HttpResponseRedirect(reverse("b_announce"))
+    response = render(request, 'b_notice_read.html', context)
     
+    expire_date,now = datetime.now(),datetime.now()
+    expire_date += timedelta(days=1)
+    expire_date = expire_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    expire_date -= now
+    max_age = expire_date.total_seconds()
     
-def b_free(request):
+    cookie_value = request.COOKIES.get('hitboard','_')
     
-    template = loader.get_template('b_free.html')
-    board = Board.objects.all().values()
-    page = request.GET.get('page', '1')
-    paginator = Paginator(board, 5)
-    b_free_lists = paginator.page(page)
-    
-    try: 
-        email = request.session['member_id']
-        print(email)
-            
-        context = {
-        'b_free_lists' : b_free_lists,
-        'email' : email,
-        }
-        return HttpResponse(template.render(context, request))
-    except:
-        return render(request, 'b_free.html')
+    if f'_{no}_' not in cookie_value:
+        cookie_value += f'{no}_'
+        response.set_cookie('hitboard',value=cookie_value, max_age=max_age, httponly=True)
+        post.hit +=1
+        post.save()
+
+    return response
+
+def b_notice_write(request):
+    if request.method == 'POST':
+        email = Member.objects.get(email=str(request.session['member_id']))
+        nickname = email.nickname
+
+        title = request.POST['title']
+        content = request.POST['content']
+        type = '공지사항'
         
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+        post = Board(email=email, name=nickname, type=type, title=title, content=content, rdate=nowDatetime, udate=nowDatetime)
+        post.save()
+        
+        return HttpResponseRedirect(reverse('b_notice'))
+    else:
+        return render(request, 'b_notice_write.html')
 
-def b_free_read(request, id):
-    template = loader.get_template('b_free_read.html')
-    boardcontent = Board.objects.get(id=id)
+def b_notice_delete(request, no):
+    post = Board.objects.get(no=no)
+    post.delete()
+    return HttpResponseRedirect(reverse('b_notice'))
+
+def b_notice_update(request, no):
+    template = loader.get_template('b_notice_update.html')
+    post = Board.objects.get(no=no)
+    
+    if request.method == 'POST':
+        a = request.POST['title']
+        b = request.POST['content']
+        post = Board.objects.get(no=no)
+        post.title = a
+        post.content = b
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
+        post.udate = nowDatetime 
+        post.save()
+        return HttpResponseRedirect(reverse("b_notice"))
+    else:
+        context = {
+            'post': post, 
+        }        
+        return HttpResponse(template.render(context, request))
+    
+ ########################## 자유게시판  ##########################   
+def b_free(request):
+    template = loader.get_template('b_free.html')
+    posts = Board.objects.filter(type='자유게시판').values()
+    
+    page = request.GET.get('page', '1')
+    paginator = Paginator(posts, 10)
+    page_obj = paginator.get_page(page)
+    b_free_lists = paginator.page(page)
     context = {
-       'boardcontent' : boardcontent,
+       'b_free_lists' : b_free_lists,
+       'page_obj':page_obj 
     }
     return HttpResponse(template.render(context, request))
+
+def b_free_read(request, no):
+    post = Board.objects.get(no=no)
+    context = {
+       'post' : post,
+    }
+    response = render(request, 'b_free_read.html', context)
+    
+    expire_date,now = datetime.now(),datetime.now()
+    expire_date += timedelta(days=1)
+    expire_date = expire_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    expire_date -= now
+    max_age = expire_date.total_seconds()
+    
+    cookie_value = request.COOKIES.get('hitboard','_')
+    
+    if f'_{no}_' not in cookie_value:
+        cookie_value += f'{no}_'
+        response.set_cookie('hitboard',value=cookie_value, max_age=max_age, httponly=True)
+        post.hit +=1
+        post.save()
+
+    return response
 
 def b_free_write(request):
     if request.method == 'POST':
@@ -313,115 +340,107 @@ def b_free_write(request):
         return HttpResponseRedirect(reverse('b_free'))
     else:
         return render(request, 'b_free_write.html')
-    
-def b_free_write_ok(request):
-    try:
-        x = request.POST['writer']  
-        y = request.POST['email']
-        z = request.POST['subject']
-        a = request.POST['content']
-        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-        boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
-        boardwrite.save()
-        return HttpResponseRedirect(reverse('b_free'))
-    except:
-        return HttpResponseRedirect(reverse('b_free_write'))    
 
 def b_free_delete(request, id):
-    boarddelete = Board.objects.get(id=id)
-    boarddelete.delete()
+    post = Board.objects.get(id=id)
+    post.delete()
     return HttpResponseRedirect(reverse('b_free'))
 
-def b_free_update(request, id):
+def b_free_update(request, no):
     template = loader.get_template('b_free_update.html')
-    boardupdate = Board.objects.get(id=id)
-    context = {
-        'boardupdate': boardupdate, 
-    }
-    return HttpResponse(template.render(context, request))
-
-def b_free_update_ok(request, id):
-    x = request.POST['email'] 
-    y = request.POST['subject']
-    z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id)
-    boardupdateok.email = x
-    boardupdateok.subject = y
-    boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
-    boardupdateok.rdate = nowDatetime 
-    boardupdateok.save()
-    return HttpResponseRedirect(reverse("b_free"))
-
-def b_anony(request):
+    post = Board.objects.get(no=no) 
     
-    template = loader.get_template('b_anony.html')
-    board = Board.objects.all().values()
-    page = request.GET.get('page', '1')
-    paginator = Paginator(board, 5)
-    b_anony_lists = paginator.page(page)
-    
-    try: 
-        email = request.session['member_id']
-        print(email)
-            
+    if request.method == 'POST':
+        a = request.POST['title']
+        b = request.POST['content']
+        post = Board.objects.get(no=no)
+        post.title = a
+        post.content = b
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
+        post.udate = nowDatetime 
+        post.save()
+        return HttpResponseRedirect(reverse("b_free"))
+    else:
         context = {
-        'b_anony_lists' : b_anony_lists,
-        'email' : email,
-        }
+            'post': post, 
+        }           
         return HttpResponse(template.render(context, request))
-    except:
-        return render(request, 'b_anony.html')
-    
 
-def b_anony_read(request, id):
-    template = loader.get_template('b_anony_read.html') 
-    boardcontent = Board.objects.get(id=id)
+ ########################## 익명게시판  ##########################
+def b_anony(request):
+    template = loader.get_template('b_anony.html')
+    posts = Board.objects.filter(type='익명게시판').values()
+    
+    page = request.GET.get('page', '1') 
+    paginator = Paginator(posts, 10)
+    page_obj = paginator.get_page(page)    
+    b_anony_lists = paginator.page(page)
     context = {
-       'boardcontent' : boardcontent,
+       'b_anony_lists' : b_anony_lists,
+       'page_obj':page_obj        
     }
     return HttpResponse(template.render(context, request))
+
+def b_anony_read(request, no):
+    post = Board.objects.get(no=no)
+    context = {
+       'post' : post,
+    }
+    response = render(request, 'b_anony_read.html', context)
+    
+    expire_date,now = datetime.now(),datetime.now()
+    expire_date += timedelta(days=1)
+    expire_date = expire_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    expire_date -= now
+    max_age = expire_date.total_seconds()
+    
+    cookie_value = request.COOKIES.get('hitboard','_')
+    
+    if f'_{no}_' not in cookie_value:
+        cookie_value += f'{no}_'
+        response.set_cookie('hitboard',value=cookie_value, max_age=max_age, httponly=True)
+        post.hit +=1
+        post.save()
+
+    return response
 
 def b_anony_write(request):
-    template = loader.get_template('b_anony_write.html')
-    return HttpResponse(template.render({}, request))
+    if request.method == 'POST':
+        email = Member.objects.get(email=str(request.session['member_id']))
+        nickname = email.nickname
 
-def b_anony_write_ok(request):
-    try:
-        x = request.POST['writer']  
-        y = request.POST['email']
-        z = request.POST['subject']
-        a = request.POST['content']
+        title = request.POST['title']
+        content = request.POST['content']
+        type = '익명게시판'
+        
         nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-        boardwrite = Board(name=x, email=Member.objects.get(pk=y), title=z, content=a, rdate=nowDatetime, udate=nowDatetime)
-        boardwrite.save()
+        post = Board(email=email, name=nickname, type=type, title=title, content=content, rdate=nowDatetime, udate=nowDatetime)
+        post.save()
         return HttpResponseRedirect(reverse('b_anony'))
-    except:
-        return HttpResponseRedirect(reverse('b_anony_write'))
-
+    else:
+        return render(request, 'b_anony_write.html')
     
-def b_anony_delete(request, id):
-    boarddelete = Board.objects.get(id=id)
-    boarddelete.delete()
+def b_anony_delete(request, no):
+    post = Board.objects.get(no=no)
+    post.delete()
     return HttpResponseRedirect(reverse('b_anony'))
 
-def b_anony_update(request, id):
+def b_anony_update(request, no):
     template = loader.get_template('b_anony_update.html')
-    boardupdate = Board.objects.get(id=id)
-    context = {
-        'boardupdate': boardupdate, 
-    }
-    return HttpResponse(template.render(context, request))
-
-def b_anony_update_ok(request, id):  
-    x = request.POST['email'] 
-    y = request.POST['subject']  
-    z = request.POST['content']
-    boardupdateok = Board.objects.get(id=id)  
-    boardupdateok.email = x
-    boardupdateok.subject = y
-    boardupdateok.content = z
-    nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
-    boardupdateok.rdate = nowDatetime
-    boardupdateok.save()
-    return HttpResponseRedirect(reverse("b_anony"))
+    posts = Board.objects.get(no=no)    
+    
+    if request.method == 'POST':
+        a = request.POST['title']
+        b = request.POST['content']
+        posts = Board.objects.get(no=no)
+        posts.title = a
+        posts.content = b
+        nowDatetime = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+        posts.udate = nowDatetime
+        posts.save()
+        return HttpResponseRedirect(reverse("b_anony"))
+    else:
+        context = {
+            'posts': posts, 
+        }
+        return HttpResponse(template.render(context, request))        

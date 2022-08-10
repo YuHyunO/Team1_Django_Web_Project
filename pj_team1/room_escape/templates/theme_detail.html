@@ -1,10 +1,10 @@
 {% extends 'index_parent.html' %}
 {% load static %}
 {% block subject %}
-<img class="img-fluid g-brd-around g-brd-3 g-brd-gray-light-v3 rounded-circle border border-4 border-secondary" src="https://bangtal.s3.amazonaws.com/cafe/thumb2_cafe__Pr_1527486656.jpg__7.jpg" alt="Image Description">
+<img class="img-fluid m-auto img-thumbnail" src="{{theme.img_path}}" alt="Image Description" width="500" height="auto">
 {% endblock %}
 {% block subject2 %}
-<label class="form-label text-black fw-bolder">비밀의 화원 강남점</label>
+<label class="form-label text-black fw-bolder">{{theme.theme}}</label>
 {% endblock %}
 {% block main %}
 <main>
@@ -22,8 +22,8 @@
             <!-- Listing - List of Details -->
             <ul class="col-md-6 list-unstyled mb-0">     
             <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                <span class="float">list :</span>
-                <span class="float" style="float:right;">something</span>
+                <span class="float">지점 :</span>
+                <span class="float" style="float:right;">{{room}}</span>
             </li>
             <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
                 <span class="float">list :</span>
@@ -49,34 +49,6 @@
             <!-- End Listing - List of Details -->
     
             <!-- Listing - List of Details -->
-            <ul class="col-md-6 list-unstyled g-font-weight-600 mb-0">
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-                <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                    <span class="float">list :</span>
-                    <span class="float" style="float:right;">something</span>
-                </li>
-            </ul>
-        </div>    
-    </div>
 
         <div class="col-md-4 col-lg-12 g-mb-30 border border-1 border-start-0 border-end-0 pt-4">
           <!-- Listing - Location on Map -->
@@ -102,7 +74,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('송이로 23', function(result, status) {
+geocoder.addressSearch("{{loc}}", function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {

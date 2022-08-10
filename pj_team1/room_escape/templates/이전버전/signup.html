@@ -1,12 +1,32 @@
 {% extends 'nav_bar.html' %}
 {% load static %}
+{% comment %} 
+<script src="{% static '/js/trim.js' %}"></script>
+<script language="javascript">
+    function strip(){
+        var name_val = signup_form.name.value;
+        var nickname_val = signup_form.name.value;
+        var email_val = signup_form.name.value;
+        var pwd_1_val = signup_form.name.value;
+        var pwd_2_val = signup_form.name.value;
+
+        name_val = trim(name_val);
+        nickname_val = trim(nickname_val);
+        email_val = trim(email_val);
+        pwd_1_val = trim(pwd_1_val);
+        pwd_2_val = trim(pwd_2_val);
+
+        signup_form.submit();
+    }
+</script> 
+{% endcomment %}
 
 {% block head %}
 <title>방탈출_Signup</title>
 {% endblock head %}
 
 {% block content %}
-<section class="gradient-custom"> 
+<section class="vh-100 gradient-custom"> 
     <div class="container my-5"> 
         <div class="row d-flex justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -16,7 +36,7 @@
                     <h2 class="fw-bold mb-2 text-uppercase">회원가입</h2>
                     <p class="text-dark-20 mb-5">방탈출사이트의 다양한 서비스를 이용해보세요.</p>
                     
-                    <form name="signup_form" action="../../login/" method="post">
+                    <form name="signup_form" action="../signup/" method="post">
                         {% csrf_token %}
 
                         <div class="form-outline form-white row mb-3">
