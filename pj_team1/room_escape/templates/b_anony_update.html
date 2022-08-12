@@ -1,10 +1,10 @@
 {% extends 'index_parent.html' %}
 {% load static %}
 {% block subject %}
-공지사항
+익명게시판
 {% endblock %}
 {% block subject2 %}
-글 수정
+익명 후기 및 수다방
 {% endblock %}
 {% block main %}
 <!DOCTYPE html>
@@ -77,7 +77,7 @@
   <body onload="input.title.focus()">
 	<center>
 	<br>
-	<form name='input' method='post' action='../b_notice_update_ok/{{posts.no}}'>
+	<form name='input' method='post' action='../b_anony_update/{{posts.no}}'>
 		{% csrf_token %} 
 		<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
 			<tr>
@@ -96,7 +96,7 @@
 			</tr>
 		</table>
 	</form>
-	<a href="../../b_notice"><input type="button" class="btn btn-warning btn-default btn-bordered pull-right" value="목록으로 돌아가기"></a>
+	<a href="../../b_anony"><input type="button" class="btn btn-warning btn-default btn-bordered pull-right" value="목록으로 돌아가기"></a>
 	<br><br>
 	</center>
 </body>

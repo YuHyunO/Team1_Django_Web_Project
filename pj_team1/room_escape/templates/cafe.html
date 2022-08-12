@@ -18,44 +18,153 @@ Choose Cafe where you want to go.
                   <span class="fs-5 fw-bold">지역 (Location)</span>
                 </a>
                 <ul class="list-unstyled ps-0">
+                  <li class="mb-1 ">                                     
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" onclick="location.href='./'">
+                      전국
+                    </button>
+                  </li>
                   <li class="mb-1 ">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#seoul" aria-expanded="false">
                       서울
                     </button>
-                    <div class="collapse" id="home-collapse" style="">
+                    <div class="collapse" id="seoul" style="">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">강남</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">홍대</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">등등</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=서울" class="link-dark d-inline-flex text-decoration-none rounded">서울전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=종로|중구|용산" class="link-dark d-inline-flex text-decoration-none rounded">종로/중구/용산</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=성동|광진|동대문" class="link-dark d-inline-flex text-decoration-none rounded">성동/광진/동대문</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=중랑|성북|강북" class="link-dark d-inline-flex text-decoration-none rounded">중랑/성북/강북</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=도봉|노원|은평" class="link-dark d-inline-flex text-decoration-none rounded">도봉/노원/은평</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=서대문|마포|양천" class="link-dark d-inline-flex text-decoration-none rounded">서대문/마포/양천</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=강서|구로|금천" class="link-dark d-inline-flex text-decoration-none rounded">강서/구로/금천</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=영등포|동작|관악" class="link-dark d-inline-flex text-decoration-none rounded">영등포/동작/관악</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=서울&query2=서초|강남|송파|강동" class="link-dark d-inline-flex text-decoration-none rounded">서초/강남/송파/강동</a></li>
                       </ul>
                     </div>
                   </li>
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                      Dashboard
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#GyeonggiInchon" aria-expanded="false">
+                      경기/인천
                     </button>
-                    <div class="collapse" id="dashboard-collapse" style="">
+                    <div class="collapse" id="GyeonggiInchon" style="">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=수원" class="link-dark d-inline-flex text-decoration-none rounded">수원</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=고양" class="link-dark d-inline-flex text-decoration-none rounded">고양</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=용인" class="link-dark d-inline-flex text-decoration-none rounded">용인</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=성남" class="link-dark d-inline-flex text-decoration-none rounded">성남</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=부천" class="link-dark d-inline-flex text-decoration-none rounded">부천</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=인천&query2=부평" class="link-dark d-inline-flex text-decoration-none rounded">부평</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경기&query2=경기" class="link-dark d-inline-flex text-decoration-none rounded">경기 전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=인천&query2=인천" class="link-dark d-inline-flex text-decoration-none rounded">인천 전체</a></li>
                       </ul>
                     </div>
                   </li>
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                      Orders
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Gangwon" aria-expanded="false">
+                      강원
                     </button>
-                    <div class="collapse" id="orders-collapse" style="">
+                    <div class="collapse" id="Gangwon" style="">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
-                        <li style="margin-left: 200;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=강원&query2=강원" class="link-dark d-inline-flex text-decoration-none rounded">강원 전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=강원&query2=춘천" class="link-dark d-inline-flex text-decoration-none rounded">춘천</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=강원&query2=강릉" class="link-dark d-inline-flex text-decoration-none rounded">강릉</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=강원&query2=원주" class="link-dark d-inline-flex text-decoration-none rounded">원주</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=강원&query2=강원" class="link-dark d-inline-flex text-decoration-none rounded">기타</a></li>
                       </ul>
                     </div>
                   </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#DaejeonSejong" aria-expanded="false">
+                      대전/세종
+                    </button>
+                    <div class="collapse" id="DaejeonSejong" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=대전&query2=대전" class="link-dark d-inline-flex text-decoration-none rounded">대전</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=세종&query2=세종" class="link-dark d-inline-flex text-decoration-none rounded">세종</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Chungcheong" aria-expanded="false">
+                      충청
+                    </button>
+                    <div class="collapse" id="Chungcheong" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=충청&query2=충청" class="link-dark d-inline-flex text-decoration-none rounded">충청 전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=충청&query2=당진" class="link-dark d-inline-flex text-decoration-none rounded">당진</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=충청&query2=천안" class="link-dark d-inline-flex text-decoration-none rounded">천안</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=충청&query2=아산" class="link-dark d-inline-flex text-decoration-none rounded">아산</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=충청&query2=충청" class="link-dark d-inline-flex text-decoration-none rounded">기타</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#DaeguUlsan" aria-expanded="false">
+                      대구/울산
+                    </button>
+                    <div class="collapse" id="DaeguUlsan" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=대구&query2=대구" class="link-dark d-inline-flex text-decoration-none rounded">대구</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=울산&query2=울산" class="link-dark d-inline-flex text-decoration-none rounded">울산</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Busan" aria-expanded="false">
+                      부산
+                    </button>
+                    <div class="collapse" id="Busan" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=부산&query2=부산" class="link-dark d-inline-flex text-decoration-none rounded">부산</a></li>
+                      </ul>
+                    </div>                    
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Gyeongsang" aria-expanded="false">
+                      경상
+                    </button>
+                    <div class="collapse" id="Gyeongsang" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=경상&query2=경상" class="link-dark d-inline-flex text-decoration-none rounded">경상 전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경상&query2=포항" class="link-dark d-inline-flex text-decoration-none rounded">포항</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경상&query2=창원" class="link-dark d-inline-flex text-decoration-none rounded">창원</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=경상&query2=경상" class="link-dark d-inline-flex text-decoration-none rounded">기타</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Gwangju" aria-expanded="false">
+                      광주
+                    </button>
+                    <div class="collapse" id="Gyeongsang" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=광주&query2=광주" class="link-dark d-inline-flex text-decoration-none rounded">광주</a></li>
+                      </ul>
+                    </div>                    
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Jeolla" aria-expanded="false">
+                      전라
+                    </button>
+                    <div class="collapse" id="Jeolla" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=전라&query2=전라" class="link-dark d-inline-flex text-decoration-none rounded">전라 전체</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=전라&query2=전주" class="link-dark d-inline-flex text-decoration-none rounded">전주</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=전라&query2=여수" class="link-dark d-inline-flex text-decoration-none rounded">여수</a></li>
+                        <li style="margin-left: 200;"><a href="?query1=전라&query2=전라" class="link-dark d-inline-flex text-decoration-none rounded">기타</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mb-1 ">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#Jeju" aria-expanded="false">
+                      제주
+                    </button>
+                    <div class="collapse" id="Jeolla" style="">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li style="margin-left: 200;"><a href="?query1=제주&query2=제주" class="link-dark d-inline-flex text-decoration-none rounded">제주</a></li>
+                      </ul>
+                    </div>                    
+                  </li>
+
                 </ul>
               </div>
             </div>
@@ -66,67 +175,67 @@ Choose Cafe where you want to go.
                 <div class="container px-4 px-lg-5">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-2">
                         
-                        {% for list in rooms%}
-                            <div class="col mb-5">
-                                <div class="card">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img class="img-fluid ms-2 rounded-circle my-md-3 img-thumbnail" src="{{list.img_path}}" alt="..." />
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="card-body p-2">
-                                                <div class="text-center">
-                                                    <h5 class="fw-bold mb-2">{{list.room}}</h5>
-                                                </div>
-                                                <div class="row">
-                                                  <div class="col-lg-2 p-0 mt-1">
-                                                    <p for="score" class="form-label fw-bold ps-1" style="font-size:15px">평점</p>
-                                                  </div>
-                                                  <div class="col-lg-10 p-0 mt-1" style="font-size:15px">
-                                                    <li class="list-unstyled score" style = "position:absolute;">
-                                                      <i value="1" class="bi-star"></i>
-                                                      <i value="2" class="bi-star"></i>
-                                                      <i value="3" class="bi-star"></i>
-                                                      <i value="4" class="bi-star"></i>
-                                                      <i value="5" class="bi-star"></i>
-                                                  </li>
-                                                  <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
-                                                      <i value="1" class="bi-star-fill"></i>
-                                                      <i value="2" class="bi-star-fill"></i>
-                                                      <i value="3" class="bi-star-fill"></i>
-                                                      <i value="4" class="bi-star-fill"></i>
-                                                      <i value="5" class="bi-star-fill"></i>
-                                                  </li>
-                                                </div>
-                                                <div class="row">
-                                                  <div class="col-lg-2 p-0 mt-1">  
-                                                   <p for="location" class="form-label fw-bold ps-1" style="font-size:15px">주소</p>
-                                                  </div>
-                                                  <div class="col-lg-10 p-0 mt-1">
-                                                    <p for="activeness" class="form-label" style="font-size:15px">{{list.loc}}</p>
-                                                  </div>
-                                                </div>
-                                                  <div class="row">
-                                                    <div class="col-lg-2 p-0 mt-1">  
-                                                      <p for="tel" class="form-labell fw-bold pt-1 ps-3" style="font-size:15px"><i class="bi-telephone-fill"></i></p>
-                                                    </div>
-                                                    <div class="col-lg-10 p-0 mt-1">
-                                                      <p for="activeness" class="form-label" style="font-size:15px">{{list.tel}}</p>
-                                                    </div>
-                                                  </div>
-                                                    <div class="col-lg-6 text-center">
-                                                        <div class="text-center"><a class="btn btn-outline-dark" href="{{list.url}}">사이트 방문하기</a></div>    
-                                                    </div>
-                                                    <div class="col-lg-6 text-center">
-                                                    <div class="text-center"><a class="btn btn-outline-dark" href="cafe_detail/{{list.room}}">카페정보 보기</a></div>    
-                                                    </div>
-                                                </div>
+                      {% for list in rooms%}
+                      <div class="col mb-5">
+                          <div class="card">
+                              <div class="row">
+                                  <div class="col-4">
+                                      <img class="img-fluid ms-3 rounded-circle my-md-3 img-thumbnail" style="width:170; height:170; position:;" src="{{list.img_path}}" alt="..." />
+                                  </div>
+                                  <div class="col-8">
+                                      <div class="card-body p-2">
+                                          <div class="text-center">
+                                              <h5 class="fw-bold mb-2">{{list.room}}</h5>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-2 p-0 mt-1">
+                                              <p for="score" class="form-label fw-bold ps-1" style="font-size:15px">평점</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                                            <div class="col-lg-10 p-0 mt-1" style="font-size:15px">
+                                              <li class="list-unstyled score" style = "position:absolute;">
+                                                <i value="1" class="bi-star"></i>
+                                                <i value="2" class="bi-star"></i>
+                                                <i value="3" class="bi-star"></i>
+                                                <i value="4" class="bi-star"></i>
+                                                <i value="5" class="bi-star"></i>
+                                            </li>
+                                            <li class="list-unstyled score_fill" value="" style ="max-width:104px; overflow:hidden; white-space:nowrap;">
+                                                <i value="1" class="bi-star-fill"></i>
+                                                <i value="2" class="bi-star-fill"></i>
+                                                <i value="3" class="bi-star-fill"></i>
+                                                <i value="4" class="bi-star-fill"></i>
+                                                <i value="5" class="bi-star-fill"></i>
+                                            </li>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-2 p-0 mt-1">  
+                                             <p for="location" class="form-label fw-bold ps-1" style="font-size:15px">주소</p>
+                                            </div>
+                                            <div class="col-lg-10 p-0 mt-1">
+                                              <p for="activeness" class="form-label" style="font-size:15px">{{list.loc}}</p>
+                                            </div>
+                                          </div>
+                                            <div class="row">
+                                              <div class="col-lg-2 p-0 mt-1">  
+                                                <p for="tel" class="form-labell fw-bold pt-1 ps-3" style="font-size:15px"><i class="bi-telephone-fill"></i></p>
+                                              </div>
+                                              <div class="col-lg-10 p-0 mt-1">
+                                                <p for="activeness" class="form-label" style="font-size:15px">{{list.tel}}</p>
+                                              </div>
+                                            </div>
+                                              <div class="col-lg-6 text-center">
+                                                  <div class="text-center"><a class="btn btn-outline-dark" href="{{list.url}}">사이트 방문하기</a></div>    
+                                              </div>
+                                              <div class="col-lg-6 text-center">
+                                              <div class="text-center"><a class="btn btn-outline-dark" href="cafe_detail/{{list.room}}">카페정보 보기</a></div>    
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
 
                     </div>
                 </div>

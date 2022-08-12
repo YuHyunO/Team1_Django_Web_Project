@@ -45,32 +45,30 @@
 		}
 		.styled-table tbody tr.active-row {
 			font-weight: bold;
-			color: #95d2de; <!--기본색 #2ba0db;-->
+			color: #2ba0db; <!--기본색 #2ba0db;-->
 		}
 		a{text-decoration:none}
 	</style>
 </head>
 <body>
-
 	<center>
+	{% if request.session.member_id %} 
 	<table class="styled-table">
 		<thead>
 			<TR>
 				<th width=10%>글번호</th>
-				<th width=50%>제목</th>
-				<th width=10%>작성자</th>
-				<th width=20%>작성일</th>
+				<th width=40%>제목</th>
+				<th width=15%>작성자</th>
+				<th width=25%>작성일</th>
 				<th width=10%>조회수</th>
 			</TR>
 		</thead>
 		<tbody>
-
 			{% for x in b_free_lists %}
 			<TR>
 				<TD align="center">{{x.no}}</TD>
 				<TD align="center">
-					<a href="../b_free/{{x.no}}">
-						{{x.title|truncatechars:20 }}
+					<a href="{{x.no}}">{{x.title|truncatechars:50 }}
 					</a>
 				</TD>
 				<TD align="center">{{x.name}}</TD>
@@ -78,9 +76,34 @@
 				<TD align="center">{{x.hit}}</TD>
 			</TR> 
 			{% endfor %}
-
 		</tbody>
 	</table>
+	{% else %}
+	<table class="styled-table">
+        <thead>
+			<TR>
+				<th width=10%>글번호</th>
+				<th width=40%>제목</th>
+				<th width=15%>작성자</th>
+				<th width=25%>작성일</th>
+				<th width=10%>조회수</th>
+			</TR>
+        </thead>
+        <tbody>
+            {% for x in b_free_lists %}
+            <tr>
+              <td align="center">{{x.no}}</td>
+              <td align="center">
+                <a href="#" onclick="alert('로그인 후 이용하실 수 있습니다.')">{{x.title|truncatechars:50}}</a>
+              </td>
+			  <TD align="center">{{x.name}}</TD>
+              <td align="center">{{x.rdate}}</td>
+              <TD align="center">{{x.hit}}</TD>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+	  {% endif %} 
 
 	<!-- 페이징처리 시작 -->
 	<div id="paging">
@@ -121,16 +144,14 @@
 	<!-- 페이징처리 끝 -->	
 
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-
-	<!-- 로직 유효하지 않음 -->
-		{% if email != null %} 
+		{% if request.session.member_id %} 
 		<a class="btn btn-default pull-right" href="../b_free_write/" >글쓰기</a>
 		{% else %}
-		<a class="btn btn-default pull-right" onclick="alert('로그인을 해주세요')" href="../" >글쓰기</a>
+		<a class="btn btn-default pull-right" onclick="alert('로그인 후 글쓰기 가능합니다.')"  >글쓰기</a>
+		{% comment %} href="../b_free/" {% endcomment %}
 		{% endif %}
-	<!--################### -->
-
 	</button>
+
 	<br><br>
 	</center>
 </body>

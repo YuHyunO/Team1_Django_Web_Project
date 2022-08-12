@@ -4,7 +4,7 @@
 자유게시판
 {% endblock %}
 {% block subject2 %}
-글 수정하기
+자유롭고 다양한 이야기를 나눠보세요.
 {% endblock %}
 {% block main %}
 <!DOCTYPE html>
@@ -77,7 +77,7 @@
   <body onload="freeUpdate.title.focus()">
 	<center>
 	<br>
-	<form name='freeUpdate' method='post' action='../b_free_update_ok/{{post.no}}'>
+	<form name='freeUpdate' method='post' action='../b_free_update/{{post.no}}'>
 		{% csrf_token %} 
 		<table class="styled-table" border="0" width="50%"  cellpadding="10" cellspacing="10">
 			<tr>

@@ -56,9 +56,9 @@
 		<thead>
 			<TR>
 				<th width=10%>글번호</th>
-				<th width=50%>제목</th>
-				<th width=10%>작성자</th>
-				<th width=20%>작성일</th>
+				<th width=40%>제목</th>
+				<th width=15%>작성자</th>
+				<th width=25%>작성일</th>
 				<th width=10%>조회수</th>
 			</TR>
 		</thead>
@@ -68,7 +68,7 @@
 				<TD align="center">{{x.no}}</TD>
 				<TD align="center">
 					<a href="/b_notice_read/{{x.no}}">
-						{{x.title|truncatechars:20}}
+						{{x.title|truncatechars:50}}
 					</a>
 				</TD>
 				<TD align="center">{{x.name}}</TD>
@@ -118,7 +118,9 @@
 	<!-- 페이징처리 끝 -->	
 
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_notice_write">글쓰기</a></button>
+		{% comment %} <a class="btn btn-default pull-right" href="../b_notice_write">글쓰기</a> {% endcomment %}
+		<a class="btn btn-default pull-right" onclick="alert('관리자 권한이 없습니다.')">글쓰기</a>
+	</button>
 	<br><br>
 	</center>
 </body>

@@ -1,0 +1,518 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Room_Escape_Platform</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        function check()
+        {
+            for(var i=0; i<document.input.elements.length; i++)
+            {
+                if(document.input.elements[i].value == "")
+                {
+                    alert("내용을 작성해주세요. ");
+                    return false;
+                }
+            }
+            document.input.submit();
+        }
+    </script>
+    <style>
+        body { padding: 0px; margin: 0px; }
+        .jb-box { width: 100%; height: 500px; overflow: hidden;margin: 0px auto; position: relative; }
+        video { width: 100%; }
+        .jb-text { position: absolute; top: 50%; width: 100%; }
+        .jb-text p { margin-top: -24px; text-align: center; font-size: 48px; color: #ffffff; }
+        {% comment %}
+        .jb-text h { margin-top: -24px; text-align: center; font-size: 48px; color: #ffffff; }
+        .jb-text img { margin-top: -12px; text-align: center;} {% endcomment %}
+    
+        .styled-table {
+            border-collapse: collapse;
+            text-align: center;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            width: 1000px;
+            {% comment %} min-width: 500px; {% endcomment %}
+            box-shadow: 0 0 20px rgba(300, 100, 100, 1);
+        }
+        .styled-table thead tr {
+            background-color: #fcd032;
+            color: black; {% comment %} #ffffff 는 화이트 {% endcomment %}
+            text-align: center;
+        }
+        .styled-table th,
+        .styled-table td {
+            text-align: center;
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        {% comment %} 홀수줄마다 회색 음영처리  {% endcomment %}
+        .styled-table tbody tr:nth-of-type(odd) {
+            background-color: #f3f3f3; 
+        }
+        
+        {% comment %} 짝수줄마다 회색 음영처리  {% endcomment %}
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #e3e3e3; 
+        }
+        
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #fcd032;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #fcd032;
+        }
+        a{text-decoration:none}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../../">Room Escape</a>
+            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../../../">홈</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../../cafe/">카페</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../../theme/">테마</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="../../../b_notice/">공지사항</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="../../../b_free/">자유게시판</a></li>
+                            <li><a class="dropdown-item" href="../../../b_anony/">익명게시판</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex me-lg-0 mb-2 mb-lg-0 ms-auto">
+                    {% if request.session.member_id %}
+                        <button class="btn btn-outline-light btn-sm" type="button" onclick="location.href='../../../logout'">
+                            <i class="bi-key-fill me-1"></i>
+                            Logout
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-outline-light btn-sm" type="button" onclick="location.href='../../../mypage'">
+                            <i class="bi-person-fill me-1"></i>
+                            MyPage
+                        </button>                            
+                    {% else %}
+                        <button class="btn btn-outline-light btn-sm" type="button" onclick="location.href='../../../login'">
+                            <i class="bi-key-fill me-1"></i>
+                            Login
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-outline-light btn-sm" type="button" onclick="location.href='../../../signup'">
+                            <i class="bi-person-fill me-1"></i>
+                            Sign Up
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header - set the background image for the header in the line below-->  
+    {% comment %} <header class="py-5 bg-image-full"
+    style="background-image: url('https://www.10wallpaper.com/wallpaper/1366x768/1110/Japanese_Garden_Washington_Park-Landscape_Desktop_Wallpaper_1366x768.jpg');
+    background-attachment: fixed;
+    background-size: 100%;
+    ">
+<!-- 검정물결(기본) https://source.unsplash.com/wfh8dDlNFOk/1600x900            
+일본정원 https://www.10wallpaper.com/wallpaper/1366x768/1110/Japanese_Garden_Washington_Park-Landscape_Desktop_Wallpaper_1366x768.jpg
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-size: 100% 100%; 도 가능-->
+
+        <div class="text-center my-5">
+            <img class="img-fluid rounded-circle mb-4"
+            src="https://icon-library.com/images/action-icon/action-icon-3.jpg"  height="300" width="300"
+            alt="..." />
+        <!--주황검정액션 https://flyclipart.com/thumb2/action-cinema-clap-board-clapboard-clapper-film-movie-636527.png
+                하늘색액션컷 https://icon-library.com/images/action-icon/action-icon-3.jpg
+                비상구아이콘 https://icon-library.com/images/action-icon/action-icon-1.jpg
+        -->
+            <h1 class="text-white display-10 fw-bolder fs-7">{{info.nickname}}님의 마이페이지</h1>
+            <p class="text-white lead display-10 fw-normal fs-100 mb-10">{{info.email}}</p>
+        </div>
+    </header> {% endcomment %}
+
+    <header class="py=0">
+        <div class="jb-box">
+            <video muted autoplay loop>
+            <source src="../static/mp4/sunset.mp4" type="video/mp4">
+            <strong>Your browser does not support the video tag.</strong>
+            </video>
+            <div class="jb-text">
+                {% comment %} <img class="img-fluid rounded-circle mb-4"
+                    src="https://icon-library.com/images/action-icon/action-icon-3.jpg"  height="300" width="300"
+                    alt="..." /> {% endcomment %}
+                <p class="text-white display-10 fw-bolder fs-7">{{info.nickname}}님의 마이페이지</p>
+                <p class="text-white lead display-10 fw-normal fs-100 mb-10">{{info.email}}</p>
+            </div>
+        </div> 
+    </header> 
+
+    <!-- Image element - set the background image for the header in the line below-->
+    <div  class="bg-warning py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <br>
+                    <h2 class='fw-bolder'>내 정보 조회 및 수정</h2>
+                    <p class="lead">{{info.nickname}}님의 회원정보를 조회하고, 수정하는 공간입니다. </p>
+                    <br>
+                    <form name="mypage_form" action="../../mypage/" method="post">
+                        {% csrf_token %}
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeEmailX">이메일 (※변경 불가)</label> {% comment %} readonly 넣으면 이메일 변경 불가 {% endcomment %}
+                            <input name="email" readonly type="email" id="typeEmailX" class="form-control form-control-lg" value="{{info.email}}" required/>
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typePasswordX">비밀번호</label>
+                            <input name="pw_1" type="password" id="typePasswordX" class="form-control form-control-lg" value="{{info.pw}}" required/>
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="form3Example4cdg">비밀번호 재확인</label>
+                            {% if pw_2_val == False %}
+                                <input name="pw_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" placeholder="패스워드가 일치하지 않습니다. 다시 확인해주세요." required/>                           
+                            {% else %}  
+                                <input name="pw_2" type="password" id="form3Example4cdg" class="form-control form-control-lg" value="{{info.pw}}" required/>                      
+                            {% endif %}                                
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeNameX">이름 (※변경 불가)</label> {% comment %} readonly 넣으면 변경 불가 {% endcomment %}
+                            <input name="name" readonly type="text" id="typeEmailX" class="form-control form-control-lg" value="{{info.name}}" maxlength=10 required/>
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typeNameX">닉네임(별명)</label>
+                            {% if nickname_val == False %}
+                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" placeholder="이미 사용중인 닉네임입니다." maxlength=10 required/>
+                            {% else %}
+                                <input name="nickname" type="text" id="typeEmailX" class="form-control form-control-lg" value="{{info.nickname}}" maxlength=10 required/>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-outline form-white row mb-3">
+                            <label class="form-label" for="typePhoneX">휴대폰번호</label>                               
+                        {% if phone_val == False %}
+                            <input name="phone" type="text" id="typePhoneX" class="form-control form-control-lg" placeholder="휴대폰 번호가 너무 짧습니다." maxlength=11 required/>
+                        {% else %}
+                            <input name="phone" type="text" id="typePhoneX" class="form-control form-control-lg" value="{{info.phone}}" maxlength=11 required/>
+                        {% endif %}
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            {% comment %} {% if pw_2_val == False %}
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="alert('정상적으로 변경되지 않았습니다. 사유 확인후 재변경 바랍니다.')">회원정보 수정하기</button>
+                            {% elif nickname_val == False %}
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="alert('정상적으로 변경되지 않았습니다. 사유 확인후 재변경 바랍니다.')">회원정보 수정하기</button>
+                            {% elif phone_val == False %}
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="alert('정상적으로 변경되지 않았습니다. 사유 확인후 재변경 바랍니다.')">회원정보 수정하기</button> 
+                            {% else %}  <!--else만 동작함..-->
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="">회원정보 수정하기</button>
+                            {% endif %} {% endcomment %}
+                            <button type="submit"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="">회원정보 수정하기</button>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" onclick="location.href='../../../mypage'"
+                            class="btn btn-outline-light btn-lg px-5 text-black btn-block gradient-custom-4 text-body"
+                            onclick="strip()">회원정보 새로고침</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br><br>
+
+            <center>
+            <p class="mb-0">가입일시: {{info.rdate}}</p>
+            <p class="mb-0">마지막 수정일시: {{info.udate}}</p>
+            </center>
+            <br>
+    </div>
+
+    <center>
+        <div class="container px-4 px-lg-5 my-5">
+            <h1>나의 리뷰 모아보기</h1>
+            <div class="row justify-content-center">
+                <p class="lead">방탈출을 체험한 뒤 생생한 후기를 남겨주시면 매월 추첨을 통해 소정의 상품을 드립니다.</p>
+            </div>
+        </div>
+    </center>
+    <center>
+
+        <table class="styled-table">
+            <thead>
+                <TR>
+                    <th width=10%>글번호</th>
+                    <th width=40%>제목</th>
+                    <th width=15%>작성자</th>
+                    <th width=25%>작성일</th>
+                    <th width=10%>조회수</th>
+                </TR>
+            </thead>
+            <tbody>
+                {% comment %} {% for x in b_free_lists %}
+                <TR>
+                    <TD align="center">{{x.no}}</TD>
+                    <TD align="center">
+                        <a href="../b_free/{{x.no}}">
+                            {{x.title|truncatechars:50 }}
+                        </a>
+                    </TD>
+                    <TD align="center">{{x.name}}</TD>
+                    <TD align="center">{{x.rdate}}</TD>
+                    <TD align="center">{{x.hit}}</TD>
+                </TR> 
+                {% endfor %} {% endcomment %}
+            </tbody>
+        </table>
+        
+
+    <!-- 페이징처리 시작 -->
+    {% comment %} <div id="paging">
+        <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+            {% if b_free_lists.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="../b_free/?&page={{ b_free_lists.previous_page_number }}">이전</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                </li>
+            {% endif %}
+            {% for page_number in b_free_lists.paginator.page_range %}
+                {% if page_number >= page_obj1.number|add:-15 and page_number <= page_obj1.number|add:15 %}
+                    {% if page_number == b_free_lists.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if b_free_lists.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="../b_free/?&page={{ b_free_lists.next_page_number }}">다음</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div> {% endcomment %}
+    <!-- 페이징처리 끝 -->	
+    <br><br>
+    </center>
+
+    <!-- Content section-->
+    <section class="pt-5">
+    <center>
+        <div class="bg-secondary py-3">
+            <div class="container px-4 px-lg-5 my-5" style="color:white;">
+                <h1>나의 게시글 모아보기</h1>
+                <div class="row justify-content-center">
+                    <p class="lead">자유게시판과 익명게시판에 남긴 나의 글을 모아보는 공간입니다.</p>
+                </div>
+            </div>
+            {% comment %} </center> {% endcomment %}
+
+            {% comment %} 자유게시판 시작 {% endcomment %}
+            <div class="px-4">
+                <div class="ml-4">
+                    <h3 class='' style="color:white;">자유게시판</h3>
+                </div>
+            </div>
+
+    {% comment %} <center> {% endcomment %}
+        <table class="styled-table">
+            <thead>
+                <TR>
+                    <th width=10%>글번호</th>
+                    <th width=40%>제목</th>
+                    <th width=15%>작성자</th>
+                    <th width=25%>작성일</th>
+                    <th width=10%>조회수</th>
+                </TR>
+            </thead>
+            <tbody>
+    
+                {% for x in b_free_lists %}
+                <TR>
+                    <TD align="center">{{x.no}}</TD>
+                    <TD align="center">
+                        <a href="../b_free/{{x.no}}">
+                            {{x.title|truncatechars:50 }}
+                        </a>
+                    </TD>
+                    <TD align="center">{{x.name}}</TD>
+                    <TD align="center">{{x.rdate}}</TD>
+                    <TD align="center">{{x.hit}}</TD>
+                </TR> 
+                {% endfor %}
+    
+            </tbody>
+        </table>
+    
+        <!-- 페이징처리 시작 -->
+        <div id="paging">
+            <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+                {% if b_free_lists.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="../b_free/?&page={{ b_free_lists.previous_page_number }}">이전</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                    </li>
+                {% endif %}
+                {% for page_number in b_free_lists.paginator.page_range %}
+                    {% if page_number >= page_obj1.number|add:-15 and page_number <= page_obj1.number|add:15 %}
+                        {% if page_number == b_free_lists.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="../b_free/?&page={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if b_free_lists.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="../b_free/?&page={{ b_free_lists.next_page_number }}">다음</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- 페이징처리 끝 -->
+        <br><br>
+                {% comment %} </center> {% endcomment %}
+
+            {% comment %} 익명게시판 시작 {% endcomment %}
+            <div class="px-4">
+                <div class="ml-4">
+                    <h3 class='' style="color:white;">익명게시판</h3>
+                </div>
+            </div>
+            
+            {% comment %} <center> {% endcomment %}
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th width="10%">글번호</th>
+                <th width="60%">제목</th>
+                <th width="20%">작성일</th>
+                <th width="10%">조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for x in b_anony_lists %}
+            <tr>
+                <td align="center">{{x.no}}</td>
+                <td align="center">
+                    <a href="{{x.no}}">
+                        {{x.title|truncatechars:50}}
+                    </a>
+                </td>
+                <td align="center">{{x.rdate}}</td>
+                <td align="center">조회수</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            
+            <!-- 페이징처리 시작 -->
+            <div id="paging">
+                <ul class="pagination justify-content-center" style="margin-top: 2rem">
+                    {% if b_anony_lists.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="../b_anony/?&page={{ b_anony_lists.previous_page_number }}">이전</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                        </li>
+                    {% endif %}
+                    {% for page_number in b_anony_lists.paginator.page_range %}
+                        {% if page_number >= page_obj2.number|add:-15 and page_number <= page_obj2.number|add:15 %}
+                            {% if page_number == b_anony_lists.number %}
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="../b_anony/?&page={{ page_number }}">{{ page_number }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if b_anony_lists.has_next %}
+                    <li class="page-item">
+                        <a
+                        class="page-link" href="../b_anony/?&page={{ b_anony_lists.next_page_number }}">다음</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- 페이징처리 끝 -->
+        </div>
+        {% comment %} 여기에 기록금지/ 쓰면 흰 배경 생김 주의  {% endcomment %}
+    </center>
+    </section>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright © KOSMO_15th_Team1 RoomEscape. All rights reserved.</p></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <!-- <script src="js/scripts.js"></script> -->
+    <script src="{% static 'js/scripts.js'%}"></script>
+</body>
+</html>

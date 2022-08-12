@@ -3,15 +3,15 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),   
-    path('cafe/', views.cafe, name='cafe'),   
+    path('cafe/', views.cafe, name='cafe'),
     path('theme/', views.theme, name='theme'),   
     path('theme/theme_detail/<int:no>', views.theme_detail, name='theme_detail'),  
-    path('cafe/cafe_detail/<str:room>', views.cafe_detail, name='cafe_detail'),  
+    path('cafe/cafe_detail/<str:room>', views.cafe_detail, name='cafe_detail'),      
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),
     path('search/', views.search, name='search'),
-    #path('mypage/', views.mypage, name='mypage'),
+    path('mypage/', views.mypage, name='mypage'),
     
     path('b_notice/', views.b_notice, name='b_notice'), #공지사항 게시판
     path('b_notice_read/<int:no>', views.b_notice_read, name='b_notice_read'), #글읽기

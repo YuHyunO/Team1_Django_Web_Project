@@ -52,6 +52,7 @@
   </head>
   <body>
     <center>
+      {% if request.session.member_id %} 
       <table class="styled-table">
         <thead>
           <tr>
@@ -62,20 +63,42 @@
           </tr>
         </thead>
         <tbody>
-          {% for x in b_anony_lists %}
+            {% for x in b_anony_lists %}
+            <tr>
+              <td align="center">{{x.no}}</td>
+              <td align="center">
+                <a href="{{x.no}}">{{x.title|truncatechars:50}}</a>
+              </td>
+              <td align="center">{{x.rdate}}</td>
+              <TD align="center">{{x.hit}}</TD>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+      <table class="styled-table">
+        <thead>
           <tr>
-            <td align="center">{{x.no}}</td>
-            <td align="center">
-              <a href="{{x.no}}">
-                {{x.title|truncatechars:20}}
-              </a>
-            </td>
-            <td align="center">{{x.rdate}}</td>
-            <td align="center">조회수</td>
+            <th width="10%">글번호</th>
+            <th width="60%">제목</th>
+            <th width="20%">작성일</th>
+            <th width="10%">조회수</th>
           </tr>
-          {% endfor %}
+        </thead>
+        <tbody>
+            {% for x in b_anony_lists %}
+            <tr>
+              <td align="center">{{x.no}}</td>
+              <td align="center">
+                <a href="#" onclick="alert('로그인 후 이용하실 수 있습니다.')">{{x.title|truncatechars:50}}</a>
+              </td>
+              <td align="center">{{x.rdate}}</td>
+              <TD align="center">{{x.hit}}</TD>
+            </tr>
+            {% endfor %}
         </tbody>
       </table>
+      {% endif %} 
 
       <!-- 페이징처리 시작 -->
     <div id="paging">
@@ -117,7 +140,13 @@
     <!-- 페이징처리 끝 -->
 
     <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-        <a class="btn pull-right" href="../b_anony_write/">글쓰기</a></button>
+      {% if request.session.member_id %} 
+      <a class="btn btn-default pull-right" href="../b_anony_write/">글쓰기</a>
+      {% else %}
+      <a class="btn btn-default pull-right" onclick="alert('로그인 후 글쓰기 가능합니다.')" >글쓰기</a>
+      {% endif %}
+    </button>
+
     </center>
 	<br>
   </body>

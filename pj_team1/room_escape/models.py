@@ -20,7 +20,6 @@ class Board(models.Model):
     udate = models.DateTimeField(auto_now=True)
     hit = models.PositiveIntegerField(default = 0)
 
-  
 class Room(models.Model): 
     room = models.CharField(primary_key=True, max_length=255)
     loc = models.TextField()
@@ -28,11 +27,14 @@ class Room(models.Model):
     tel = models.CharField(max_length=50)
     img_path = models.TextField()
     theme_number = models.IntegerField(default=0)
+    star = models.IntegerField(default=0)
 
 class CafeReview(models.Model):
     no = models.AutoField(primary_key=True) 
     email = models.ForeignKey(Member, related_name='CafeReview_email', on_delete=models.CASCADE, db_column='email')
     room = models.ForeignKey(Room, related_name='CafeReview_room', on_delete=models.CASCADE, db_column='room')
+    title = models.TextField(max_length=1000)
+    stars = models.IntegerField(default=0)
     review = models.TextField()
     rdate = models.DateTimeField(auto_now_add=True)
     udate = models.DateTimeField(auto_now=True)
@@ -43,18 +45,23 @@ class Theme(models.Model):
     room = models.ForeignKey(Room, related_name='theme_room', on_delete=models.CASCADE, db_column='room')
     img_path = models.TextField()
     genre = models.CharField(max_length=255)
-    people = models.CharField(max_length=10, default='-')
+    people = models.CharField(max_length=30, default='-')
     info = models.TextField(default='-')
-    difficulty = models.CharField(max_length=10, default='0')
-    horror = models.CharField(max_length=10, default='0')
-    activity = models.CharField(max_length=10, default='0')
-    star = models.CharField(max_length=10, default='0')
+    difficulty = models.IntegerField(default=0)
+    horror = models.IntegerField(default=0)
+    activity = models.IntegerField(default=0)
+    star = models.IntegerField(default=0)
     recommend = models.IntegerField(default=0)
             
 class ThemeReview(models.Model):
     no = models.AutoField(primary_key=True)
     email = models.ForeignKey(Member, related_name='ThemeReview_email', on_delete=models.CASCADE, db_column='email')
     theme = models.ForeignKey(Theme, related_name='ThemeReview_theme', on_delete=models.CASCADE, db_column='theme')
+    title = models.TextField(max_length=1000)
+    difficulties = models.IntegerField(default=0)
+    activeness = models.IntegerField(default=0)
+    horrors = models.IntegerField(default=0)
+    stars = models.IntegerField(default=0)
     review = models.TextField()
     rdate = models.DateTimeField(auto_now_add=True)
     udate = models.DateTimeField(auto_now=True)

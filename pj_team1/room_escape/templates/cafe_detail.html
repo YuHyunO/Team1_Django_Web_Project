@@ -32,23 +32,20 @@
                 <span class="float">tel :</span>
                 <span class="float" style="float:right;">{{cafe.tel}}</span>
             </li>
+          </ul>
+          <ul class="col-md-6 list-unstyled mb-0">
             <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
                 <span class="float">카페 사이트 :</span>
                 <span class="float" style="float:right;"><a href="{{cafe.url}}">{{cafe.url|truncatechars:40}}</a></span>
             </li>
             <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                <span class="float">list :</span>
-                <span class="float" style="float:right;">something</span>
+                <span class="float">평점 :</span>
+                
+                <span class="float" style="float:right;">{{cafe.star}}</span>
             </li>
-            <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                <span class="float">list :</span>
-                <span class="float" style="float:right;">something</span>
-            </li>
-            <li class="border-top-0 border-end-0 border-start-0 border-0.1 pt-1 mb-3" style="border : 1px dashed gray;">
-                <span class="float">list :</span>
-                <span class="float" style="float:right;">something</span>
-            </li>
-            </ul>
+          </ul>
+
+            
             <!-- End Listing - List of Details -->
     
             <!-- Listing - List of Details -->
@@ -98,76 +95,116 @@ geocoder.addressSearch("{{cafe.loc}}", function(result, status) {
   }
 });    
 </script>
-              </body>
-          </div>
+</body>
+</div>
+</div>
 
-        <div class="col-md-4 col-lg-12 g-mb-30 my-4">
-          <i class = "bi-door-open-fill me-1"></i>
-        <label for="review" class="h5 form-label fw-bolder">리뷰</label>
-            <div class="row bg-light border border-1 rounded-1 ms-1">
-              <div class="col-lg-9">
-              <div class="input-group m-1">
-                <label for="title" class="form-label pt-1 fw-bolder me-3">제목 :</label>
-                <input type="text" name="contents" id="title" value="" class="form-control rounded-1 form-control-sm">
-              </div>
-            </div>
-              <div class="col-lg-3">
-                <div class="row">
-              <div class="col-md-9 g-mb-30 col-lg-4 mt-2" style="text-align:center">
-                <label for="score" class="form-label m-0 fw-bold">평점</label>
-              </div>
-                <div class="col-md-9 g-mb-30 col-lg-8 mt-2" style="text-align:center">
-                      <li class="list-unstyled score">
-                        <i data-value="1" class="bi-star" onclick='click_star(this)'></i>
-                        <i data-value="2" class="bi-star" onclick='click_star(this)'></i>
-                        <i data-value="3" class="bi-star" onclick='click_star(this)'></i>
-                        <i data-value="4" class="bi-star" onclick='click_star(this)'></i>
-                        <i data-value="5" class="bi-star" onclick='click_star(this)'></i>
-                      </li> 
-                    </div>   
-              </div>
-            </div>
-              
-                    <div class="input-group mb-2">
-                      <textarea class="text text-break text-wrap form-control rounded-1 form-control-sm" style="min-height:100px" id="contents" name="contents"  rows="15" cols="70"></textarea>
-                    </div>
-                   
-                    <span class="input-group-btn">
-                      <button class="btn btn-sm bg-warning rounded-2 text-white fw-bold float-end my-2" type="submit">확인</button>
-                    </span>
-              </div>
-              </div>
-              <div class="row ms-1">
-                <table class="table table-hover u-table--v1 mt-3 text-center">
-                  <thead>
-                    <tr><th width="35%" class="text-center">제목</th>
-                      <th width="20%" class="text-center">별점</th>
-                      <th width="20%" class="text-center">작성자</th>
-                      <th width="25%" class="text-center">작성일자</th>
-                  </tr></thead>
-                  <tbody class="reviews table-hover">
-                    <tr>
-                      <td class="g-font-size-12 text-center" onclick="location.href='/reviews/868'">국가정보원을 다녀온 후기</td>
-                      <td class="g-font-size-12 text-center">별점</td>
-                      <td class="g-font-size-12 text-center" onclick="location.href='/user/친저란'">친저란</td>
-                      <td class="g-font-size-12 text-center" onclick="location.href='/reviews/868'">2018-10-20</td>
-                    </tr>
-                  </tbody>
-                </table>   
-        <nav>
-          <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a rel="prev" class="page-link" href="/caves/1">1</a>
-          </li>
-          <li class="page-item active">
-            <a data-remote="false" class="page-link">2</a>
-          </li>
-          </ul>
-        </nav>
+<div class="col-md-4 col-lg-12 g-mb-30 my-4">
+  <i class = "bi-door-open-fill me-1"></i>
+  <label for="review" class="h5 form-label fw-bolder">리뷰</label>
+  <div class="row bg-light border border-1 rounded-1 ms-1">
+    
+  <form name="review_form" action="" method="post">
+    {% csrf_token %}
+    <div class="col-lg-9">
+      <div class="input-group m-1">
+        <label for="review_title" class="form-label pt-1 fw-bolder me-3">제목 :</label>
+        <input type="text" name="review_title" id="review_title" value="" class="form-control rounded-1 form-control-sm">
       </div>
     </div>
+
+    <div class="col-lg-3">
+      <div class="row">
+        <div class="col-md-9 g-mb-30 col-lg-4 mt-2" style="text-align:left">
+          <label for="score" class="form-label m-0 fw-bold">평점</label>
+            </div>
+            <input type="hidden" id = "score_input" name = "score_input" value="">
+              <div class="col-md-9 g-mb-30 col-lg-8 mt-2" style="text-align:left">
+                <li class="list-unstyled" name = "score_val">
+                    <i data-value="1" class="bi-star" onclick='click_star(this)'></i>
+                    <i data-value="2" class="bi-star" onclick='click_star(this)'></i>
+                    <i data-value="3" class="bi-star" onclick='click_star(this)'></i>
+                    <i data-value="4" class="bi-star" onclick='click_star(this)'></i>
+                    <i data-value="5" class="bi-star" onclick='click_star(this)'></i>
+                </li> 
+              </div> 
+            </input>
+            </div>
+          </div>
+      
+          <div class="input-group mb-2">
+            <textarea name="review_contents" class="text text-break text-wrap form-control rounded-1 form-control-sm" style="min-height:100px" id="contents" name="contents"  rows="15" cols="70"></textarea>
+          </div>
+           
+          <span class="input-group-btn">
+            {% if request.session.member_id %}
+            <button class="btn btn-sm bg-warning rounded-2 text-white fw-bold float-end my-2" onclick="check_status(this)">확인</button>
+            {% else %}
+            <button class="btn btn-sm bg-warning rounded-2 text-white fw-bold float-end my-2" onclick="alert('로그인을 해주세요');" href="../" type="submit">확인</button>
+            {% endif %}
+            <script> function check_status(e){
+              if ({{status}} == 1){
+              alert("리뷰의 제목과 내용을 입력해주세요")
+              }
+            }</script>
+          </span>
+       </div>
+    </div>
+  </form>
+    
+
+    <div class="row ms-1">
+      <table class="table table-hover u-table--v1 mt-3 text-center">
+        <thead>
+          <tr>
+            <th width="35%" class="text-center">제목</th>
+            <th width="20%" class="text-center">별점</th>
+            <th width="20%" class="text-center">닉네임</th>
+            <th width="25%" class="text-center">작성일자</th>
+          </tr>
+        </thead>
+        {% for x , y in zipped %}
+        <tbody class="reviews table-hover">
+          <tr>
+            <td class="g-font-size-12 text-center" onclick="location.href='/reviews/868'">{{x.title}}</td>
+            <td class="g-font-size-12 text-center">
+              <div class="col-lg-10 p-0 mt-1">
+                <li class="list-unstyled score" style = "position:absolute;">
+                  <i value="1" class="bi-star"></i>
+                  <i value="2" class="bi-star"></i>
+                  <i value="3" class="bi-star"></i>
+                  <i value="4" class="bi-star"></i>
+                  <i value="5" class="bi-star"></i>
+              </li>
+              <li class="list-unstyled score_fill" value="" style ="max-width:{{x.stars}}px; overflow:hidden; white-space:nowrap;">
+                  <i value="1" class="bi-star-fill"></i>
+                  <i value="2" class="bi-star-fill"></i>
+                  <i value="3" class="bi-star-fill"></i>
+                  <i value="4" class="bi-star-fill"></i>
+                  <i value="5" class="bi-star-fill"></i>
+              </li>
+            </div></td>
+            <td class="g-font-size-12 text-center" onclick="location.href='/user/친저란'">{{y}}</td>
+            <td class="g-font-size-12 text-center" onclick="location.href='/reviews/868'">{{x.rdate}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>   
+
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item active">
+            <a rel="prev" class="page-link" href="/caves/1">1</a>
+          </li>
+          <li class="page-item">
+            <a data-remote="false" class="page-link">2</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-</div>
+  </div>
+
       <div class="col-md-4 col-lg-2 g-mb-30 text-center">
         <i class = "bi-collection-fill me-1"></i>
         <label for="review" class="h5 form-label fw-bolder mt-3">이 카페의 테마</label>
@@ -213,7 +250,7 @@ geocoder.addressSearch("{{cafe.loc}}", function(result, status) {
                 </div>              
                 <!-- Product actions-->
                 <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark" href="../../../theme/theme_detail/{{list.no}}">Reservation</a></div>
+                    <div class="text-center"><a class="btn btn-outline-dark" href="/theme/theme_detail/{{list.no}}">테마 보기</a></div>
                 </div>
             </div>
             </br>

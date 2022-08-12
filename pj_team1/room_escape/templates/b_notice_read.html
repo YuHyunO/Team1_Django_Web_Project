@@ -53,27 +53,45 @@
   <body>
     <center>
 		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<colgroup>
+				<col style="width:20%;">
+				<col style="width:55%;">
+				<col style="width:15%;">
+				<col style="width:10%;">
+			</colgroup>
 			<thead>
-				<th width="10%" align="center">글번호</th> 
-				<th width="60%" align="center">제목</th>
-				<th width="10%" align="center">작성자</th>
+				<th align="center">글번호</th> 
+				<th align="center">제목</th>
+				<th align="center">작성자</th>
+				<th align="center">조회수</th>
 			</thead>
 			<tr>
-				<td width="10%" align="left">{{post.no}}</td>
-				<td width="60%">{{post.title}}</td>
-				<td width="10%" align="left">{{post.name}}</td>
+				<td>{{post.no}}</td>
+				<td>{{post.title}}</td>
+				<td>{{post.name}}</td>
+				<TD>{{post.hit}}</TD>
 			</tr>
 		</table>
 
 		<table class="styled-table" border="0" width="600" height="200" cellpadding="50" cellspacing="10">
+			<colgroup>
+				<col style="width:20%;">
+				<col style="width:80%;">
+			</colgroup>
 			<tr>
-				<th width="10%" align="center">내용</th>
+				<th align="center">내용</th>
 				<td>{{post.content}}</td>
 			</tr>
 		</table>	
 
      
 		<table class="styled-table" border="0" width="600"  cellpadding="10" cellspacing="10">
+			<colgroup>
+				<col style="width:25%;">
+				<col style="width:25%;">
+				<col style="width:25%;">
+				<col style="width:25%;">
+			</colgroup>
 			<tr>
 				<th align="center">작성일</th>
 				<td>{{post.rdate}}</td>
@@ -82,14 +100,18 @@
 			</tr>
 		</table>	
 
-	  <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_notice_update/{{post.no}}">글 수정</a></button>
+	
     <button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_notice">목록</a></button>
+		<a class="btn btn-default pull-right" href="../b_notice">목록</a>
+	</button>
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_notice_write">글쓰기</a></button>
+		<a class="btn btn-default pull-right" onclick="alert('관리자 권한이 없습니다.')">수정하기</a>
+		{% comment %} <a class="btn btn-default pull-right" onclick="return confirm('수정하시겠습니까?')" href="../b_notice_update/{{post.no}}">수정하기</a> {% endcomment %}
+	</button>
 	<button type="button" class="btn btn-warning btn-sm btn-bordered pull-right">
-		<a class="btn btn-default pull-right" href="../b_notice_delete/{{post.no}}">글 삭제</a></button>
+		<a class="btn btn-default pull-right" onclick="alert('관리자 권한이 없습니다.')">삭제하기</a>
+		{% comment %} <a class="btn btn-default pull-right" onclick="return confirm('정말 삭제하시겠습니까?')" href="../b_notice_delete/{{post.no}}">삭제하기</a> {% endcomment %}
+	</button>
 	<br>
 	<br>
 
